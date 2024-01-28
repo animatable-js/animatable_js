@@ -17,8 +17,8 @@ export const AnimationStatus = {
 export class AnimationController {
     /**
      * @param {number} initialValue
-     * @param {number} lowerValue 
-     * @param {number} upperValue 
+     * @param {number} lowerValue
+     * @param {number} upperValue
      * @param {number} duration - milliseconds
      */
     constructor(initialValue, lowerValue, upperValue, duration) {
@@ -101,6 +101,9 @@ export class AnimationController {
      * @param {AnimationConsumeCallback} consume
      */
     animateTo(target, duration, consume) {
+        if (duration == null || isNaN(duration) || duration == 0) {
+            throw "duration for animation was not given in animateTo() of the AnimationController.";
+        }
         if (consume instanceof Function == false) {
             throw "consume callback was not given in animateTo() of the AnimationController.";
         }
@@ -109,6 +112,7 @@ export class AnimationController {
         }
 
         const isBackward = this.value > target;
+        const totalConumed = target - this.value;
 
         this.setStatus(
             isBackward
@@ -117,10 +121,10 @@ export class AnimationController {
         )
 
         this.activeTicker = new Ticker((delta) => {
-            const available = delta / duration;
-
+            const available = delta / (duration / totalConumed);
+            
             // The consumed direction of movement of the value is not important.
-            const consumed = Math.abs(consume(available));
+            const consumed = Math.abs(consume(available) || this.createConsumeFunc(isBackward));
 
             if (Math.abs(consumed - available) > Number.EPSILON) {
                 this.activeTicker.dispose();
