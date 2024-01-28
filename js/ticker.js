@@ -1,7 +1,7 @@
 import { AnimationController } from "./animation_controller.js";
 
 /**
- * @typedef {Function} TickerCallback
+ * @typedef {(deltaElpased) => any} TickerCallback
  */
 
 export class Ticker {
@@ -10,28 +10,27 @@ export class Ticker {
      */
     constructor(callback) {
         this.callback = callback;
-        this.isDisposed = false;
-
-        requestAnimationFrame((_) => this.handle(_));
+        this.id = requestAnimationFrame((_) => this.handle(_));
     }
 
     /**
      * @param {int} elpased milliseconds
      */
     handle(elpased) {
-        if (this.isDisposed) return;
-
+        // Starting with a delta value of 0 is a typical behavior.
         const delta = elpased - this.previousElapsed || 0;
                                 this.previousElapsed = elpased;
         
         this.callback(delta);
-        requestAnimationFrame((_) => this.handle(_));
+        this.id = requestAnimationFrame((_) => this.handle(_));
     }
 
-    dispose() { this.isDisposed = true }
+    dispose() {
+        cancelAnimationFrame(this.id);
+    }
 }
 
 addEventListener("DOMContentLoaded", () => {
     const controller = new AnimationController();
-    controller.animateTo(1, 1000);
+    controller.forward();
 });
