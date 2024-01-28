@@ -4,6 +4,7 @@ import { Ticker } from "./ticker.js";
 
 /**
  * @typedef {(availableDelta) => number} AnimationConsumeCallback
+ * @typedef {(value) => any} AnimationUpdateCallback
  */
 
 export const AnimationStatus = {
@@ -16,17 +17,28 @@ export const AnimationStatus = {
 
 export class AnimationController {
     /**
+     * @param {number} initialValue
      * @param {number} lowerValue 
      * @param {number} upperValue 
-     * @param {number} duration milliseconds
+     * @param {number} duration - milliseconds
      */
-    constructor(lowerValue, upperValue, duration) {
+    constructor(initialValue, lowerValue, upperValue, duration) {
         this.lowerValue = lowerValue || 0;
         this.upperValue = upperValue || 1;
-        this.value = this.lowerValue;
+        this.value = initialValue || this.lowerValue;
         this.duration = duration;
         this.activeTicker = null;
         this.status = AnimationStatus.NONE;
+
+        this.listeners = []; // this only own variable in this class.
+    }
+
+    /**
+     * @param {number} newValue
+     * @returns {number} 
+     */
+    setValue(newValue) {
+        this.notifyListeners(this.value = newValue);
     }
 
     forward() {
@@ -35,7 +47,7 @@ export class AnimationController {
         }
 
         this.animateTo(this.upperValue, this.duration, (delta) => {
-            console.log(delta);
+            this.setValue(this.value + delta);
         });
     }
 
@@ -65,14 +77,36 @@ export class AnimationController {
             : AnimationStatus.FORWARD;
 
         this.activeTicker = new Ticker((delta) => {
-            consume(delta);
+            consume(delta / duration);
         });
     }
 
     /**
-     * @param {Function} callback 
+     * @param {AnimationUpdateCallback} callback 
      */
     addListener(callback) {
-        
+        if (this.listeners.includes(callback)) {
+            throw "Already added given listener in this controller.";
+        }
+
+        this.listeners.push(callback);
+    }
+
+    /**
+     * @param {AnimationUpdateCallback} callback 
+     */
+    removeListener(callback) {
+        if (this.listeners.includes(callback) == false) {
+            throw "Already not added given listener in this controller."
+        }
+
+        this.listeners.remove(callback);
+    }
+
+    /**
+     * @param {number} value 
+     */
+    notifyListeners(value) {
+        this.listeners.forEach(listener => listener(value))
     }
 }
