@@ -2,6 +2,10 @@ import { Ticker } from "./ticker.js";
 
 
 
+/**
+ * @typedef {(availableDelta) => number} AnimationConsumeCallback
+ */
+
 export const AnimationStatus = {
     NONE:       "none",
     FORWARD:    "forward",
@@ -30,7 +34,9 @@ export class AnimationController {
             throw "upperValue must be defined for this function to be called.";
         }
 
-        this.animate(this.lowerValue, this.duration);
+        this.animateTo(this.upperValue, this.duration, (delta) => {
+            console.log(delta);
+        });
     }
 
     backward() {
@@ -38,14 +44,18 @@ export class AnimationController {
             throw "lowerValue must be defined for this function to be called.";
         }
 
-        this.animate(this.upperValue, this.duration);
+        this.animateTo(this.lowerValue, this.duration);
     }
 
     /**
      * @param {number} target
      * @param {number} duration milliseconds
+     * @param {AnimationConsumeCallback} consume
      */
-    animateTo(target, duration) {
+    animateTo(target, duration, consume) {
+        if (consume instanceof Function == false) {
+            throw "consume callback was not given in animateTo() of the AnimationController.";
+        }
         if (this.activeTicker != null) {
             this.activeTicker.dispose();
         }
@@ -55,7 +65,7 @@ export class AnimationController {
             : AnimationStatus.FORWARD;
 
         this.activeTicker = new Ticker((delta) => {
-            console.log(delta);
+            consume(delta);
         });
     }
 
@@ -63,6 +73,6 @@ export class AnimationController {
      * @param {Function} callback 
      */
     addListener(callback) {
-
+        
     }
 }
