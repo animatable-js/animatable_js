@@ -112,7 +112,7 @@ export class AnimationController {
         }
 
         const isBackward = this.value > target;
-        const totalConumed = target - this.value;
+        const totalConumed = Math.abs(target - this.value);
 
         this.setStatus(
             isBackward
