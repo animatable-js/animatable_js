@@ -36,7 +36,7 @@ export class Ticker {
 }
 
 addEventListener("DOMContentLoaded", () => {
-    const controller = new AnimationController(0, null, null, 1000);
+    const controller = new AnimationController(null, null, null, 1000);
     controller.addListener(value => {
         console.log(value);
     });
