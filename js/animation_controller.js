@@ -72,16 +72,27 @@ export class AnimationController {
             throw "upperValue must be defined for this function to be called.";
         }
 
-        this.animateTo(this.upperValue, this.duration, delta => this.setValue(this.value + delta));
+        this.animateTo(this.upperValue, this.duration, this.createConsumeFunc());
     }
 
-    backward() {
+    backward() { 
         if (this.lowerValue == this.value) return;
         if (this.lowerValue == null) {
             throw "lowerValue must be defined for this function to be called.";
         }
 
-        this.animateTo(this.lowerValue, this.duration, delta => this.setValue(this.value - delta));
+        this.animateTo(this.lowerValue, this.duration, this.createConsumeFunc(true));
+    }
+
+    /**
+     * @param {boolean} isBackward 
+     */
+    createConsumeFunc(isBackward = false) {
+        if (isBackward) {
+            return delta => this.setValue(this.value - delta);
+        } else {
+            return delta => this.setValue(this.value + delta);
+        }
     }
 
     /**
@@ -97,8 +108,10 @@ export class AnimationController {
             this.activeTicker.dispose();
         }
 
+        const isBackward = this.value > target;
+
         this.setStatus(
-            this.value > target
+            isBackward
                 ? AnimationStatus.BACKWARD
                 : AnimationStatus.FORWARD
         )
@@ -114,7 +127,7 @@ export class AnimationController {
                 this.activeTicker = null;
 
                 this.setStatus(
-                    this.value > target
+                    isBackward
                         ? AnimationStatus.BACKWARDED
                         : AnimationStatus.FORWARDED
                 )
