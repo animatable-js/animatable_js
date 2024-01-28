@@ -1,7 +1,7 @@
-import { AnimationController } from "./animation_controller.js";
+import { AnimationController, AnimationStatus } from "./animation_controller.js";
 
 /**
- * @typedef {(deltaElpased) => any} TickerCallback
+ * @typedef {(deltaElpased) => void} TickerCallback
  */
 
 export class Ticker {
@@ -10,6 +10,8 @@ export class Ticker {
      */
     constructor(callback) {
         this.callback = callback;
+        this.isDisposed = false;
+        
         this.id = requestAnimationFrame((_) => this.handle(_));
     }
 
@@ -17,6 +19,8 @@ export class Ticker {
      * @param {number} elpased - milliseconds
      */
     handle(elpased) {
+        if (this.isDisposed) return;
+
         // Starting with a delta value of 0 is a typical behavior.
         const delta = elpased - this.previousElapsed || 0;
                                 this.previousElapsed = elpased;
@@ -26,14 +30,20 @@ export class Ticker {
     }
 
     dispose() {
+        this.isDisposed = true;
         cancelAnimationFrame(this.id);
     }
 }
 
 addEventListener("DOMContentLoaded", () => {
-    const controller = new AnimationController(null, null, null, 1000);
-    controller.addListener((value) => {
+    const controller = new AnimationController(0, null, null, 1000);
+    controller.addListener(value => {
         console.log(value);
+    });
+    controller.addStatusListener(status => {
+        console.log(status);
+
+        if (status == AnimationStatus.FORWARDED) controller.backward();
     });
     controller.forward();
 });
