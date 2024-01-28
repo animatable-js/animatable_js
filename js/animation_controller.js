@@ -24,6 +24,9 @@ export class AnimationController {
     constructor(initialValue, lowerValue, upperValue, duration) {
         this.lowerValue = lowerValue || 0;
         this.upperValue = upperValue || 1;
+        if (this.lowerValue > this.upperValue) throw "The lowerValue must be less than the upperValue.";
+
+        /** @type {number} */
         this.value = initialValue || this.lowerValue;
         this.duration = duration;
 
@@ -72,7 +75,7 @@ export class AnimationController {
             throw "upperValue must be defined for this function to be called.";
         }
 
-        this.animateTo(this.upperValue, this.duration, this.createConsumeFunc());
+        this.animateTo(this.upperValue, this.duration);
     }
 
     backward() { 
@@ -81,7 +84,7 @@ export class AnimationController {
             throw "lowerValue must be defined for this function to be called.";
         }
 
-        this.animateTo(this.lowerValue, this.duration, this.createConsumeFunc(true));
+        this.animateTo(this.lowerValue, this.duration);
     }
 
     /**
@@ -100,7 +103,11 @@ export class AnimationController {
      * @param {number} duration milliseconds
      * @param {AnimationConsumeCallback} consume
      */
-    animateTo(target, duration, consume) {
+    animateTo(
+        target,
+        duration,
+        consume = this.createConsumeFunc(this.value > target)
+    ) {
         if (duration == null || isNaN(duration) || duration == 0) {
             throw "duration for animation was not given in animateTo() of the AnimationController.";
         }
@@ -124,7 +131,7 @@ export class AnimationController {
             const available = delta / (duration / totalConumed);
             
             // The consumed direction of movement of the value is not important.
-            const consumed = Math.abs(consume(available) || this.createConsumeFunc(isBackward));
+            const consumed = Math.abs(consume(available));
 
             if (Math.abs(consumed - available) > Number.EPSILON) {
                 this.activeTicker.dispose();
