@@ -41,6 +41,9 @@ addEventListener("DOMContentLoaded", () => {
         console.log(value);
     });
     controller.addStatusListener(status => {
+        if (status == AnimationStatus.FORWARDED) controller.backward();
+        if (status == AnimationStatus.BACKWARDED) controller.forward();
+
         console.log(status);
     });
     controller.forward();
