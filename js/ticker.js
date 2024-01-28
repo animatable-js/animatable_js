@@ -36,14 +36,12 @@ export class Ticker {
 }
 
 addEventListener("DOMContentLoaded", () => {
-    const controller = new AnimationController(null, null, null, 1000);
+    const controller = new AnimationController(null, 0, 1, 1000);
     controller.addListener(value => {
         console.log(value);
     });
     controller.addStatusListener(status => {
         console.log(status);
-
-        if (status == AnimationStatus.FORWARDED) controller.backward();
     });
     controller.forward();
 });
