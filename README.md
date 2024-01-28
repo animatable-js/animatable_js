@@ -5,6 +5,7 @@ This package allows easy implementation of linear or curved animation.
 refer to this code!
 ```js
 const controller = new AnimationController(initialValue, lowerValue, upperValue, duration)
+
 controller.addListener(value => {
   console.log(value);
 }
