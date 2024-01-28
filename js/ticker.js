@@ -14,7 +14,7 @@ export class Ticker {
     }
 
     /**
-     * @param {int} elpased milliseconds
+     * @param {number} elpased - milliseconds
      */
     handle(elpased) {
         // Starting with a delta value of 0 is a typical behavior.
@@ -31,6 +31,9 @@ export class Ticker {
 }
 
 addEventListener("DOMContentLoaded", () => {
-    const controller = new AnimationController();
+    const controller = new AnimationController(null, null, null, 1000);
+    controller.addListener((value) => {
+        console.log(value);
+    });
     controller.forward();
 });
