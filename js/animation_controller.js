@@ -3,8 +3,9 @@ import { Ticker } from "./ticker.js";
 
 
 /**
- * @typedef {(availableDelta) => number} AnimationConsumeCallback
- * @typedef {(value) => any} AnimationUpdateCallback
+ * @typedef {(availableDelta: number) => number} AnimationConsumeCallback
+ * @typedef {(value: number) => any} AnimationUpdateListener
+ * @typedef {(status: AnimationStatus) => any} AnimationStatusListener
  */
 
 export const AnimationStatus = {
@@ -30,7 +31,9 @@ export class AnimationController {
         this.activeTicker = null;
         this.status = AnimationStatus.NONE;
 
-        this.listeners = []; // this only own variable in this class.
+        // This is only raw member variables in this class.
+        this.listeners = [];
+        this.statusListeners = [];
     }
 
     /**
@@ -39,6 +42,13 @@ export class AnimationController {
      */
     setValue(newValue) {
         this.notifyListeners(this.value = newValue);
+    }
+
+    /**
+     * @param {AnimationStatus} newStatus
+     */
+    setStatus(newStatus) {
+        this.notifyStatusListeners(this.status = newStatus);
     }
 
     forward() {
@@ -72,9 +82,11 @@ export class AnimationController {
             this.activeTicker.dispose();
         }
 
-        this.status = this.value > target
-            ? AnimationStatus.BACKWARD
-            : AnimationStatus.FORWARD;
+        this.setStatus(
+            this.value > target
+                ? AnimationStatus.BACKWARD
+                : AnimationStatus.FORWARD
+        )
 
         this.activeTicker = new Ticker((delta) => {
             consume(delta / duration);
@@ -82,7 +94,7 @@ export class AnimationController {
     }
 
     /**
-     * @param {AnimationUpdateCallback} callback 
+     * @param {AnimationUpdateListener} callback 
      */
     addListener(callback) {
         if (this.listeners.includes(callback)) {
@@ -93,7 +105,7 @@ export class AnimationController {
     }
 
     /**
-     * @param {AnimationUpdateCallback} callback 
+     * @param {AnimationUpdateListener} callback 
      */
     removeListener(callback) {
         if (this.listeners.includes(callback) == false) {
@@ -108,5 +120,34 @@ export class AnimationController {
      */
     notifyListeners(value) {
         this.listeners.forEach(listener => listener(value))
+    }
+
+    /**
+     * @param {AnimationStatusListener} callback 
+     */
+    addStatusListener(callback) {
+        if (this.statusListeners.includes(callback)) {
+            throw "Already added given status listener in this controller.";
+        }
+
+        this.statusListeners.push(callback);
+    }
+
+    /**
+     * @param {AnimationStatusListener} callback 
+     */
+    removeStatusListener(callback) {
+        if (this.statusListeners.includes(callback) == false) {
+            throw "Already not added given status listener in this controller."
+        }
+
+        this.statusListeners.remove(callback);
+    }
+
+    /**
+     * @param {AnimationStatus} status
+     */
+    notifyStatusListeners(status) {
+        this.statusListeners.forEach(listener => listener(status))
     }
 }
