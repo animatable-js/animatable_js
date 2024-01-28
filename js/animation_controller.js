@@ -1,11 +1,9 @@
 import { Ticker } from "./ticker.js";
 
-
-
 /**
  * @typedef {(availableDelta: number) => number} AnimationConsumeCallback
- * @typedef {(value: number) => any} AnimationUpdateListener
- * @typedef {(status: AnimationStatus) => any} AnimationStatusListener
+ * @typedef {(value: number) => void} AnimationUpdateListener
+ * @typedef {(status: AnimationStatus) => void} AnimationStatusListener
  */
 
 export const AnimationStatus = {
@@ -13,7 +11,7 @@ export const AnimationStatus = {
     FORWARD:    "forward",
     FORWARDED:  "forwarded",
     BACKWARD:   "backward",
-    BackWARDED: "backwarded",
+    BACKWARDED: "backwarded",
 }
 
 export class AnimationController {
@@ -28,6 +26,8 @@ export class AnimationController {
         this.upperValue = upperValue || 1;
         this.value = initialValue || this.lowerValue;
         this.duration = duration;
+
+        /** @type {Ticker} */
         this.activeTicker = null;
         this.status = AnimationStatus.NONE;
 
@@ -38,10 +38,25 @@ export class AnimationController {
 
     /**
      * @param {number} newValue
-     * @returns {number} 
+     * @returns {number} Remaining value after being consumed.
      */
     setValue(newValue) {
-        this.notifyListeners(this.value = newValue);
+        if (this.value == newValue) return 0;
+
+        const previousValue = this.value;
+
+        // When defining, the new value must not be out of extent.
+        {
+            if (newValue > this.upperValue) {
+                this.notifyListeners(this.value = this.upperValue);
+            } else if (newValue < this.lowerValue) {
+                this.notifyListeners(this.value = this.lowerValue);
+            } else {
+                this.notifyListeners(this.value = newValue);
+            }
+        }
+
+        return this.value - previousValue;
     }
 
     /**
@@ -52,21 +67,21 @@ export class AnimationController {
     }
 
     forward() {
+        if (this.upperValue == this.value) return;
         if (this.upperValue == null) {
             throw "upperValue must be defined for this function to be called.";
         }
 
-        this.animateTo(this.upperValue, this.duration, (delta) => {
-            this.setValue(this.value + delta);
-        });
+        this.animateTo(this.upperValue, this.duration, delta => this.setValue(this.value + delta));
     }
 
     backward() {
+        if (this.lowerValue == this.value) return;
         if (this.lowerValue == null) {
             throw "lowerValue must be defined for this function to be called.";
         }
 
-        this.animateTo(this.lowerValue, this.duration);
+        this.animateTo(this.lowerValue, this.duration, delta => this.setValue(this.value - delta));
     }
 
     /**
@@ -89,7 +104,21 @@ export class AnimationController {
         )
 
         this.activeTicker = new Ticker((delta) => {
-            consume(delta / duration);
+            const available = delta / duration;
+
+            // The consumed direction of movement of the value is not important.
+            const consumed = Math.abs(consume(available));
+
+            if (Math.abs(consumed - available) > Number.EPSILON) {
+                this.activeTicker.dispose();
+                this.activeTicker = null;
+
+                this.setStatus(
+                    this.value > target
+                        ? AnimationStatus.BACKWARDED
+                        : AnimationStatus.FORWARDED
+                )
+            }
         });
     }
 
