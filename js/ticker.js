@@ -36,15 +36,31 @@ export class Ticker {
 }
 
 addEventListener("DOMContentLoaded", () => {
-    const controller = new AnimationController(null, 0, 1, 1000);
+    const box = document.getElementById("box");
+    const valueElement = document.getElementById("value");   
+    const statusElement = document.getElementById("status");
+    const button = document.getElementsByTagName("button")[0];
+
+    const controller = new AnimationController(null, 0, 1, 500);
     controller.addListener(value => {
-        console.log(value);
+        const percent = 100 * value;
+
+        box.style.width = `${percent}%`;
+        valueElement.textContent = `${Math.round(percent * 10) / 10}%`;
     });
     controller.addStatusListener(status => {
-        if (status == AnimationStatus.FORWARDED) controller.backward();
-        if (status == AnimationStatus.BACKWARDED) controller.forward();
-
-        console.log(status);
+        statusElement.textContent = status;
     });
-    controller.forward();
+    
+    button.onclick = () => {
+        if (controller.status == AnimationStatus.NONE
+         || controller.status == AnimationStatus.BACKWARD
+         || controller.status == AnimationStatus.BACKWARDED) {
+            controller.forward();
+            return;
+         }
+
+        if (controller.status == AnimationStatus.FORWARD
+         || controller.status == AnimationStatus.FORWARDED) controller.backward();
+    }
 });
