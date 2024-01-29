@@ -18,10 +18,17 @@ export class AnimationController {
     /**
      * @param {number} initialValue
      * @param {number} lowerValue
-     * @param {number} upperValue
+     * @param {number} upperValue 
      * @param {number} duration - milliseconds
+     * @param {number} isAbsoluteDuration 
      */
-    constructor(initialValue, lowerValue, upperValue, duration) {
+    constructor(
+        initialValue,
+        lowerValue,
+        upperValue,
+        duration,
+        isAbsoluteDuration
+    ) {
         this.lowerValue = lowerValue || 0;
         this.upperValue = upperValue || 1;
         if (this.lowerValue > this.upperValue) throw "The lowerValue must be less than the upperValue.";
@@ -29,6 +36,7 @@ export class AnimationController {
         /** @type {number} */
         this.value = initialValue || this.lowerValue;
         this.duration = duration;
+        this.isAbsoluteDuration = isAbsoluteDuration || false;
 
         /** @type {Ticker} */
         this.activeTicker = null;
@@ -77,7 +85,7 @@ export class AnimationController {
 
         this.animateTo(this.upperValue, this.duration);
     }
-
+    
     backward() { 
         if (this.lowerValue == this.value) return;
         if (this.lowerValue == null) {
@@ -102,6 +110,7 @@ export class AnimationController {
      * @param {number} target
      * @param {number} duration milliseconds
      * @param {AnimationConsumeCallback} consume
+     * @param {boolean} isAbsoluteDuration
      */
     animateTo(
         target,
@@ -128,7 +137,8 @@ export class AnimationController {
         )
 
         this.activeTicker = new Ticker((delta) => {
-            const available = delta / (duration / totalConumed);
+            const durationExponent = this.isAbsoluteDuration ? totalConumed : this.upperValue
+            const available = delta / (duration / durationExponent);
             
             // The consumed direction of movement of the value is not important.
             const consumed = Math.abs(consume(available));
