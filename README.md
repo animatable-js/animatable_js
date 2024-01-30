@@ -8,6 +8,8 @@ This package allows easy implementation of linear or curved animation in javascr
 
 ## How to make linear animation?
 refer to this code!
+
+### With clamping.
 ```js
 const controller = new AnimationController(
   duration,          // milliseconds
