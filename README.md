@@ -31,7 +31,7 @@ const controller = new CurvedAnimation(duration, curve, parent);
 ```
 
 ### What is a curve?
-Curve means an instance of a cubic object.
+In this package, the curve means an instance of a cubic object in this package.
 
 ### What is a cubic?
 
