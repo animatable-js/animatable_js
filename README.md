@@ -10,10 +10,10 @@ This package allows easy implementation of linear or curved animation in javascr
 refer to this code!
 ```js
 const controller = new AnimationController(
-  duration,     // milliseconds
-  initialValue, // lowerValue(0) ~ upperValue(1)
-  lowerValue,   // 0
-  upperValue,   // 1
+  duration,          // milliseconds
+  initialValue,      // lowerValue(0) ~ upperValue(1)
+  lowerValue,        // 0
+  upperValue,        // 1
   isAbsoluteDuration // ... Refer class internal comment for more details.
 );
 
