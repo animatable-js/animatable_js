@@ -46,7 +46,7 @@ export class Cubic {
         x2, y2,
         start = new CubicPoint(0, 0),
         end   = new CubicPoint(1, 1),
-        errorBound = 0.001,
+        errorBound = 0.0001,
     ) {
         /** @type {CubicPoint} */ this.p1 = start;
         /** @type {CubicPoint} */ this.p2 = new CubicPoint(x1, y1);
@@ -94,6 +94,9 @@ export class Cubic {
      * @returns {number}
      */
     transform(t) {
+        if (t == 0) return this.p1.y;
+        if (t == 1) return this.p4.y;
+
         let start = 0;
         let end   = 1;
         
@@ -114,6 +117,9 @@ export class Cubic {
 }
 
 export const Curve = {
-    Linear: new Cubic(0, 0, 1, 1),
-    Ease:   new Cubic(0.25, 0.15, 0.25, 1),
+    Linear:         new Cubic(0, 0, 1, 1),
+    Ease:           new Cubic(0.25, 0.1, 0.25, 1),
+    EaseIn:         new Cubic(0.42, 0, 1, 1),
+    EaseOut:        new Cubic(0, 0, 0.58, 1),
+    EaseInOut:      new Cubic(0.42, 0, 0.58, 1),
 }
