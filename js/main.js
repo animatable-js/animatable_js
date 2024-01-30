@@ -1,28 +1,27 @@
-import { AnimationController } from "./animation_controller.js";
-import { Cubic, CubicPoint } from "./cubic.js";
+import { AnimationStatus } from "./animation_controller.js";
+import { Curve } from "./cubic.js";
+import { CurvedAnimation } from "./curved.js";
 
 
 
-/** @type {HTMLCanvasElement} */
-const graph = document.getElementById("graph");
-const ctx = graph.getContext("2d");
-const size = graph.getBoundingClientRect().width;
+const box = document.getElementById("box");
+const percentText = document.getElementById("percent_text");
 const button = document.getElementById("animate");
-ctx.moveTo(0, size);
 
-const controller = new AnimationController(null, null, null, 1000);
-const curve = new Cubic(0, 1, 0, 1);
+const controller = new CurvedAnimation(750, Curve.Ease);
 
 controller.addListener(value => {
-    const result = curve.transform(value);
-    const lineWidth = 2;
-    
-    ctx.strokeStyle = "red";
-    ctx.lineWidth = lineWidth;
-    ctx.lineTo(size * value, size - (size * result));
-    ctx.stroke();
+    box.style.width = `${value * 100}%`;
+    percentText.textContent = `${Math.round(value * 100)}%`;
 });
 
 button.onclick = _ => {
-    controller.forward();
+    if (controller.status == AnimationStatus.NONE
+     || controller.status == AnimationStatus.BACKWARD
+     || controller.status == AnimationStatus.BACKWARDED) {
+        controller.forward();
+        return;
+    }
+
+    controller.backward();
 }

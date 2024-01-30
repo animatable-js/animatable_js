@@ -14,21 +14,58 @@ export const AnimationStatus = {
     BACKWARDED: "backwarded",
 }
 
-export class AnimationController {
+export class Animatable {
+    constructor() {
+        if (this.constructor === Animatable) {
+            throw "This class is an abstract class.";
+        }
+    }
+
     /**
+     * @param {AnimationUpdateListener} callback 
+     */
+    addListener(callback) {
+        throw "This function must be implemented.";
+    }
+
+    /**
+     * @param {AnimationUpdateListener} callback 
+     */
+    removeListener(callback) {
+        throw "This function must be implemented.";
+    }
+
+    /**
+     * @param {AnimationStatusListener} callback 
+     */
+    addStatusListener(callback) {
+        throw "This function must be implemented.";
+    }
+
+    /**
+     * @param {AnimationStatusListener} callback 
+     */
+    removeStatusListener(callback) {
+        throw "This function must be implemented.";
+    }
+}
+
+export class AnimationController extends Animatable {
+    /**
+     * @param {number} duration - milliseconds
      * @param {number} initialValue
      * @param {number} lowerValue
-     * @param {number} upperValue 
-     * @param {number} duration - milliseconds
-     * @param {number} isAbsoluteDuration 
+     * @param {number} upperValue
+     * @param {boolean} isAbsoluteDuration 
      */
     constructor(
+        duration,
         initialValue,
         lowerValue,
         upperValue,
-        duration,
         isAbsoluteDuration
     ) {
+        super();
         this.lowerValue = lowerValue || 0;
         this.upperValue = upperValue || 1;
         if (this.lowerValue > this.upperValue) throw "The lowerValue must be less than the upperValue.";
@@ -74,6 +111,10 @@ export class AnimationController {
      * @param {AnimationStatus} newStatus
      */
     setStatus(newStatus) {
+        if (newStatus == null) {
+            throw "status must be not nullable in this animation controller.";
+        }
+
         this.notifyStatusListeners(this.status = newStatus);
     }
 
@@ -114,8 +155,8 @@ export class AnimationController {
      */
     animateTo(
         target,
-        duration,
-        consume = this.createConsumeFunc(this.value > target)
+        duration = this.duration,
+        consume  = this.createConsumeFunc(this.value > target)
     ) {
         if (duration == null || isNaN(duration) || duration == 0) {
             throw "duration for animation was not given in animateTo() of the AnimationController.";
