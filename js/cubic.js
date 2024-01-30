@@ -89,10 +89,15 @@ export class Cubic {
         return a.interpolate(b, t);
     }
 
+    /**
+     * @param {number} t - Time `from 0 to 1`
+     * @returns {number}
+     */
     transform(t) {
         let start = 0;
         let end   = 1;
         
+        // Use dichotomy to obtain estimate point.
         while(true) {
             const midpoint = (start + end) / 2;
             const estPoint = this.at(midpoint); // Estimate Point
