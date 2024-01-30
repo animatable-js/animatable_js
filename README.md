@@ -9,10 +9,31 @@ This package allows easy implementation of linear or curved animation in javascr
 ## How to make linear animation?
 refer to this code!
 ```js
-const controller = new AnimationController(initialValue, lowerValue, upperValue, duration)
+const controller = new AnimationController(
+  duration,
+  initialValue,
+  lowerValue,
+  upperValue,
+  isAbsoluteDuration
+);
 
 controller.addListener(value => {
   console.log(value);
 }
 controller.forward();
 ```
+
+## How to make Curved animation?
+refer to this code!
+```js
+const controller = new CurvedAnimation(duration, curve, parent);
+// ... skip
+```
+
+### What is a curve?
+Curve means an instance of a cubic object.
+
+### What is a cubic?
+
+
+
