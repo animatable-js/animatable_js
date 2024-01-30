@@ -3,6 +3,7 @@ This package allows easy implementation of linear or curved animation in javascr
 `Especially suitable in a development environment on web components or canvas.`
 
 > Performing this task costs significantly less than rendering.
+> 
 > There's no need to handle it on a separate thread. The reason why lag occurs due to numerous animation effects is because countless elements are re-rendered nearly 60 times per second.
 
 ## How to make linear animation?
