@@ -6,15 +6,10 @@
     <title>JS Animatable Example</title>
     
     <script type="module" src="js/ticker.js"></script>
+    <script type="module" src="js/main.js" defer></script>
 </head>
 <body>
-    <style>
-        p { margin: 0px; }
-    </style>
-    <p>Linear Animation</p>
-    <div id="box" style="width: 0%; height: 50px; background-color: red;"></div>
-    <p id="value">0%</p>
-    <p id="status">None</p>
-    <button>Animate</button>
+    <canvas id="graph" width="300px" height="300px" style="border: 1px solid gray;"></canvas>
+    <button id="animate">animate</button>
 </body>
 </html>
