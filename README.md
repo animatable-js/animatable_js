@@ -1,4 +1,4 @@
-# Use animation in Javascript
+# Make animation in Javascript
 This package allows easy implementation of linear or curved animation in javascript.
 `Especially suitable in a development environment on web components or canvas.`
 
