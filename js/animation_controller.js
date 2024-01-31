@@ -69,6 +69,10 @@ export class AnimationController extends Animatable {
         this.lowerValue = lowerValue || 0;
         this.upperValue = upperValue || 1;
         if (this.lowerValue > this.upperValue) throw "The lowerValue must be less than the upperValue.";
+        if (this.lowerValue < this.initialValue
+         || this.upperValue > this.initialValue) {
+            throw "The initialValue given is extent overflowed.";
+        }
 
         /** @type {number} */
         this.value = initialValue || this.lowerValue;

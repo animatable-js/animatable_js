@@ -7,12 +7,12 @@ export class CurvedAnimation extends Animatable {
     /**
      * @param {number} duration 
      * @param {Cubic} curve
-     * @param {number} initialValue
+     * @param {AnimationController} parent
      */
     constructor(
         duration,
         curve = Curve.Linear,
-        initialValue,
+        parent,
     ) {
         super();
         this.duration = duration;
@@ -31,7 +31,7 @@ export class CurvedAnimation extends Animatable {
         }
         
         this.listeners = [];
-        this.controller = new AnimationController(duration, initialValue || 0); // Parent.
+        this.controller = parent || new AnimationController(duration, 0); // Parent.
         this.controller.addListener(value => {
             const vector = this.end - this.start;
             const relValue = (value - this.start) / vector;
