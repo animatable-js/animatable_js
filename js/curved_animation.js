@@ -1,4 +1,4 @@
-import { Animatable, AnimationController } from "./animation_controller.js";
+import { Animatable, AnimationController, AnimationStatus } from "./animation_controller.js";
 import { Cubic, Curve } from "./cubic.js";
 
 
@@ -69,6 +69,14 @@ export class CurvedAnimation extends Animatable {
 
     forward () { this.animateTo(1); }
     backward() { this.animateTo(0); }
+    repeat() {
+        this.addStatusListener(status => {
+            if (status == AnimationStatus.FORWARDED) { return this.backward(); }
+            if (status == AnimationStatus.BACKWARDED) { return this.forward(); }
+        });
+        
+        this.forward()
+    }
 
     /**
      * @param {number} target

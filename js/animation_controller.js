@@ -140,6 +140,15 @@ export class AnimationController extends Animatable {
         this.animateTo(this.lowerValue, this.duration);
     }
 
+    repeat() {
+        this.addStatusListener(status => {
+            if (status == AnimationStatus.FORWARDED) { return this.backward(); }
+            if (status == AnimationStatus.BACKWARDED) { return this.forward(); }
+        });
+
+        this.forward();
+    }
+
     /**
      * @param {boolean} isBackward 
      */

@@ -2,7 +2,7 @@ import { AnimationStatus } from "./animation_controller.js";
 import { Color } from "./color.js";
 import { ColorTween } from "./color_tween.js";
 import { Curve } from "./cubic.js";
-import { CurvedAnimation } from "./curved.js";
+import { CurvedAnimation } from "./curved_animation.js";
 
 
 
