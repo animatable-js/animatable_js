@@ -6,6 +6,8 @@ This package allows easy implementation of linear or curved animation in javascr
 > 
 > There's no need to handle it on a separate thread. The reason why lag occurs due to numerous animation effects is because countless elements are re-rendered nearly 60 times per second.
 
+> This is package mainly used when using canvas, which is controlled using js, an environment where css is not available.
+
 ## How to make linear animation?
 refer to this code!
 
