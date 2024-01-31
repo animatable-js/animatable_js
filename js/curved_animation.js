@@ -20,7 +20,7 @@ export class CurvedAnimation extends Animatable {
         /** @type {Cubic} */
         this.curve = curve;
         if (this.curve instanceof Cubic == false) {
-            throw "Given argument curve is not of Cubic type.";
+            throw new Error("Given argument curve is not of Cubic type.");
         }
 
         const position = (percent) => {

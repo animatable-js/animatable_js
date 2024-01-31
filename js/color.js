@@ -24,7 +24,7 @@ export class Color {
          || isNaN(this.green)
          || isNaN(this.blue)
          || isNaN(this.alpha)) {
-            throw "The color values given is not a number.";
+            throw new Error("The color values given is not a number.");
         }
 
         // is overflow testing for value extent.
@@ -34,7 +34,7 @@ export class Color {
          || this.blue  > 255 || this.blue  < 0
          || this.alpha > 1   || this.alpha < 0
         ) {
-            throw "The color values given is extent overflowed. ex: new Color(0~255, 0~255, 0~255, 0~1)";
+            throw new Error("The color values given is extent overflowed. ex: new Color(0~255, 0~255, 0~255, 0~1)");
         }
     }
 

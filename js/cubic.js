@@ -12,7 +12,7 @@ export class CubicPoint {
         
         if (isNaN(this.x)
          || isNaN(this.y)) {
-            throw "Points were not given correctly in this cubic point class.";
+            throw new Error("Points were not given correctly in this cubic point class.");
         }
     }
     
@@ -60,7 +60,7 @@ export class Cubic {
          || this.p2 instanceof CubicPoint == false
          || this.p3 instanceof CubicPoint == false
          || this.p4 instanceof CubicPoint == false) {
-            throw "Cubic points were not given correctly in this cubic class.";
+            throw new Error("Cubic points were not given correctly in this cubic class.");
         }
     }
 

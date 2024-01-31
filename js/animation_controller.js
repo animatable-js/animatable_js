@@ -17,7 +17,7 @@ export const AnimationStatus = {
 export class Animatable {
     constructor() {
         if (this.constructor === Animatable) {
-            throw "This class is an abstract class.";
+            throw new Error("This class is an abstract class.");
         }
     }
 
@@ -25,28 +25,28 @@ export class Animatable {
      * @param {AnimationUpdateListener} callback 
      */
     addListener(callback) {
-        throw "This function must be implemented.";
+        throw new Error("This function must be implemented.");
     }
 
     /**
      * @param {AnimationUpdateListener} callback 
      */
     removeListener(callback) {
-        throw "This function must be implemented.";
+        throw new Error("This function must be implemented.");
     }
 
     /**
      * @param {AnimationStatusListener} callback 
      */
     addStatusListener(callback) {
-        throw "This function must be implemented.";
+        throw new Error("This function must be implemented.");
     }
 
     /**
      * @param {AnimationStatusListener} callback 
      */
     removeStatusListener(callback) {
-        throw "This function must be implemented.";
+        throw new Error("This function must be implemented.");
     }
 }
 
@@ -68,10 +68,10 @@ export class AnimationController extends Animatable {
         super();
         this.lowerValue = lowerValue || 0;
         this.upperValue = upperValue || 1;
-        if (this.lowerValue > this.upperValue) throw "The lowerValue must be less than the upperValue.";
+        if (this.lowerValue > this.upperValue) throw new Error("The lowerValue must be less than the upperValue.");
         if (this.lowerValue < this.initialValue
          || this.upperValue > this.initialValue) {
-            throw "The initialValue given is extent overflowed.";
+            throw new Error("The initialValue given is extent overflowed.");
         }
 
         /** @type {number} */
@@ -116,7 +116,7 @@ export class AnimationController extends Animatable {
      */
     setStatus(newStatus) {
         if (newStatus == null) {
-            throw "status must be not nullable in this animation controller.";
+            throw new Error("status must be not nullable in this animation controller.");
         }
 
         this.notifyStatusListeners(this.status = newStatus);
@@ -125,7 +125,7 @@ export class AnimationController extends Animatable {
     forward() {
         if (this.upperValue == this.value) return;
         if (this.upperValue == null) {
-            throw "upperValue must be defined for this function to be called.";
+            throw new Error("upperValue must be defined for this function to be called.");
         }
 
         this.animateTo(this.upperValue, this.duration);
@@ -134,7 +134,7 @@ export class AnimationController extends Animatable {
     backward() { 
         if (this.lowerValue == this.value) return;
         if (this.lowerValue == null) {
-            throw "lowerValue must be defined for this function to be called.";
+            throw new Error("lowerValue must be defined for this function to be called.");
         }
 
         this.animateTo(this.lowerValue, this.duration);
@@ -172,10 +172,10 @@ export class AnimationController extends Animatable {
         consume  = this.createConsumeFunc(this.value > target)
     ) {
         if (duration == null || isNaN(duration) || duration == 0) {
-            throw "duration for animation was not given in animateTo() of the AnimationController.";
+            throw new Error("duration for animation was not given in animateTo() of the AnimationController.");
         }
         if (consume instanceof Function == false) {
-            throw "consume callback was not given in animateTo() of the AnimationController.";
+            throw new Error("consume callback was not given in animateTo() of the AnimationController.");
         }
         if (this.activeTicker != null) {
             this.activeTicker.dispose();
@@ -215,7 +215,7 @@ export class AnimationController extends Animatable {
      */
     addListener(callback) {
         if (this.listeners.includes(callback)) {
-            throw "Already added given listener in this controller.";
+            throw new Error("Already added given listener in this controller.");
         }
 
         this.listeners.push(callback);
@@ -226,7 +226,7 @@ export class AnimationController extends Animatable {
      */
     removeListener(callback) {
         if (this.listeners.includes(callback) == false) {
-            throw "Already not added given listener in this controller."
+            throw new Error("Already not added given listener in this controller.");
         }
 
         this.listeners.remove(callback);
@@ -244,7 +244,7 @@ export class AnimationController extends Animatable {
      */
     addStatusListener(callback) {
         if (this.statusListeners.includes(callback)) {
-            throw "Already added given status listener in this controller.";
+            throw new Error("Already added given status listener in this controller.");
         }
 
         this.statusListeners.push(callback);
@@ -255,7 +255,7 @@ export class AnimationController extends Animatable {
      */
     removeStatusListener(callback) {
         if (this.statusListeners.includes(callback) == false) {
-            throw "Already not added given status listener in this controller."
+            throw new Error("Already not added given status listener in this controller.");
         }
 
         this.statusListeners.remove(callback);
