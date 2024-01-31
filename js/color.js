@@ -43,7 +43,7 @@ export class Color {
      */
     toHex() {
         const hex = (value) => {
-            const /** @type {string} */ result = value.toString(16).split(".")[0];
+            const /** @type {string} */ result = Math.round(value).toString(16);
             
             if (result.length == 1) {
                 return '0'+result;
