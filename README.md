@@ -23,7 +23,7 @@ const controller = new AnimationController(
 
 controller.addListener(value => {
   console.log(value);
-}
+});
 controller.forward();
 ```
 
