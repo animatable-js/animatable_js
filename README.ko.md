@@ -53,3 +53,19 @@ const curve = new Cubic(x1, y1, x1, y2, start?, end?);
 ![cubic](https://github.com/MTtankkeo/js_animatable/assets/122026021/47836ae7-60c6-4198-9ea5-acc7837f0999)
 
 > [cubic-bezier.com](https://cubic-bezier.com)으로 가서 cubic 만들기.
+
+## ColorTween 애니메이션을 만드는 방법은 무엇인가요?
+`Color`와 `ColorTween` 클래스를 활용해주세요!
+
+```js
+const red = new Color(255, 0, 0, alpha); // 또는 new Color.parse("FF0000")
+const blue = new Color(0, 0, 255, alpha); // 또는 new Color.parse("0000FF")
+
+// new ColorTween(start, end);
+const colorTween = new ColorTween(red, blue);
+
+animation.addListener(value => {
+  const color = colorTween.transform(value);
+  // ... 생략
+});
+```
