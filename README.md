@@ -2,6 +2,10 @@
 This package allows easy and light implementation of linear or curved animation in javascript.
 `Especially suitable in a development environment on web components or canvas.`
 
+## Install by npm
+Type and execute the this command in terminal.
+`npm install animatable-js`
+
 [한국어로 보기](README.ko.md)
 
 > Performing this task resource costs significantly less than rendering.

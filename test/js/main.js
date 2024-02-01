@@ -1,9 +1,9 @@
-import { AlwaysAnimation } from "./always_animation.js";
-import { AnimationController, AnimationStatus } from "./animation_controller.js";
-import { Color } from "./color.js";
-import { ColorTween } from "./color_tween.js";
-import { Curve } from "./cubic.js";
-import { CurvedAnimation } from "./curved_animation.js";
+import { AlwaysAnimation } from "../../js/always_animation.js";
+import { AnimationController, AnimationStatus } from "../../js/animation_controller.js";
+import { Color } from "../../js/color.js";
+import { ColorTween } from "../../js/color_tween.js";
+import { Curve } from "../../js/cubic.js";
+import { CurvedAnimation } from "../../js/curved_animation.js";
 
 
 
@@ -14,6 +14,7 @@ const button = document.getElementById("animate");
 const controller = new CurvedAnimation(700, Curve.Ease);
 
 const colorTween = new ColorTween(new Color(255, 0, 0), new Color(0, 100, 255));
+colorTween.transform
 
 controller.addListener(value => {
     const parent = box.parentElement.getBoundingClientRect();
