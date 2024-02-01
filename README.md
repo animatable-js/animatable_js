@@ -5,7 +5,9 @@ This package allows easy and light implementation of linear or curved animation 
 ## Install by npm
 Type and execute the this command in terminal.
 
-```npm install animatable-js```
+```
+npm install animatable-js
+```
 
 [한국어로 보기](README.ko.md)
 
