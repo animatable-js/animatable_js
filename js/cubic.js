@@ -94,6 +94,9 @@ export class Cubic {
      * @returns {number}
      */
     transform(t) {
+        if (t < 0 || t > 1) {
+            throw new Error("In the transform function of the Cubic, t must be given from 0 to 1.");
+        }
         if (t == 0) return this.p1.y;
         if (t == 1) return this.p4.y;
 
