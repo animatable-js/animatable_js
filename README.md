@@ -10,7 +10,7 @@ This package allows easy and light implementation of linear or curved animation 
 
 > This is package mainly used when using canvas element, which is controlled using js, an environment where css is not available.
 
-## Install by npm
+# Install by npm
 Type and execute the this command in terminal.
 ```
 npm install animatable-js
