@@ -42,4 +42,4 @@ const controller = new CurvedAnimation(duration, curve, parent);
 ### cubic이 무엇인가요?
 애니메이션 값의 변화량이 일정하지 않고 시간에 따라 값의 변화량이 가속되거나 감소시키는 기능을 제공합니다.
 
-자세한 내용은 [위키백과](https://en.wikipedia.org/wiki/B%C3%A9zier_curve)를 참고해주세요.
+> 자세한 내용은 [위키백과](https://en.wikipedia.org/wiki/B%C3%A9zier_curve)를 참고해주세요.

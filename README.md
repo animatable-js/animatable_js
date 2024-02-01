@@ -42,4 +42,4 @@ In this package, the curve means an instance of a cubic object.
 ### What is a cubic?
 The cubic animation provides a feature where the rate of change in animation values is not constant, but accelerates or decelerates over time.
 
-refer to [Wikipedia](https://en.wikipedia.org/wiki/B%C3%A9zier_curve) for detail.
+> refer to [Wikipedia](https://en.wikipedia.org/wiki/B%C3%A9zier_curve) for detail.
