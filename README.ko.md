@@ -13,7 +13,7 @@
 ## 선형 애니메이션은 어떻게 구현해야 되나요??
 아래 코드를 참고해주세요!
 
-### With clamping.
+### 값의 범위가 존재하는 애니메이션의 경우.
 ```js
 const controller = new AnimationController(
   duration,          // milliseconds
