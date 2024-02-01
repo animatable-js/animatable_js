@@ -18,7 +18,9 @@
     "cubic",
     "curve",
     "colortween",
-    "ticker"
+    "ticker",
+    "front-end",
+    "client-side"
   ],
   "license": "MIT"
 }
