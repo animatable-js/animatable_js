@@ -43,3 +43,11 @@ In this package, the curve means an instance of a cubic object.
 The cubic animation provides a feature where the rate of change in animation values is not constant, but accelerates or decelerates over time.
 
 > refer to [Wikipedia](https://en.wikipedia.org/wiki/B%C3%A9zier_curve) for detail.
+
+### How to make cubic object?
+refer to this code!
+```js
+const curve = new Cubic(x1, y1, x1, y2, start?, end?);
+// ... skip
+```
+![cubic](https://github.com/MTtankkeo/js_animatable/assets/122026021/85a4cdaf-0a8e-47fa-ba89-aa3edc163a0d)
