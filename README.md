@@ -50,5 +50,4 @@ refer to this code!
 const curve = new Cubic(x1, y1, x1, y2, start?, end?);
 // ... skip
 ```
-![cubic](https://github.com/MTtankkeo/js_animatable/assets/122026021/20149afd-767a-45a0-ac49-1686b61fa128)
-
+![cubic](https://github.com/MTtankkeo/js_animatable/assets/122026021/acbde27d-1fac-48cf-b561-db60d70f6bf9)
