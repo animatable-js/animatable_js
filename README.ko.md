@@ -4,7 +4,7 @@
 
 ## npm을 사용하여 설치
 터미널에 아래 명령어를 입력하고 실행하세요.
-`npm install animatable-js`
+```npm install animatable-js```
 
 [원문 보기](README.md)
 
