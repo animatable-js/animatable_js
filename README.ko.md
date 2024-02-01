@@ -22,11 +22,11 @@ npm install animatable-js
 ### 값의 범위가 존재하는 애니메이션의 경우.
 ```js
 const controller = new AnimationController(
-  duration,          // milliseconds
-  initialValue,      // lowerValue(0) ~ upperValue(1)
-  lowerValue,        // 0
-  upperValue,        // 1
-  isAbsoluteDuration // ... 자세한 내용은 클래스 내부 주석을 참고하세요.
+  duration,           // milliseconds
+  initialValue?,      // lowerValue(0) ~ upperValue(1)
+  lowerValue?,        // 0
+  upperValue?,        // 1
+  isAbsoluteDuration? // ... 자세한 내용은 클래스 내부 주석을 참고하세요.
 );
 
 controller.addListener(value => {
@@ -38,7 +38,7 @@ controller.forward();
 ## 커브 애니메이션은 어떻게 구현해야 되나요?
 아래 코드를 참고해주세요!
 ```js
-const controller = new CurvedAnimation(duration, curve, parent);
+const controller = new CurvedAnimation(duration, curve, parent?);
 // ... 생략
 ```
 
@@ -64,8 +64,8 @@ const curve = new Cubic(x1, y1, x1, y2, start?, end?);
 `Color`와 `ColorTween` 클래스를 활용해주세요!
 
 ```js
-const red = new Color(255, 0, 0, alpha); // 또는 new Color.parse("FF0000")
-const blue = new Color(0, 0, 255, alpha); // 또는 new Color.parse("0000FF")
+const red = new Color(255, 0, 0, alpha?); // 또는 new Color.parse("FF0000")
+const blue = new Color(0, 0, 255, alpha?); // 또는 new Color.parse("0000FF")
 
 // new ColorTween(start, end);
 const colorTween = new ColorTween(red, blue);
