@@ -2,12 +2,6 @@
 This package allows easy and light implementation of linear or curved animation in javascript.
 `Especially suitable in a development environment on web components or canvas.`
 
-## Install by npm
-Type and execute the this command in terminal.
-```
-npm install animatable-js
-```
-
 [한국어로 보기](README.ko.md)
 
 > Performing this task resource costs significantly less than rendering.
@@ -15,6 +9,12 @@ npm install animatable-js
 > There's no need to handle it on a separate thread. The reason why lag occurs due to numerous animation effects is because countless elements are re-rendered nearly 60 times per second.
 
 > This is package mainly used when using canvas element, which is controlled using js, an environment where css is not available.
+
+## Install by npm
+Type and execute the this command in terminal.
+```
+npm install animatable-js
+```
 
 ## How to make linear animation?
 refer to this code!
