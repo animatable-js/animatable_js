@@ -55,11 +55,29 @@ export class Color {
     }
 
     /**
+     * Returns instance of Color by given hex color code string.
+     * 
      * @param {string} str 
      * @returns {Color}
      */
-    static byHex(str) {
+    static parse(str) {
+        // Removes unnecessary the prefix '#' from the given string.
+        const hexs = str.startsWith("#") ? str.slice(1, str.length) : str;
         
+        let red   = 0;
+        let green = 0;
+        let blue  = 0;
+        let alpha = hexs.length == 8 ? parseInt(hexs.slice(6, 8), 16) : 1;
+        if (hexs.length == 6
+         || hexs.length == 8) {
+            red   = parseInt(hexs.slice(0, 2), 16);
+            green = parseInt(hexs.slice(2, 4), 16);
+            blue  = parseInt(hexs.slice(4, 6), 16);
+        } else {
+            throw new Error("The given string is unvalid. (ex: #202020 or #202020FF)");
+        }
+
+        return new Color(red, green, blue, alpha / 255);
     }
 
     toString() {
