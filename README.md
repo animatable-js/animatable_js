@@ -39,7 +39,7 @@ const controller = new CurvedAnimation(duration, curve, parent);
 ### What is a curve?
 In this package, the curve means an instance of a cubic object.
 
-### What is a cubic?
+### What is a cubic? (cubic-bezier)
 The cubic animation provides a feature where the rate of change in animation values is not constant, but accelerates or decelerates over time.
 
 > refer to [Wikipedia](https://en.wikipedia.org/wiki/B%C3%A9zier_curve) for detail.
@@ -51,3 +51,5 @@ const curve = new Cubic(x1, y1, x1, y2, start?, end?);
 // ... skip
 ```
 ![cubic](https://github.com/MTtankkeo/js_animatable/assets/122026021/47836ae7-60c6-4198-9ea5-acc7837f0999)
+
+[Going to make a cubic-bezier](https://cubic-bezier.com)

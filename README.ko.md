@@ -39,7 +39,7 @@ const controller = new CurvedAnimation(duration, curve, parent);
 ### curve이 무엇인가요?
 해당 패키지에서의 curve은 cubic 객체의 인스턴스를 의미합니다.
 
-### cubic이 무엇인가요?
+### cubic이 무엇인가요? (cubic-bezier)
 애니메이션 값의 변화량이 일정하지 않고 시간에 따라 값의 변화량이 가속되거나 감소시키는 기능을 제공합니다.
 
 > 자세한 내용은 [위키백과](https://en.wikipedia.org/wiki/B%C3%A9zier_curve)를 참고해주세요.
@@ -51,3 +51,5 @@ const curve = new Cubic(x1, y1, x1, y2, start?, end?);
 // ... 생략
 ```
 ![cubic](https://github.com/MTtankkeo/js_animatable/assets/122026021/47836ae7-60c6-4198-9ea5-acc7837f0999)
+
+[cubic-bezier 만들러 가기](https://cubic-bezier.com)
