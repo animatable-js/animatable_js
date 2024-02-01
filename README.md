@@ -61,7 +61,9 @@ Please utilize the `Color` and `ColorTween` class!
 const red = new Color(255, 0, 0, alpha); // or new Color.parse("FF0000")
 const blue = new Color(0, 0, 255, alpha); // or new Color.parse("0000FF")
 
+// new ColorTween(start, end);
 const colorTween = new ColorTween(red, blue);
+
 animation.addListener(value => {
   const color = colorTween.transform(value);
   // ... skip
