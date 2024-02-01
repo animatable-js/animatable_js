@@ -23,21 +23,26 @@ export class CurvedAnimation extends Animatable {
             throw new Error("Given argument curve is not of Cubic type.");
         }
 
-        const position = (percent) => {
-            const distance = this.end - this.start;
-            const movement = distance * percent;
-
-            return this.start + movement;
+        if (parent != null && parent instanceof AnimationController) {
+            if (parent instanceof AnimationController == false) {
+                throw new Error("");
+            }
+            if (duration != null) {
+                throw new Error("Parent is defined, but all setting values must be defined in parent.");
+            }
         }
         
         this.listeners = [];
         this.controller = parent || new AnimationController(duration, 0); // Parent.
-        this.controller.addListener(value => {
-            const vector = this.end - this.start;
-            const relValue = (value - this.start) / vector;
-            const curved = curve.transform(relValue);
+        this.controller.addListener(value => { // Omit prefix value.
+            const relativeVector = this.end - this.rawStart;
+            const relative = (value - this.rawStart) / relativeVector;
+            
+            const curved = curve.transform(relative);
+            const absoluteVector = this.end - this.start;
+            const absolute = this.start + (absoluteVector * curved);
 
-            this.notifyListeners(this.value = position(curved));
+            this.notifyListeners(this.value = absolute);
         });
     }
 
@@ -82,8 +87,9 @@ export class CurvedAnimation extends Animatable {
      * @param {number} target
      */
     animateTo(target) {
-        this.start  = this.value || this.controller.value;
-        this.end    = target;
+        this.rawStart = this.controller.value;
+        this.start = this.value || this.rawStart;
+        this.end   = target;
         this.controller.animateTo(target);
     }
 }

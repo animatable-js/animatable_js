@@ -1,5 +1,5 @@
 import { AlwaysAnimation } from "./always_animation.js";
-import { AnimationStatus } from "./animation_controller.js";
+import { AnimationController, AnimationStatus } from "./animation_controller.js";
 import { Color } from "./color.js";
 import { ColorTween } from "./color_tween.js";
 import { Curve } from "./cubic.js";
@@ -11,7 +11,7 @@ const box = document.getElementById("box");
 const percentText = document.getElementById("percent_text");
 const button = document.getElementById("animate");
 
-const controller = new CurvedAnimation(500, Curve.Ease)
+const controller = new CurvedAnimation(700, Curve.Ease);
 
 const colorTween = new ColorTween(new Color(255, 0, 0), new Color(0, 100, 255));
 
@@ -34,14 +34,3 @@ button.onclick = _ => {
 
     controller.backward();
 }
-
-
-const animation = new AlwaysAnimation(1000, 0);
-animation.addListener(value => {
-    console.log(value);
-});
-animation.animateTo(1);
-
-setTimeout(() => {
-    animation.animateTo(2);
-}, 1500);
