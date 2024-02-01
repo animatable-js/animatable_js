@@ -52,4 +52,4 @@ const curve = new Cubic(x1, y1, x1, y2, start?, end?);
 ```
 ![cubic](https://github.com/MTtankkeo/js_animatable/assets/122026021/47836ae7-60c6-4198-9ea5-acc7837f0999)
 
-[Going to make a cubic-bezier](https://cubic-bezier.com)
+> going to [cubic-bezier.com](https://cubic-bezier.com) for making.
