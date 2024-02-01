@@ -55,7 +55,7 @@ const curve = new Cubic(x1, y1, x1, y2, start?, end?);
 > going to [cubic-bezier.com](https://cubic-bezier.com) for making.
 
 ## How to make color tween animation?
-Please utilize the `Color` class!
+Please utilize the `Color` and `ColorTween` class!
 
 ```
 const red = new Color(255, 0, 0, alpha); // or new Color.parse("FF0000")
