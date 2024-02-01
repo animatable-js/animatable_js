@@ -22,10 +22,10 @@ export class CurvedAnimation extends Animatable {
         if (this.curve instanceof Cubic == false) {
             throw new Error("Given argument curve is not of Cubic type.");
         }
-
+        
         if (parent != null && parent instanceof AnimationController) {
             if (parent instanceof AnimationController == false) {
-                throw new Error("");
+                throw new Error("parent type must be an AnimationController.");
             }
             if (duration != null) {
                 throw new Error("Parent is defined, but all setting values must be defined in parent.");
@@ -84,6 +84,7 @@ export class CurvedAnimation extends Animatable {
     }
 
     /**
+     * For executing an animation towards a specific target given value.
      * @param {number} target
      */
     animateTo(target) {

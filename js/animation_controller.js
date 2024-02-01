@@ -121,7 +121,8 @@ export class AnimationController extends Animatable {
 
         this.notifyStatusListeners(this.status = newStatus);
     }
-
+    
+    // Animate from current value to 1.
     forward() {
         if (this.upperValue == this.value) return;
         if (this.upperValue == null) {
@@ -161,6 +162,8 @@ export class AnimationController extends Animatable {
     }
 
     /**
+     * For executing an animation towards a specific target given value.
+     * 
      * @param {number} target
      * @param {number} duration milliseconds
      * @param {AnimationConsumeCallback} consume
@@ -209,7 +212,7 @@ export class AnimationController extends Animatable {
             }
         });
     }
-
+    
     dispose() {
         this.activeTicker?.dispose();
     }
