@@ -57,7 +57,7 @@ const curve = new Cubic(x1, y1, x1, y2, start?, end?);
 ## How to make color tween animation?
 Please utilize the `Color` and `ColorTween` class!
 
-```
+```js
 const red = new Color(255, 0, 0, alpha); // or new Color.parse("FF0000")
 const blue = new Color(0, 0, 255, alpha); // or new Color.parse("0000FF")
 
