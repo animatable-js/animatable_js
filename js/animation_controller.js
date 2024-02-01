@@ -76,7 +76,7 @@ export class AnimationController extends Animatable {
 
         /** @type {number} */
         this.value = initialValue || this.lowerValue;
-        this.duration = duration;
+        this.duration = duration || 0;
         this.isAbsoluteDuration = isAbsoluteDuration || false;
 
         /** @type {Ticker} */
@@ -208,6 +208,10 @@ export class AnimationController extends Animatable {
                 )
             }
         });
+    }
+
+    dispose() {
+        this.activeTicker?.dispose();
     }
 
     /**

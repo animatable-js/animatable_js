@@ -1,3 +1,4 @@
+import { AlwaysAnimation } from "./always_animation.js";
 import { AnimationStatus } from "./animation_controller.js";
 import { Color } from "./color.js";
 import { ColorTween } from "./color_tween.js";
@@ -17,7 +18,7 @@ const colorTween = new ColorTween(new Color(255, 0, 0), new Color(0, 100, 255));
 controller.addListener(value => {
     const parent = box.parentElement.getBoundingClientRect();
     const ract = box.getBoundingClientRect();
-
+    
     box.style.transform = `translate(${(parent.width - ract.width)   * value}px, 0px)`;
     box.style.backgroundColor = colorTween.transform(value).toHex();
     percentText.textContent = `${Math.round(value * 100)}%`;
@@ -33,3 +34,14 @@ button.onclick = _ => {
 
     controller.backward();
 }
+
+
+const animation = new AlwaysAnimation(1000, 0);
+animation.addListener(value => {
+    console.log(value);
+});
+animation.animateTo(1);
+
+setTimeout(() => {
+    animation.animateTo(2);
+}, 1500);
