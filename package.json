@@ -3,7 +3,7 @@
   "version": "1.0.2",
   "description": "This package allows easy and light implementation of linear or curved animation in javascript.\r `Especially suitable in a development environment on web components or canvas.`",
   "author": "Dev Ttangkong",
-  "main": "js/main.js",
+  "main": "test/js/main.js",
   "files": [
     "js"
   ],
