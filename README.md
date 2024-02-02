@@ -67,6 +67,7 @@ In this package, the curve means an instance of a cubic object.
 
 > Can use the Cubic instances that are provided by default in Curve of `cubic.js`.
 ```js
+// ... cubic.js
 export const Curve = {
     Linear:    new Cubic(0, 0, 1, 1),
     Ease:      new Cubic(0.25, 0.1, 0.25, 1),
