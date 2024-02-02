@@ -77,6 +77,7 @@ In this package, the curve means an instance of a cubic object.
       <th>Ease</th>
       <th>new Cubic(0.25, 0.1, 0.25, 1)</th>
     </tr>
+    <tr>ABCD</tr>
   </tbody>
 </table>
 ```js
