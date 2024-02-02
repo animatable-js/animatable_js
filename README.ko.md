@@ -112,7 +112,7 @@ export const Curve = {
 const curve = new Cubic(x1, y1, x1, y2, start?, end?);
 // ... 생략
 ```
-![cubic](https://github.com/MTtankkeo/js_animatable/assets/122026021/47836ae7-60c6-4198-9ea5-acc7837f0999)
+![curve](https://github.com/MTtankkeo/js_animatable/assets/122026021/a5291786-95ce-4d1d-9d13-3df36533f052)
 
 > [cubic-bezier.com](https://cubic-bezier.com)으로 가서 cubic 만들기.
 
