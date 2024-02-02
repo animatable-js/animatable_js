@@ -10,7 +10,7 @@ const box = document.getElementById("box");
 const percentText = document.getElementById("percent_text");
 const button = document.getElementById("animate");
 
-const controller = new CurvedAnimation(750, Curve.Ease);
+const controller = new CurvedAnimation(500, Curve.Ease);
 
 const colorTween = new ColorTween(Color.var("--red"), Color.var("--blue"));
 

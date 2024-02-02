@@ -69,11 +69,35 @@ In this package, the curve means an instance of a cubic object.
 ```js
 // ... cubic.js
 export const Curve = {
-    Linear:    new Cubic(0, 0, 1, 1),
-    Ease:      new Cubic(0.25, 0.1, 0.25, 1),
-    EaseIn:    new Cubic(0.42, 0, 1, 1),
-    EaseOut:   new Cubic(0, 0, 0.58, 1),
-    EaseInOut: new Cubic(0.42, 0, 0.58, 1),
+    Linear:         new Cubic(0, 0, 1, 1),
+    Ease:           new Cubic(0.25, 0.1, 0.25, 1),
+    EaseIn:         new Cubic(0.42, 0, 1, 1),
+    EaseOut:        new Cubic(0, 0, 0.58, 1),
+    EaseInOut:      new Cubic(0.42, 0, 0.58, 1),
+    EaseInSine:     new Cubic(0.12, 0, 0.39, 0),
+    EaseOutSine:    new Cubic(0.61, 1, 0.88, 1),
+    EaseInQuad:     new Cubic(0.11, 0, 0.5, 0),
+    EaseOutQuad:    new Cubic(0.5, 1, 0.89, 1),
+    EaseInOutQuad:  new Cubic(0.45, 0, 0.55, 1),
+    EaseInOutSine:  new Cubic(0.37, 0, 0.63, 1),
+    EaseInCubic:    new Cubic(0.32, 0, 0.67, 0),
+    EaseOutCubic:   new Cubic(0.33, 1, 0.68, 1),
+    EaseInOutCubic: new Cubic(0.65, 0, 0.35, 1),
+    EaseInQuart:    new Cubic(0.5, 0, 0.75, 0),
+    EaseOutQuart:   new Cubic(0.25, 1, 0.5, 1),
+    EaseInOutQuart: new Cubic(0.76, 0, 0.24, 1),
+    EaseInQuint:    new Cubic(0.64, 0, 0.78, 0),
+    EaseOutQuint:   new Cubic(0.22, 1, 0.36, 1),
+    EaseInOutQuint: new Cubic(0.83, 0, 0.17, 1),
+    EaseInExpo:     new Cubic(0.7, 0, 0.84, 0),
+    EaseOutExpo:    new Cubic(0.16, 1, 0.3, 1),
+    EaseInOutExpo:  new Cubic(0.87, 0, 0.13, 1),
+    EaseInCirc:     new Cubic(0.55, 0, 1, 0.45),
+    EaseOutCirc:    new Cubic(0, 0.55, 0.45, 1),
+    EaseInOutCirc:  new Cubic(0.85, 0, 0.15, 1),
+    EaseInBack:     new Cubic(0.36, 0, 0.66, -0.56),
+    EaseOutBack:    new Cubic(0.34, 1.56, 0.64, 1),
+    EaseInOutBack:  new Cubic(0.68, -0.6, 0.32, 1.6),
 }
 ```
 
@@ -96,8 +120,9 @@ const curve = new Cubic(x1, y1, x1, y2, start?, end?);
 Please utilize the `Color` and `ColorTween` class!
 
 ```js
-const red  = new Color(255, 0, 0, alpha?); // or new Color.parse("#FF0000")
-const blue = new Color.var("--blue");      // or new Color.parse("0000FF")
+// or new Color.parse("#FF0000"); (is skipable prefix #)
+const red  = new Color(255, 0, 0, alpha?);
+const blue = new Color.var("--blue", scope?);
 
 // new ColorTween(start, end);
 const colorTween = new ColorTween(red, blue);
