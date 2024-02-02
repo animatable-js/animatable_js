@@ -66,6 +66,19 @@ const controller = new CurvedAnimation(duration, curve, parent);
 In this package, the curve means an instance of a cubic object.
 
 > Can use the Cubic instances that are provided by default in Curve of `cubic.js`.
+
+<table>
+  <thead>
+    <tr>
+      <th>Linear</th>
+      <th>new Cubic(0, 0, 1, 1)</th>
+    </tr>
+    <tr>
+      <th>Ease</th>
+      <th>new Cubic(0.25, 0.1, 0.25, 1)</th>
+    </tr>
+  </tbody>
+</table>
 ```js
 // ... cubic.js
 export const Curve = {
