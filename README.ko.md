@@ -32,8 +32,22 @@ const controller = new AnimationController(
 controller.addListener(value => {
   console.log(value);
 });
-controller.forward();
+controller.addStatusListener(status => {
+  console.log(status);
+});
+controller.forward(); // 또는 controller.repeat() - 반복 애니메이션.
 ```
+
+### Animation Status 상수
+자세한 내용은 `animation_controller/AnimationStatus`를 참고하세요.
+
+| Name | Value
+| ------ | ------
+| None | "none"
+| FORWARD | "forward"
+| FORWARDED | "forwarded"
+| BACKWARD | "backward"
+| BACKWARDED | "backwarded"
 
 ## 커브 애니메이션은 어떻게 구현해야 되나요?
 아래 코드를 참고해주세요!
