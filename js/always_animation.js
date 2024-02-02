@@ -60,7 +60,6 @@ export class AlwaysAnimation extends Animatable {
      * @param {number} target 
      */
     animateTo(target) {
-        console.log(this.startValue);
         this.activeController?.dispose();
         this.activeController = new AnimationController(
             this.duration,

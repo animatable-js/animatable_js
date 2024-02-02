@@ -65,6 +65,17 @@ const controller = new CurvedAnimation(duration, curve, parent);
 ### What is a curve?
 In this package, the curve means an instance of a cubic object.
 
+Can use the Cubic instances that are provided by default in Curve of `cubic.js`.
+```js
+export const Curve = {
+    Linear:    new Cubic(0, 0, 1, 1),
+    Ease:      new Cubic(0.25, 0.1, 0.25, 1),
+    EaseIn:    new Cubic(0.42, 0, 1, 1),
+    EaseOut:   new Cubic(0, 0, 0.58, 1),
+    EaseInOut: new Cubic(0.42, 0, 0.58, 1),
+}
+```
+
 ### What is a cubic? (cubic-bezier)
 The cubic animation provides a feature where the rate of change in animation values is not constant, but accelerates or decelerates over time.
 
