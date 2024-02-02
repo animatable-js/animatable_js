@@ -32,8 +32,22 @@ const controller = new AnimationController(
 controller.addListener(value => {
   console.log(value);
 });
-controller.forward();
+controller.addStatusListener(status => {
+  console.log(status);
+});
+controller.forward(); // or controller.repeat() - for repeat animation.
 ```
+
+### Constants of Animation Status
+refer to `animation_controller/AnimationStatus` for detail.
+
+| Name | Value
+| ------ | ------
+| None | "none"
+| FORWARD | "forward"
+| FORWARDED | "forwarded"
+| BACKWARD | "backward"
+| BACKWARDED | "backwarded"
 
 ## How to make Curved animation?
 refer to this code!
