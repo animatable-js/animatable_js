@@ -35,7 +35,13 @@ controller.addListener(value => {
 controller.addStatusListener(status => {
   console.log(status);
 });
-controller.forward(); // or controller.repeat() - for repeat animation.
+controller.forward(); // or controller.backward()
+
+// for move to target.
+controller.animateTo(0.5)
+
+// for repeat animation.
+controller.repeat()
 ```
 
 ### Constants of Animation Status
