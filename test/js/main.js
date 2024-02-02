@@ -1,4 +1,3 @@
-import { AlwaysAnimation } from "../../js/always_animation.js";
 import { AnimationController, AnimationStatus } from "../../js/animation_controller.js";
 import { Color } from "../../js/color.js";
 import { ColorTween } from "../../js/color_tween.js";
@@ -11,10 +10,9 @@ const box = document.getElementById("box");
 const percentText = document.getElementById("percent_text");
 const button = document.getElementById("animate");
 
-const controller = new CurvedAnimation(700, Curve.Ease);
+const controller = new CurvedAnimation(750, Curve.Ease);
 
-const colorTween = new ColorTween(new Color(255, 0, 0), new Color(0, 100, 255));
-colorTween.transform
+const colorTween = new ColorTween(Color.var("--red"), Color.var("--blue"));
 
 controller.addListener(value => {
     const parent = box.parentElement.getBoundingClientRect();
