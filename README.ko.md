@@ -65,7 +65,7 @@ const controller = new CurvedAnimation(duration, curve, parent?);
 ### curve이 무엇인가요?
 해당 패키지에서의 curve은 cubic 객체의 인스턴스를 의미합니다.
 
-`cubic.js`의 Curve에서 기본적으로 제공되는 Cubic 인스턴스들을 사용할 수 있습니다.
+> `cubic.js`의 Curve에서 기본적으로 제공되는 Cubic 인스턴스들을 사용할 수 있습니다.
 ```js
 export const Curve = {
     Linear:    new Cubic(0, 0, 1, 1),
