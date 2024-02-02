@@ -62,7 +62,7 @@ export class Color {
      * @param {Color}
      */
     static var(name, scope) {
-        const style = window.getComputedStyle(scope || document.getElementsByTagName("body")[0]);
+        const style = window.getComputedStyle(scope || document.documentElement);
         const value = style.getPropertyValue(name).trim();
         
         return this.parse(value);

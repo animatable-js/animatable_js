@@ -28,6 +28,9 @@ export class ColorTween {
      * @returns {Color} 
      */
     transform(t) {
+        if (t < 0) return this.start;
+        if (t > 1) return this.end;
+
         const start = this.start;
         const end   = this.end;
         const interpolate = (a, b, t) => a + (b - a) * t;

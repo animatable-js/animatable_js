@@ -11,7 +11,7 @@ export class CurvedAnimation extends Animatable {
      */
     constructor(
         duration,
-        curve = Curve.Linear,
+        curve = Curve.Ease,
         parent,
     ) {
         super();
