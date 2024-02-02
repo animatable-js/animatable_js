@@ -64,8 +64,8 @@ const curve = new Cubic(x1, y1, x1, y2, start?, end?);
 Please utilize the `Color` and `ColorTween` class!
 
 ```js
-const red  = new Color(255, 0, 0, alpha); // or new Color.parse("#FF0000")
-const blue = new Color.var("--blue");     // or new Color.parse("0000FF")
+const red  = new Color(255, 0, 0, alpha?); // or new Color.parse("#FF0000")
+const blue = new Color.var("--blue");      // or new Color.parse("0000FF")
 
 // new ColorTween(start, end);
 const colorTween = new ColorTween(red, blue);

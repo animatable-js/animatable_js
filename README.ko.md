@@ -64,8 +64,8 @@ const curve = new Cubic(x1, y1, x1, y2, start?, end?);
 `Color`와 `ColorTween` 클래스를 활용해주세요!
 
 ```js
-const red  = new Color(255, 0, 0, alpha); // 또는 new Color.parse("#FF0000")
-const blue = new Color.var("--blue");     // 또는 new Color.parse("0000FF")
+const red  = new Color(255, 0, 0, alpha?); // 또는 new Color.parse("#FF0000")
+const blue = new Color.var("--blue");      // 또는 new Color.parse("0000FF")
 
 // new ColorTween(start, end);
 const colorTween = new ColorTween(red, blue);
