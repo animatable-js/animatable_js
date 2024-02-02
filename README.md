@@ -66,75 +66,23 @@ const controller = new CurvedAnimation(duration, curve, parent);
 In this package, the curve means an instance of a cubic object.
 
 > Can use the Cubic instances that are provided by default in Curve of `cubic.js`.
-
-#### Const variables of Curve in cubic.js
-<table>
-  <thead>
-    <tr>
-      <th>Linear</th>
-      <th>new Cubic(0, 0, 1, 1)</th>
-    </tr>
-    <tr>
-      <th>Ease</th>
-      <th>new Cubic(0.25, 0.1, 0.25, 1)</th>
-    </tr>
-    <tr>
-      <th>EaseIn</th>
-      <th>new Cubic(0, 0, 0.58, 1)</th>
-    </tr>
-    <tr>
-      <th>EaseOut</th>
-      <th>new Cubic(0, 0, 0.58, 1)</th>
-    </tr>
-    <tr>
-      <th>EaseInOut</th>
-      <th>new Cubic(0.42, 0, 0.58, 1)</th>
-    </tr>
-    <tr>
-      <th>EaseInOut</th>
-      <th>new Cubic(0.42, 0, 0.58, 1)</th>
-    </tr>
-    <tr>
-      <th>EaseInSine</th>
-      <th>new Cubic(0.12, 0, 0.39, 0)</th>
-    </tr>
-    <tr>
-      <th>EaseOutSine</th>
-      <th>new Cubic(0.61, 1, 0.88, 1)</th>
-    </tr>
-    <tr>
-      <th>EaseInQuad</th>
-      <th>new Cubic(0.11, 0, 0.5, 0)</th>
-    </tr>
-    <tr>
-      <th>EaseOutQuad</th>
-      <th>new Cubic(0.5, 1, 0.89, 1)</th>
-    </tr>
-    <tr>
-      <th>EaseInOutQuad</th>
-      <th>new Cubic(0.45, 0, 0.55, 1)</th>
-    </tr>
-    <tr>
-      <th>EaseInOutSine</th>
-      <th>new Cubic(0.37, 0, 0.63, 1)</th>
-    </tr>
-    <tr>
-      <th>EaseInCubic</th>
-      <th>new Cubic(0.32, 0, 0.67, 0)</th>
-    </tr>
-    <tr>
-      <th>EaseOutCubic</th>
-      <th>new Cubic(0.33, 1, 0.68, 1)</th>
-    </tr>
-    <tr>
-      <th>EaseInOutCubic</th>
-      <th>new Cubic(0.65, 0, 0.35, 1)</th>
-    </tr>
-  </tbody>
-</table>
 ```js
 // ... cubic.js
 export const Curve = {
+    Linear:         new Cubic(0, 0, 1, 1),
+    Ease:           new Cubic(0.25, 0.1, 0.25, 1),
+    EaseIn:         new Cubic(0.42, 0, 1, 1),
+    EaseOut:        new Cubic(0, 0, 0.58, 1),
+    EaseInOut:      new Cubic(0.42, 0, 0.58, 1),
+    EaseInSine:     new Cubic(0.12, 0, 0.39, 0),
+    EaseOutSine:    new Cubic(0.61, 1, 0.88, 1),
+    EaseInQuad:     new Cubic(0.11, 0, 0.5, 0),
+    EaseOutQuad:    new Cubic(0.5, 1, 0.89, 1),
+    EaseInOutQuad:  new Cubic(0.45, 0, 0.55, 1),
+    EaseInOutSine:  new Cubic(0.37, 0, 0.63, 1),
+    EaseInCubic:    new Cubic(0.32, 0, 0.67, 0),
+    EaseOutCubic:   new Cubic(0.33, 1, 0.68, 1),
+    EaseInOutCubic: new Cubic(0.65, 0, 0.35, 1),
     EaseInQuart:    new Cubic(0.5, 0, 0.75, 0),
     EaseOutQuart:   new Cubic(0.25, 1, 0.5, 1),
     EaseInOutQuart: new Cubic(0.76, 0, 0.24, 1),
