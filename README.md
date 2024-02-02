@@ -112,7 +112,7 @@ refer to this code!
 const curve = new Cubic(x1, y1, x1, y2, start?, end?);
 // ... skip
 ```
-![curve](https://github.com/MTtankkeo/js_animatable/assets/122026021/cf6757ea-2a80-4078-b3f4-039d5fe1801e)
+![curve](https://github.com/MTtankkeo/js_animatable/assets/122026021/a5291786-95ce-4d1d-9d13-3df36533f052)
 
 > going to [cubic-bezier.com](https://cubic-bezier.com) for making.
 
