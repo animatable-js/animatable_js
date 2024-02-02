@@ -67,6 +67,7 @@ const controller = new CurvedAnimation(duration, curve, parent?);
 
 > `cubic.js`의 Curve에서 기본적으로 제공되는 Cubic 인스턴스들을 사용할 수 있습니다.
 ```js
+// ... cubic.js
 export const Curve = {
     Linear:    new Cubic(0, 0, 1, 1),
     Ease:      new Cubic(0.25, 0.1, 0.25, 1),
