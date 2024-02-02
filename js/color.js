@@ -55,6 +55,20 @@ export class Color {
     }
 
     /**
+     * Returns instance of Color by given color static variable name of CSS.
+     * 
+     * @param {string} name
+     * @param {string} scope - referance html element.
+     * @param {Color}
+     */
+    static var(name, scope) {
+        const style = window.getComputedStyle(scope || document.getElementsByTagName("body")[0]);
+        const value = style.getPropertyValue(name).trim();
+        
+        return this.parse(value);
+    }
+
+    /**
      * Returns instance of Color by given hex color code string.
      * 
      * @param {string} str 
@@ -67,7 +81,7 @@ export class Color {
         let red   = 0;
         let green = 0;
         let blue  = 0;
-        let alpha = hexs.length == 8 ? parseInt(hexs.slice(6, 8), 16) : 1;
+        let alpha = hexs.length == 8 ? parseInt(hexs.slice(6, 8), 16) / 255 : 1;
         if (hexs.length == 6
          || hexs.length == 8) {
             red   = parseInt(hexs.slice(0, 2), 16);
@@ -77,7 +91,7 @@ export class Color {
             throw new Error("The given string is unvalid. (ex: #202020 or #202020FF)");
         }
 
-        return new Color(red, green, blue, alpha / 255);
+        return new Color(red, green, blue, alpha);
     }
 
     toString() {
