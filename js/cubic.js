@@ -120,9 +120,9 @@ export class Cubic {
 }
 
 export const Curve = {
-    Linear:         new Cubic(0, 0, 1, 1),
-    Ease:           new Cubic(0.25, 0.1, 0.25, 1),
-    EaseIn:         new Cubic(0.42, 0, 1, 1),
-    EaseOut:        new Cubic(0, 0, 0.58, 1),
-    EaseInOut:      new Cubic(0.42, 0, 0.58, 1),
+    Linear:    new Cubic(0, 0, 1, 1),
+    Ease:      new Cubic(0.25, 0.1, 0.25, 1),
+    EaseIn:    new Cubic(0.42, 0, 1, 1),
+    EaseOut:   new Cubic(0, 0, 0.58, 1),
+    EaseInOut: new Cubic(0.42, 0, 0.58, 1),
 }
