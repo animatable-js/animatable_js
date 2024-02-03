@@ -85,6 +85,7 @@ export class CurvedAnimation extends Animatable {
 
     /**
      * For executing an animation towards a specific target given value.
+     * 
      * @param {number} target
      */
     animateTo(target) {
