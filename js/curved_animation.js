@@ -72,26 +72,47 @@ export class CurvedAnimation extends Animatable {
         this.listeners.forEach(listener => listener(value));
     }
 
-    forward () { this.animateTo(1); }
-    backward() { this.animateTo(0); }
-    repeat() {
+    /**
+     * @param {number} delay - milliseconds
+     */
+    forward(delay) { this.animateTo(1, delay); }
+
+    /**
+     * @param {number} delay - milliseconds
+     */
+    backward(delay) { this.animateTo(0, delay); }
+
+    /**
+     * @param {number} startDelay - milliseconds
+     * @param {number} cycleDelay - milliseconds
+     */
+    repeat(
+        startDelay,
+        cycleDelay
+    ) {
         this.addStatusListener(status => {
-            if (status == AnimationStatus.FORWARDED) { return this.backward(); }
-            if (status == AnimationStatus.BACKWARDED) { return this.forward(); }
+            if (status == AnimationStatus.FORWARDED)  { return this.backward(cycleDelay); }
+            if (status == AnimationStatus.BACKWARDED) { return this.forward(cycleDelay); }
         });
         
-        this.forward()
+        this.forward(startDelay)
     }
 
     /**
      * For executing an animation towards a specific target given value.
      * 
      * @param {number} target
+     * @param {number} delay - milliseconds
      */
-    animateTo(target) {
-        this.rawStart = this.controller.value;
-        this.start = this.value || this.rawStart;
-        this.end   = target;
-        this.controller.animateTo(target);
+    animateTo(
+        target,
+        delay = 0,
+    ) {
+        this.controller.animateTo(target, undefined, delay, undefined, () => {
+            this.timer    = null;
+            this.rawStart = this.controller.value;
+            this.start    = this.value || this.rawStart;
+            this.end      = target;
+        });
     }
 }

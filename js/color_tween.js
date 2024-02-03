@@ -24,7 +24,7 @@ export class ColorTween {
     }
     
     /**
-     * @param {number} t
+     * @param {number} t - time must be from 0 to 1.
      * @returns {Color} 
      */
     transform(t) {
