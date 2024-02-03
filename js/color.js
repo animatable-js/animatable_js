@@ -39,6 +39,8 @@ export class Color {
     }
 
     /**
+     * Returns hex color code string by this instance of Color.
+     * 
      * @returns {string}
      */
     toHex() {

@@ -55,7 +55,7 @@ refer to `animation_controller/AnimationStatus` for detail.
 | BACKWARD | "backward"
 | BACKWARDED | "backwarded"
 
-## How to make Curved animation?
+## How to make curved animation?
 refer to this code!
 ```js
 const controller = new CurvedAnimation(duration, curve, parent);

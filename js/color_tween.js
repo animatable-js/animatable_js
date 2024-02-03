@@ -19,7 +19,7 @@ export class ColorTween {
             start instanceof Color == false
          || end   instanceof Color == false
         ) {
-            throw "";
+            throw "given start or end in ColorTween must be Color type.";
         }
     }
     
