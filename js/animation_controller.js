@@ -158,13 +158,20 @@ export class AnimationController extends Animatable {
         this.animateTo(this.lowerValue, this.duration, delay, isAbsoluteDuration);
     }
 
-    repeat() {
+    /**
+     * @param {number} startDelay - milliseconds
+     * @param {number} cycleDelay - milliseconds
+     */
+    repeat(
+        startDelay,
+        cycleDelay,
+    ) {
         this.addStatusListener(status => {
-            if (status == AnimationStatus.FORWARDED) { return this.backward(); }
-            if (status == AnimationStatus.BACKWARDED) { return this.forward(); }
+            if (status == AnimationStatus.FORWARDED)  { return this.backward(cycleDelay); }
+            if (status == AnimationStatus.BACKWARDED) { return this.forward(cycleDelay); }
         });
 
-        this.forward();
+        this.forward(startDelay);
     }
 
     /**
