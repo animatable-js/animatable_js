@@ -22,11 +22,11 @@ refer to this code!
 ### With clamping.
 ```js
 const controller = new AnimationController(
-  duration,          // milliseconds
-  initialValue,      // lowerValue(0) ~ upperValue(1)
-  lowerValue,        // 0
-  upperValue,        // 1
-  isAbsoluteDuration // ... Refer class internal comment for more details.
+  duration,           // milliseconds
+  initialValue?,      // lowerValue(0) ~ upperValue(1)
+  lowerValue?,        // 0
+  upperValue?,        // 1
+  isAbsoluteDuration? // ... Refer class internal comment for more details.
 );
 
 controller.addListener(value => {
