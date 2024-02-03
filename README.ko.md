@@ -35,13 +35,13 @@ controller.addListener(value => {
 controller.addStatusListener(status => {
   console.log(status);
 });
-controller.forward(); // 또는 controller.backward()
+controller.forward(delay?); // 또는 controller.backward(delay?)
 
 // 주어진 목표 값으로 이동.
 controller.animateTo(0.5);
 
 // 반복 애니메이션.
-controller.repeat()
+controller.repeat(startDelay?, cycleDelay?)
 ```
 
 ### Animation Status 상수

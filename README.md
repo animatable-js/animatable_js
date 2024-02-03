@@ -35,13 +35,13 @@ controller.addListener(value => {
 controller.addStatusListener(status => {
   console.log(status);
 });
-controller.forward(); // or controller.backward()
+controller.forward(delay?); // or controller.backward(delay?)
 
 // for move to target.
-controller.animateTo(0.5)
+controller.animateTo(0.5);
 
 // for repeat animation.
-controller.repeat()
+controller.repeat(startDelay?, cycleDelay?);
 ```
 
 ### Constants of Animation Status
