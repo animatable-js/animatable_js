@@ -122,23 +122,40 @@ export class AnimationController extends Animatable {
         this.notifyStatusListeners(this.status = newStatus);
     }
     
-    // Animate from current value to 1.
-    forward() {
+    /**
+     * Animate from current value to 1.
+     * 
+     * @param {number} delay - milliseconds
+     * @param {boolean} isAbsoluteDuration
+     */
+    forward(
+        delay = 0,
+        isAbsoluteDuration
+    ) {
         if (this.upperValue == this.value) return;
         if (this.upperValue == null) {
             throw new Error("upperValue must be defined for this function to be called.");
         }
 
-        this.animateTo(this.upperValue, this.duration);
+        this.animateTo(this.upperValue, this.duration, delay, isAbsoluteDuration);
     }
     
-    backward() { 
+    /**
+     * Animate from current value to 0.
+     * 
+     * @param {number} delay - milliseconds
+     * @param {boolean} isAbsoluteDuration
+     */
+    backward(
+        delay = 0,
+        isAbsoluteDuration
+    ) {
         if (this.lowerValue == this.value) return;
         if (this.lowerValue == null) {
             throw new Error("lowerValue must be defined for this function to be called.");
         }
 
-        this.animateTo(this.lowerValue, this.duration);
+        this.animateTo(this.lowerValue, this.duration, delay, isAbsoluteDuration);
     }
 
     repeat() {
@@ -165,14 +182,19 @@ export class AnimationController extends Animatable {
      * For executing an animation towards a specific target given value.
      * 
      * @param {number} target
-     * @param {number} duration milliseconds
-     * @param {AnimationConsumeCallback} consume
+     * @param {number} duration - milliseconds
+     * @param {number} delay    - milliseconds
      * @param {boolean} isAbsoluteDuration
+     * @param {Function} onStart - Called to perform an initialization task.
+     * @param {AnimationConsumeCallback} consume
      */
     animateTo(
         target,
         duration = this.duration,
-        consume  = this.createConsumeFunc(this.value > target)
+        delay = 0,
+        isAbsoluteDuration = this.isAbsoluteDuration,
+        onStart,
+        consume = this.createConsumeFunc(this.value > target),
     ) {
         if (duration == null || isNaN(duration) || duration == 0) {
             throw new Error("duration for animation was not given in animateTo() of the AnimationController.");
@@ -180,37 +202,45 @@ export class AnimationController extends Animatable {
         if (consume instanceof Function == false) {
             throw new Error("consume callback was not given in animateTo() of the AnimationController.");
         }
-        if (this.activeTicker != null) {
-            this.activeTicker.dispose();
-        }
+        
+        // Initializes aysnc timeout.
+        this.timer && clearTimeout(this.timer);
+        this.timer = null;
+        
+        this.timer ??= setTimeout(() => {
+            onStart?.call();
 
-        const isBackward = this.value > target;
-        const totalConumed = Math.abs(target - this.value);
+            const isBackward = this.value > target;
+            const totalConumed = Math.abs(target - this.value);
 
-        this.setStatus(
-            isBackward
-                ? AnimationStatus.BACKWARD
-                : AnimationStatus.FORWARD
-        )
-
-        this.activeTicker = new Ticker((delta) => {
-            const durationExponent = this.isAbsoluteDuration ? totalConumed : this.upperValue
-            const available = delta / (duration / durationExponent);
+            this.setStatus(
+                isBackward
+                    ? AnimationStatus.BACKWARD
+                    : AnimationStatus.FORWARD
+            )
             
-            // The consumed direction of movement of the value is not important.
-            const consumed = Math.abs(consume(available));
+            this.activeTicker?.dispose();
+            this.activeTicker = new Ticker((delta) => {
+                const durationExponent = isAbsoluteDuration ? totalConumed : this.upperValue
+                const available = delta / (duration / durationExponent);
+                
+                // The consumed direction of movement of the value is not important.
+                const consumed = Math.abs(consume(available));
 
-            if (Math.abs(consumed - available) > Number.EPSILON) {
-                this.activeTicker.dispose();
-                this.activeTicker = null;
+                if (Math.abs(consumed - available) > Number.EPSILON) {
+                    this.activeTicker.dispose();
+                    this.activeTicker = null;
 
-                this.setStatus(
-                    isBackward
-                        ? AnimationStatus.BACKWARDED
-                        : AnimationStatus.FORWARDED
-                )
-            }
-        });
+                    this.setStatus(
+                        isBackward
+                            ? AnimationStatus.BACKWARDED
+                            : AnimationStatus.FORWARDED
+                    )
+                }
+            });
+
+            this.timer = null;
+        }, delay);
     }
     
     dispose() {
