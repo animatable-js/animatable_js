@@ -95,7 +95,7 @@ export class AnimationController extends Animatable {
     setValue(newValue) {
         if (this.value == newValue) return 0;
 
-        const previousValue = this.value;
+        const oldValue = this.value;
 
         // When defining, the new value must not be out of extent.
         {
@@ -108,7 +108,7 @@ export class AnimationController extends Animatable {
             }
         }
 
-        return this.value - previousValue;
+        return this.value - oldValue;
     }
 
     /**
