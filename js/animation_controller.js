@@ -68,16 +68,21 @@ export class AnimationController extends Animatable {
         super();
         this.lowerValue = lowerValue || 0;
         this.upperValue = upperValue || 1;
+        this.initialValue = initialValue ?? this.lowerValue;
         if (this.lowerValue > this.upperValue) throw new Error("The lowerValue must be less than the upperValue.");
-        if (this.lowerValue < this.initialValue
-         || this.upperValue > this.initialValue) {
+        if (this.lowerValue > this.initialValue
+         || this.upperValue < this.initialValue) {
             throw new Error("The initialValue given is extent overflowed.");
+        }
+        if (this.lowerValue == this.upperValue) {
+            throw new Error("min and max ranges cannot be the same.");
         }
 
         /** @type {number} */
-        this.value = initialValue || this.lowerValue;
+        this.value = this.initialValue;
         this.duration = duration || 0;
         this.isAbsoluteDuration = isAbsoluteDuration || false;
+        this.epsilon = Number.EPSILON * this.upperValue;
 
         /** @type {Ticker} */
         this.activeTicker = null;
@@ -86,6 +91,25 @@ export class AnimationController extends Animatable {
         // This is only raw member variables in this class.
         this.listeners = [];
         this.statusListeners = [];
+    }
+
+    /**
+     * Returns a relative range of animation value.
+     * 
+     * @returns {number}
+    */
+    get range() {
+        return this.upperValue - this.lowerValue;
+    }
+
+    /**
+     * Returns a relative value of animation from 0 to 1.
+     * 
+     * @returns {number}
+     */
+    get relValue() {
+        const  vector = this.value - this.lowerValue;
+        return vector / this.range;
     }
 
     /**
@@ -234,7 +258,7 @@ export class AnimationController extends Animatable {
                 // The consumed direction of movement of the value is not important.
                 const consumed = Math.abs(consume(available));
 
-                if (Math.abs(consumed - available) > Number.EPSILON) {
+                if (Math.abs(consumed - available) >= this.epsilon) {
                     this.activeTicker.dispose();
                     this.activeTicker = null;
 
