@@ -31,6 +31,7 @@ const controller = new AnimationController(
 
 controller.addListener(value => {
   console.log(value);
+  console.log(controller.relValue); // Relative value are always returned from 0 to 1.
 });
 controller.addStatusListener(status => {
   console.log(status);

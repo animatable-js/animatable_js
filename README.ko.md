@@ -31,6 +31,7 @@ const controller = new AnimationController(
 
 controller.addListener(value => {
   console.log(value);
+  console.log(controller.relValue); // 상대 값은 항상 0에서 1로 반환됩니다.
 });
 controller.addStatusListener(status => {
   console.log(status);
