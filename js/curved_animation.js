@@ -22,11 +22,6 @@ export class CurvedAnimation extends Animatable {
         this.listeners = [];
         this.controller = parent;
         this.controller.addListener(_ => {
-            if (this.progressValue < 0
-             || this.progressValue > 1) {
-                console.log(this.progressValue);
-            }
-            
             const curved = curve.transform(this.progressValue);
             const vector = this.end - this.start;
             const value  = this.start + (vector * curved);
@@ -46,7 +41,7 @@ export class CurvedAnimation extends Animatable {
 
     get lowerValue() { return this.controller.lowerValue; }
     get upperValue() { return this.controller.upperValue; }
-    
+
     /**
      * Returnes the current status of the parent.
      * 
