@@ -66,7 +66,7 @@ const controller = new CurvedAnimation(parent, curve = Curve.Ease);
 const controller = Curve.Ease.createAnimation(
   duration,
   initialValue?,
-  lowerValue!,
+  lowerValue?,
   upperValue?,
   isAbsoluteDuration
 );
