@@ -5,49 +5,51 @@ import { Cubic, Curve } from "./cubic.js";
 
 export class CurvedAnimation extends Animatable {
     /**
-     * @param {number} duration 
-     * @param {Cubic} curve
      * @param {AnimationController} parent
+     * @param {Cubic} curve
      */
     constructor(
-        duration,
-        curve = Curve.Ease,
         parent,
+        curve = Curve.Ease,
     ) {
         super();
-        this.duration = duration;
-
+        
         /** @type {Cubic} */
-        this.curve = curve;
-        if (this.curve instanceof Cubic == false) {
+        if (curve instanceof Cubic == false) {
             throw new Error("Given argument curve is not of Cubic type.");
         }
         
-        if (parent != null && parent instanceof AnimationController) {
-            if (parent instanceof AnimationController == false) {
-                throw new Error("parent type must be an AnimationController.");
-            }
-            if (duration != null) {
-                throw new Error("Parent is defined, but all setting values must be defined in parent.");
-            }
-        }
-        
         this.listeners = [];
-        this.controller = parent || new AnimationController(duration, 0); // Parent.
-        this.controller.addListener(value => { // Omit prefix value.
-            const relativeVector = this.end - this.rawStart;
-            const relative = (value - this.rawStart) / relativeVector;
-            
-            const curved = curve.transform(relative);
-            const absoluteVector = this.end - this.start;
-            const absolute = this.start + (absoluteVector * curved);
+        this.controller = parent;
+        this.controller.addListener(_ => {
+            const curved    = curve.transform(this.progressValue);
+            const relVector = this.end - this.start;
+            const rel       = this.relValue = this.start + (relVector * curved);
+            const abs       = this.lowerValue + (rel * this.upperValue);
 
-            this.notifyListeners(this.value = absolute);
+            this.notifyListeners(abs);
         });
     }
 
     /**
-     * Returnes current animation status of parent.
+     * Returns the relative value regardless of the progress direction
+     * of the animation value from 0 to 1.
+     * 
+     * @returns {number}
+    */
+    get progressValue() {
+        const relValue  = this.controller.relValue;
+        const relVector = this.end - this.rawStart;
+
+        return (relValue - this.rawStart) / relVector;
+    }
+
+    get lowerValue() { return this.controller.lowerValue; }
+    get upperValue() { return this.controller.upperValue; }
+
+    /**
+     * Returnes the current animation status of the parent.
+     * 
      * @returns {string}
      */
     get status() { return this.controller.status; }
@@ -106,13 +108,20 @@ export class CurvedAnimation extends Animatable {
      */
     animateTo(
         target,
+        duration,
         delay = 0,
+        isAbsoluteDuration,
     ) {
-        this.controller.animateTo(target, undefined, delay, undefined, () => {
-            this.timer    = null;
-            this.rawStart = this.controller.value;
-            this.start    = this.value || this.rawStart;
-            this.end      = target;
-        });
+        this.controller.animateTo(
+            target,
+            duration ?? undefined,
+            delay,
+            isAbsoluteDuration,
+            () => {
+                this.rawStart = this.controller.relValue;
+                this.start    = this.relValue || this.rawStart;
+                this.end      = target;
+            }
+        );
     }
 }

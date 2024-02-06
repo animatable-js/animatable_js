@@ -1,3 +1,5 @@
+import { AnimationController } from "./animation_controller.js";
+import { CurvedAnimation } from "./curved_animation.js";
 
 
 
@@ -116,6 +118,30 @@ export class Cubic {
                 ? start = midpoint
                 : end   = midpoint;
         }
+    }
+
+    /**
+     * @param {number} duration 
+     * @param {number} initialValue 
+     * @param {number} lowerValue 
+     * @param {number} upperValue 
+     * @param {number} isAbsoluteDuration 
+     * @returns {CurvedAnimation}
+     */
+    createAnimation(
+        duration,
+        initialValue,
+        lowerValue,
+        upperValue,
+        isAbsoluteDuration,
+    ) {
+        return new CurvedAnimation(new AnimationController(
+            duration,
+            initialValue,
+            lowerValue,
+            upperValue,
+            isAbsoluteDuration
+        ), this)
     }
 }
 

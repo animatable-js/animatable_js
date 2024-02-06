@@ -59,7 +59,18 @@ refer to `animation_controller/AnimationStatus` for detail.
 ## How to make curved animation?
 refer to this code!
 ```js
-const controller = new CurvedAnimation(duration, curve, parent);
+// Where parent means an instance of the [AnimationController] object.
+const controller = new CurvedAnimation(parent, curve = Curve.Ease);
+
+// or new Cubic(x1, y1, x2, y2).createAnimation(...)
+const controller = Curve.Ease.createAnimation(
+  duration,
+  initialValue?,
+  lowerValue!,
+  upperValue?,
+  isAbsoluteDuration
+);
+
 // ... skip
 ```
 
