@@ -22,33 +22,33 @@ export class CurvedAnimation extends Animatable {
         this.listeners = [];
         this.controller = parent;
         this.controller.addListener(_ => {
-            const curved    = curve.transform(this.progressValue);
-            const relVector = this.end - this.start;
-            const rel       = this.relValue = this.start + (relVector * curved);
-            const abs       = this.lowerValue + (rel * this.upperValue);
+            if (this.progressValue < 0
+             || this.progressValue > 1) {
+                console.log(this.progressValue);
+            }
+            
+            const curved = curve.transform(this.progressValue);
+            const vector = this.end - this.start;
+            const value  = this.start + (vector * curved);
 
-            this.notifyListeners(abs);
+            this.notifyListeners(this.value = value);
         });
     }
 
     /**
-     * Returns the relative value regardless of the progress direction
-     * of the animation value from 0 to 1.
+     * Returns the progress value of the parent.
      * 
      * @returns {number}
     */
     get progressValue() {
-        const relValue  = this.controller.relValue;
-        const relVector = this.end - this.rawStart;
-
-        return (relValue - this.rawStart) / relVector;
+        return this.controller.progressValue;
     }
 
     get lowerValue() { return this.controller.lowerValue; }
     get upperValue() { return this.controller.upperValue; }
-
+    
     /**
-     * Returnes the current animation status of the parent.
+     * Returnes the current status of the parent.
      * 
      * @returns {string}
      */
@@ -77,12 +77,12 @@ export class CurvedAnimation extends Animatable {
     /**
      * @param {number} delay - milliseconds
      */
-    forward(delay) { this.animateTo(1, delay); }
+    forward(delay) { this.animateTo(this.upperValue, delay); }
 
     /**
      * @param {number} delay - milliseconds
      */
-    backward(delay) { this.animateTo(0, delay); }
+    backward(delay) { this.animateTo(this.lowerValue, delay); }
 
     /**
      * @param {number} startDelay - milliseconds
@@ -118,9 +118,8 @@ export class CurvedAnimation extends Animatable {
             delay,
             isAbsoluteDuration,
             () => {
-                this.rawStart = this.controller.relValue;
-                this.start    = this.relValue || this.rawStart;
-                this.end      = target;
+                this.start = this.value || this.controller.value;
+                this.end   = target;
             }
         );
     }
