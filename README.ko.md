@@ -16,7 +16,22 @@
 npm install animatable-js
 ```
 
-## 선형 애니메이션은 어떻게 구현해야 되나요??
+## JS 모듈을 프리로드하는 방법.
+최상위 HTML 파일에서 아래 코드와 같이 작성하세요. `ex: index.html`.
+
+```html
+<link rel="modulepreload" href="./node_modules/animatable-js/index.js">
+<link rel="modulepreload" href="./node_modules/animatable-js/animation_controller.js">
+<link rel="modulepreload" href="./node_modules/animatable-js/animation.js">
+<link rel="modulepreload" href="./node_modules/animatable-js/color_tween.js">
+<link rel="modulepreload" href="./node_modules/animatable-js/color.js">
+<link rel="modulepreload" href="./node_modules/animatable-js/cubic.js">
+<link rel="modulepreload" href="./node_modules/animatable-js/curved_animation.js">
+<link rel="modulepreload" href="./node_modules/animatable-js/index.js">
+<link rel="modulepreload" href="./node_modules/animatable-js/ticker.js">
+```
+
+## 선형 애니메이션은 어떻게 구현해야 되나요?
 아래 코드를 참고해주세요!
 
 ### 값의 범위가 존재하는 애니메이션의 경우.
