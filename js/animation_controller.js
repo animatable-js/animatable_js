@@ -48,6 +48,13 @@ export class Animatable {
     removeStatusListener(callback) {
         throw new Error("This function must be implemented.");
     }
+
+    /**
+     * Dispose active ticker by force.
+     */
+    dispose() {
+        throw new Error("This function must be implemented.");
+    }
 }
 
 export class AnimationController extends Animatable {

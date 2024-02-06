@@ -17,17 +17,16 @@ npm install animatable-js
 ```
 
 ## How to preload JS modules?
-Write this code in the top-level HTML file `index.html`.
+Write this code in the top-level HTML file `ex: index.html`.
 
 ```html
-<link rel="modulepreload" href="./node_modules/animatable-js/index.js">
+<link rel="modulepreload" href="./node_modules/animatable-js/lib.js">
 <link rel="modulepreload" href="./node_modules/animatable-js/animation_controller.js">
 <link rel="modulepreload" href="./node_modules/animatable-js/animation.js">
 <link rel="modulepreload" href="./node_modules/animatable-js/color_tween.js">
 <link rel="modulepreload" href="./node_modules/animatable-js/color.js">
 <link rel="modulepreload" href="./node_modules/animatable-js/cubic.js">
 <link rel="modulepreload" href="./node_modules/animatable-js/curved_animation.js">
-<link rel="modulepreload" href="./node_modules/animatable-js/index.js">
 <link rel="modulepreload" href="./node_modules/animatable-js/ticker.js">
 ```
 
@@ -142,7 +141,7 @@ The cubic animation provides a feature where the rate of change in animation val
 ### How to make cubic object?
 refer to this code!
 ```js
-const curve = new Cubic(x1, y1, x1, y2, start?, end?);
+const curve = new Cubic(x1, y1, x2, y2, start?, end?);
 // ... skip
 ```
 ![curve](https://github.com/MTtankkeo/js_animatable/assets/122026021/1c22b58c-481f-47f2-a8e4-cc7b03672f86)

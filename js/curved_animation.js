@@ -118,4 +118,8 @@ export class CurvedAnimation extends Animatable {
             }
         );
     }
+
+    dispose() {
+        this.controller.dispose();
+    }
 }
