@@ -241,7 +241,7 @@ export class AnimationController extends Animatable {
         this.timer ??= setTimeout(() => {
             onStart?.call();
 
-            const isBackward = this.value > target;
+            const isBackward   = this.value > target;
             const totalConumed = Math.abs(target - this.value);
 
             this.setStatus(
@@ -252,7 +252,7 @@ export class AnimationController extends Animatable {
             
             this.activeTicker?.dispose();
             this.activeTicker = new Ticker((delta) => {
-                const durationExponent = isAbsoluteDuration ? totalConumed : this.upperValue
+                const durationExponent = isAbsoluteDuration ? totalConumed : this.range;
                 const available = delta / (duration / durationExponent);
                 
                 // The consumed direction of movement of the value is not important.

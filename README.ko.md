@@ -59,7 +59,18 @@ controller.repeat(startDelay?, cycleDelay?)
 ## 커브 애니메이션은 어떻게 구현해야 되나요?
 아래 코드를 참고해주세요!
 ```js
-const controller = new CurvedAnimation(duration, curve, parent?);
+// 여기서 parent는 AnimationController 객체의 인스턴스를 의미합니다.
+const controller = new CurvedAnimation(parent, curve = Curve.Ease);
+
+// 또는 new Cubic(x1, y1, x2, y2).createAnimation(...)
+const controller = Curve.Ease.createAnimation(
+  duration,
+  initialValue?,
+  lowerValue!,
+  upperValue?,
+  isAbsoluteDuration
+);
+
 // ... 생략
 ```
 
