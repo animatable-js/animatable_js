@@ -1,7 +1,4 @@
-import { AnimationController, AnimationStatus } from "../../js/animation_controller.js";
-import { Color } from "../../js/color.js";
-import { ColorTween } from "../../js/color_tween.js";
-import { Curve } from "../../js/cubic.js";
+import { AnimationStatus, Color, ColorTween, Curve } from "../../js/index.js";
 
 
 
