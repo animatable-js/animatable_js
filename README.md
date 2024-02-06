@@ -31,7 +31,13 @@ const controller = new AnimationController(
 
 controller.addListener(value => {
   console.log(value);
-  console.log(controller.relValue); // Relative value are always returned from 0 to 1.
+
+  // Relative value are always returned from 0 to 1.
+  console.log(controller.relValue);
+
+  // Progress value are always returned from 0 to 1, and no subtraction.
+  // This always means that the value increases from 0 to 1.
+  console.log(controller.progressValue);
 });
 controller.addStatusListener(status => {
   console.log(status);
@@ -66,9 +72,9 @@ const controller = new CurvedAnimation(parent, curve = Curve.Ease);
 const controller = Curve.Ease.createAnimation(
   duration,
   initialValue?,
-  lowerValue?,
-  upperValue?,
-  isAbsoluteDuration
+  lowerValue?, // 0
+  upperValue?, // 1
+  isAbsoluteDuration? // false
 );
 
 // ... skip

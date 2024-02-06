@@ -13,6 +13,11 @@ const controller = Curve.Ease.createAnimation(500, null, 0, 1);
 const colorTween = new ColorTween(Color.var("--red"), Color.var("--blue"));
 
 controller.addListener(value => {
+    if (controller.progressValue < 0
+     || controller.progressValue > 1) {
+        console.log(controller.progressValue)
+    }
+
     const parent = box.parentElement.getBoundingClientRect();
     const ract = box.getBoundingClientRect();
     

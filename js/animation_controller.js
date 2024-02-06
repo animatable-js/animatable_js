@@ -113,6 +113,19 @@ export class AnimationController extends Animatable {
     }
 
     /**
+     * Returns the relative value regardless of the progress direction
+     * of the animation value from 0 to 1.
+     * 
+     * @returns {number}
+    */
+    get progressValue() {
+        const relValue  = this.value;
+        const relVector = this.end - this.start;
+
+        return (relValue - this.start) / relVector;
+    }
+
+    /**
      * @param {number} newValue
      * @returns {number} Remaining value after being consumed.
      */
@@ -240,6 +253,10 @@ export class AnimationController extends Animatable {
         
         this.timer ??= setTimeout(() => {
             onStart?.call();
+
+            // Initializes values of [progressValue].
+            this.start = this.value;
+            this.end   = target;
 
             const isBackward   = this.value > target;
             const totalConumed = Math.abs(target - this.value);

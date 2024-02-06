@@ -31,7 +31,13 @@ const controller = new AnimationController(
 
 controller.addListener(value => {
   console.log(value);
-  console.log(controller.relValue); // 상대 값은 항상 0에서 1로 반환됩니다.
+
+  // 상대 값은 항상 0에서 1로 반환됩니다.
+  console.log(controller.relValue);
+
+  // 진행 값은 항상 0에서 1로 반환됩니다, 또한 감산되지 않습니다.
+  // 이는 절대적으로 값이 0에서 1로 증감한다는 것을 의미합니다.
+  console.log(controller.progressValue);
 });
 controller.addStatusListener(status => {
   console.log(status);
