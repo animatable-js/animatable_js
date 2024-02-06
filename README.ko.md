@@ -20,14 +20,13 @@ npm install animatable-js
 최상위 HTML 파일에서 아래 코드와 같이 작성하세요. `ex: index.html`.
 
 ```html
-<link rel="modulepreload" href="./node_modules/animatable-js/index.js">
+<link rel="modulepreload" href="./node_modules/animatable-js/lib.js">
 <link rel="modulepreload" href="./node_modules/animatable-js/animation_controller.js">
 <link rel="modulepreload" href="./node_modules/animatable-js/animation.js">
 <link rel="modulepreload" href="./node_modules/animatable-js/color_tween.js">
 <link rel="modulepreload" href="./node_modules/animatable-js/color.js">
 <link rel="modulepreload" href="./node_modules/animatable-js/cubic.js">
 <link rel="modulepreload" href="./node_modules/animatable-js/curved_animation.js">
-<link rel="modulepreload" href="./node_modules/animatable-js/index.js">
 <link rel="modulepreload" href="./node_modules/animatable-js/ticker.js">
 ```
 
@@ -142,7 +141,7 @@ export const Curve = {
 ### cubic 객체는 만드는 방법은 무엇인가요??
 아래 코드를 참고해주세요!
 ```js
-const curve = new Cubic(x1, y1, x1, y2, start?, end?);
+const curve = new Cubic(x1, y1, x2, y2, start?, end?);
 // ... 생략
 ```
 ![curve](https://github.com/MTtankkeo/js_animatable/assets/122026021/1c22b58c-481f-47f2-a8e4-cc7b03672f86)

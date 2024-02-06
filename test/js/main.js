@@ -1,4 +1,5 @@
-import { AnimationStatus, Color, ColorTween, Curve } from "../../js/index.js";
+import { Animation, AnimationStatus, Color, ColorTween } from "../../js/index.js";
+
 
 
 
@@ -6,7 +7,8 @@ const box = document.getElementById("box");
 const percentText = document.getElementById("percent_text");
 const button = document.getElementById("animate");
 
-const controller = Curve.Ease.createAnimation(500, null, 0, 1);
+// Curve.Ease.createAnimation(500, null, 0, 1)
+const controller = new Animation(500);
 const colorTween = new ColorTween(Color.var("--red"), Color.var("--blue"));
 
 controller.addListener(value => {
@@ -22,9 +24,9 @@ button.onclick = _ => {
     if (controller.status == AnimationStatus.NONE
      || controller.status == AnimationStatus.BACKWARD
      || controller.status == AnimationStatus.BACKWARDED) {
-        controller.forward();
+        controller.animateTo(1);
         return;
     }
 
-    controller.backward();
+    controller.animateTo(0);
 }
