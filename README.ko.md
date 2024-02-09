@@ -148,6 +148,11 @@ const curve = new Cubic(x1, y1, x2, y2, start?, end?);
 
 > [cubic-bezier.com](https://cubic-bezier.com)으로 가서 cubic 만들기.
 
+### Cubic을 반전시키는 방법은 무엇인가요?
+```js
+const easeFlipped = Curve.Ease.flipped;
+```
+
 ## ColorTween 애니메이션을 만드는 방법은 무엇인가요?
 `Color`와 `ColorTween` 클래스를 활용해주세요!
 
