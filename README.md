@@ -19,6 +19,8 @@ npm install animatable-js
 ## How to preload JS modules?
 Write this code in the top-level HTML file `ex: index.html`.
 
+> Please modify the paths as necessary to match development environment.
+
 ```html
 <link rel="modulepreload" href="./node_modules/animatable-js/lib.js">
 <link rel="modulepreload" href="./node_modules/animatable-js/animation_controller.js">
