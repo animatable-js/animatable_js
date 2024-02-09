@@ -42,6 +42,9 @@ export class Cubic {
      * @param {number} y1 - Control Point.
      * @param {number} x2 - Control Point.
      * @param {number} y2 - Control Point.
+     * @param {CubicPoint} start
+     * @param {CubicPoint} end
+     * @param {number} errorBound - Estimated Error Range.
      */
     constructor(
         x1, y1,
@@ -64,6 +67,21 @@ export class Cubic {
          || this.p4 instanceof CubicPoint == false) {
             throw new Error("Cubic points were not given correctly in this cubic class.");
         }
+    }
+
+    /**
+     * @returns {Cubic}
+     */
+    get reversed() {
+        return new Cubic(
+            1 - this.p2.x,
+            1 - this.p2.y,
+            1 - this.p3.x,
+            1 - this.p3.y,
+            this.p1,
+            this.p4,
+            this.errorBound
+        );
     }
 
     /**
@@ -142,6 +160,10 @@ export class Cubic {
             upperValue,
             isAbsoluteDuration
         ), this)
+    }
+
+    toString() {
+        return `Cubic(${this.p2.x}, ${this.p2.y}, ${this.p3.x}, ${this.p3.y})`;
     }
 }
 

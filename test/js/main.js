@@ -1,4 +1,4 @@
-import { Animation, AnimationStatus, Color, ColorTween } from "../../js/index.js";
+import { Animation, AnimationStatus, Color, ColorTween, Cubic, Curve } from "../../js/lib.js";
 
 
 
@@ -8,7 +8,7 @@ const percentText = document.getElementById("percent_text");
 const button = document.getElementById("animate");
 
 // Curve.Ease.createAnimation(500, null, 0, 1)
-const controller = new Animation(500);
+const controller = Curve.Ease.createAnimation(500, null, 0, 1);
 const colorTween = new ColorTween(Color.var("--red"), Color.var("--blue"));
 
 controller.addListener(value => {
