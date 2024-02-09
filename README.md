@@ -148,6 +148,11 @@ const curve = new Cubic(x1, y1, x2, y2, start?, end?);
 
 > going to [cubic-bezier.com](https://cubic-bezier.com) for making.
 
+### How to flip cubic?
+```js
+const easeFlipped = Curve.Ease.flipped;
+```
+
 ## How to make color tween animation?
 Please utilize the `Color` and `ColorTween` class!
 

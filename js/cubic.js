@@ -72,7 +72,7 @@ export class Cubic {
     /**
      * @returns {Cubic}
      */
-    get reversed() {
+    get flipped() {
         return new Cubic(
             1 - this.p2.x,
             1 - this.p2.y,
