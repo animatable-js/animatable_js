@@ -111,7 +111,7 @@ const activeTicker = new Ticker(deltaElpased => {
   console.log(deltaElpased);
 });
 
-// Clean up or dispose all related to this ticker tasks in memory.
+// Dispose or clean up all relevant tasks and instances on memory.
 activeTicker.dispose();
 ```
 

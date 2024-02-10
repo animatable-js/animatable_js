@@ -132,7 +132,7 @@ const activeTicker = new Ticker(deltaElpased => {
   console.log(deltaElpased);
 });
 
-// 관련 모든 작업을 메모리 상에서 폐기하거나 정리합니다.
+// 관련 모든 작업과 인스턴스를 메모리 상에서 폐기하거나 정리합니다.
 activeTicker.dispose();
 ```
 
