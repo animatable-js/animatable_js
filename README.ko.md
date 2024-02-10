@@ -115,6 +115,9 @@ const controller = Curve.Ease.createAnimation(
   isAbsoluteDuration
 );
 
+// 범위가 존재하지 않는 애니메이션의 경우. (non-clamping)
+const animation = new Animation(duration, initialValue?, Curve.Ease);
+
 // ... 생략
 ```
 

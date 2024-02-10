@@ -115,6 +115,9 @@ const controller = Curve.Ease.createAnimation(
   isAbsoluteDuration? // false
 );
 
+// With non-clmaping.
+const animation = new Animation(duration, initialValue?, Curve.Ease);
+
 // ... skip
 ```
 
