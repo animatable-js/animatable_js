@@ -103,7 +103,7 @@ refer to `animation_controller/AnimationStatus` for detail.
 ### What is ticker?
 Provides the ability to perform want tasks when the frame is updated.
 
-> Measures the duration interval between frames and is used to make smooth animation.
+> Measures the time interval between frames and is used to make smooth animation.
 
 ```js
 // The elapsed between the previous frame and the current frame is given.
