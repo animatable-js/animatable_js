@@ -100,6 +100,21 @@ refer to `animation_controller/AnimationStatus` for detail.
 | BACKWARD | "backward"
 | BACKWARDED | "backwarded"
 
+### What is ticker?
+Provides the ability to perform want tasks when the frame is updated.
+
+> Measures the duration interval between frames and is used to make smooth animation.
+
+```js
+// The elapsed between the previous frame and the current frame is given.
+const activeTicker = new Ticker(deltaElpased => {
+  console.log(deltaElpased);
+});
+
+// Clean up or dispose all related to this ticker tasks in memory.
+activeTicker.dispose();
+```
+
 ## How to make curved animation?
 refer to this code!
 ```js

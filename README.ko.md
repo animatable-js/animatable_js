@@ -121,7 +121,22 @@ const animation = new Animation(duration, initialValue?, Curve.Ease);
 // ... 생략
 ```
 
-### curve이 무엇인가요?
+### Ticker이(가) 무엇인가요?
+프레임이 갱신되면 특정 동작을 수행할 수 있게 하는 기능을 제공합니다.
+
+> 프레임 간 시간 간격을 측정하여 부드러운 애니메이션을 구현하는 데 활용됩니다.
+
+```js
+// 이전 프레임과 현재 프레임 간의 경과 시간이 주어집니다.
+const activeTicker = new Ticker(deltaElpased => {
+  console.log(deltaElpased);
+});
+
+// 관련 모든 작업을 메모리 상에서 폐기하거나 정리합니다.
+activeTicker.dispose();
+```
+
+### curve이(가) 무엇인가요?
 해당 패키지에서의 curve은 cubic 객체의 인스턴스를 의미합니다.
 
 > `cubic.js`의 Curve에서 기본적으로 제공되는 Cubic 인스턴스들을 사용할 수 있습니다.
