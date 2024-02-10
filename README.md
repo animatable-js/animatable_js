@@ -36,6 +36,8 @@ Write this code in the top-level HTML file `ex: index.html`.
 refer to this code!
 
 ### With clamping.
+`AnimationController` is a based raw controller used to implement all animations in this package.
+
 ```js
 const controller = new AnimationController(
   duration,           // milliseconds
@@ -68,10 +70,14 @@ controller.repeat(startDelay?, cycleDelay?);
 ```
 
 ### With non-clamping.
+`Animation` is mainly used when you want to animate changing values.
+
 ```js
 const animation = new Animation(duration, initialValue?, curve?);
 
 animation.addListener(value => {
+  console.log(value);
+
   // A core controller for building non-clamping animation.
   const controller = animation.parent;
   

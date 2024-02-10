@@ -36,6 +36,8 @@ npm install animatable-js
 아래 코드를 참고해주세요!
 
 ### 값의 범위가 존재하는 애니메이션의 경우.
+`AnimationController`의 경우 해당 패키지의 모든 애니메이션 동작들을 구현하는데 사용되는 원시적 기반 컨트롤러입니다.
+
 ```js
 const controller = new AnimationController(
   duration,           // milliseconds
@@ -68,10 +70,14 @@ controller.repeat(startDelay?, cycleDelay?)
 ```
 
 ### 값의 범위가 존재하지 않는 경우.
+`Animation`의 경우 변화하는 값을 애니메이션화하려는 경우에 주로 사용됩니다.
+
 ```js
 const animation = new Animation(duration, initialValue?, curve?);
 
 animation.addListener(value => {
+  console.log(value);
+
   // non-clmaping 애니메이션을 구성하는 기반 컨트롤러입니다.
   const controller = animation.parent;
   
