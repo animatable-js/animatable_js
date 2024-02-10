@@ -8,7 +8,7 @@ const percentText = document.getElementById("percent_text");
 const button = document.getElementById("animate");
 
 // Curve.Ease.createAnimation(500, null, 0, 1)
-const controller = Curve.Ease.createAnimation(500, null, 0, 1);
+const controller = new Animation(500, null, Curve.Ease);
 const colorTween = new ColorTween(Color.var("--red"), Color.var("--blue"));
 
 controller.addListener(value => {
@@ -19,6 +19,8 @@ controller.addListener(value => {
     box.style.backgroundColor = colorTween.transform(value).toHex();
     percentText.textContent = `${Math.round(value * 100)}%`;
 });
+
+let target = 0;
 
 button.onclick = _ => {
     if (controller.status == AnimationStatus.NONE

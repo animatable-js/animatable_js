@@ -67,6 +67,22 @@ controller.animateTo(0.5);
 controller.repeat(startDelay?, cycleDelay?);
 ```
 
+### With non-clamping.
+```js
+const animation = new Animation(duration, initialValue?, curve?);
+
+animation.addListener(value => {
+  // A core controller for building non-clamping animation.
+  const controller = animation.parent;
+  
+  console.log(controller.relValue); // or controller.value
+  console.log(controller.progressValue);
+});
+animation.animateTo(target);
+
+// ... skip
+```
+
 ### Constants of Animation Status
 refer to `animation_controller/AnimationStatus` for detail.
 

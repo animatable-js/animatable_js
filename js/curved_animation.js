@@ -71,13 +71,25 @@ export class CurvedAnimation extends Animatable {
 
     /**
      * @param {number} delay - milliseconds
+     * @param {boolean} isAbsoluteDuration
      */
-    forward(delay) { this.animateTo(this.upperValue, delay); }
+    forward(
+        delay = 0,
+        isAbsoluteDuration,
+    ) {
+        this.animateTo(this.upperValue, undefined, delay, isAbsoluteDuration);
+    }
 
     /**
      * @param {number} delay - milliseconds
+     * @param {boolean} isAbsoluteDuration
      */
-    backward(delay) { this.animateTo(this.lowerValue, delay); }
+    backward(
+        delay = 0,
+        isAbsoluteDuration,
+    ) {
+        this.animateTo(this.lowerValue, undefined, delay, isAbsoluteDuration);
+    }
 
     /**
      * @param {number} startDelay - milliseconds
