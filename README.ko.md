@@ -67,6 +67,22 @@ controller.animateTo(0.5);
 controller.repeat(startDelay?, cycleDelay?)
 ```
 
+### 값의 범위가 존재하지 않는 경우.
+```js
+const animation = new Animation(duration, initialValue?, curve?);
+
+animation.addListener(value => {
+  // non-clmaping 애니메이션을 구성하는 기반 컨트롤러입니다.
+  const controller = animation.parent;
+  
+  console.log(controller.relValue); // 또는 controller.value
+  console.log(controller.progressValue);
+});
+animation.animateTo(target);
+
+// ... 생략
+```
+
 ### Animation Status 상수
 자세한 내용은 `animation_controller/AnimationStatus`를 참고하세요.
 

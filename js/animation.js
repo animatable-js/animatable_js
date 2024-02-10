@@ -18,10 +18,21 @@ export class Animation extends Animatable {
     ) {
         super();
         this.duration = duration;
-        this.value = initialValue;
-        this.curve = curve;
+        this._value   = initialValue ?? 0;
+        this._status  = AnimationStatus.NONE;
+        this.curve    = curve;
 
-        this.status = AnimationStatus.NONE;
+        // This is only raw member variables in this class.
+        this.listeners = [];
+        this.statusListeners = [];
+    }
+
+    set value(newValue) {
+        return this.notifyListeners(this._value = newValue);
+    }
+
+    get value() {
+        return this._value;
     }
 
     set status(newStatus) {
@@ -32,12 +43,62 @@ export class Animation extends Animatable {
         return this._status;
     }
 
-    addListener() { }
-    removeListener() { }
-    addStatusListener() { }
-    removeStatusListener() { }
-    notifyStatusListeners(newStatus) {
-        
+    /**
+     * @param {AnimationUpdateListener} callback 
+     */
+    addListener(callback) {
+        if (this.listeners.includes(callback)) {
+            throw new Error("Already added given listener in this controller.");
+        }
+
+        this.listeners.push(callback);
+    }
+
+    /**
+     * @param {AnimationUpdateListener} callback 
+     */
+    removeListener(callback) {
+        if (this.listeners.includes(callback) == false) {
+            throw new Error("Already not added given listener in this controller.");
+        }
+
+        this.listeners.remove(callback);
+    }
+
+    /**
+     * @param {number} value
+     */
+    notifyListeners(value) {
+        this.listeners.forEach(listener => listener(value))
+    }
+
+    /**
+     * @param {AnimationStatusListener} callback 
+     */
+    addStatusListener(callback) {
+        if (this.statusListeners.includes(callback)) {
+            throw new Error("Already added given status listener in this controller.");
+        }
+
+        this.statusListeners.push(callback);
+    }
+
+    /**
+     * @param {AnimationStatusListener} callback 
+     */
+    removeStatusListener(callback) {
+        if (this.statusListeners.includes(callback) == false) {
+            throw new Error("Already not added given status listener in this controller.");
+        }
+
+        this.statusListeners.remove(callback);
+    }
+
+    /**
+     * @param {AnimationStatus} status
+     */
+    notifyStatusListeners(status) {
+        this.statusListeners.forEach(listener => listener(status))
     }
     
     /**
@@ -54,16 +115,22 @@ export class Animation extends Animatable {
             ? AnimationStatus.BACKWARD
             : AnimationStatus.FORWARD;
 
+        this.start = this.value;
+        this.end   = target;
+        
         const controller = new AnimationController(duration);
         this.parent?.dispose();
         this.parent = this.curve != null
-            ? new CurvedAnimation(controller)
+            ? new CurvedAnimation(controller, this.curve)
             : controller;
 
-            console.log(target);
+        console.log(this.parent);
         
-        this.parent.addListener(value => {
-            this.value = value;
+        this.parent.addListener(value => { // ... relative value =>
+            const vector = this.end - this.start;
+            const abs    = this.start + (vector * value);
+
+            this.value = abs;
         })
         this.parent.addStatusListener(status => {
             if (status == AnimationStatus.FORWARDED) {
@@ -72,6 +139,6 @@ export class Animation extends Animatable {
                     : AnimationStatus.FORWARDED;
             }
         });
-        this.parent.forward(1);
+        this.parent.forward();
     }
 }
