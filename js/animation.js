@@ -123,8 +123,6 @@ export class Animation extends Animatable {
         this.parent = this.curve != null
             ? new CurvedAnimation(controller, this.curve)
             : controller;
-
-        console.log(this.parent);
         
         this.parent.addListener(value => { // ... relative value =>
             const vector = this.end - this.start;
