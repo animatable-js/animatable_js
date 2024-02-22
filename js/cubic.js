@@ -162,6 +162,44 @@ export class Cubic {
         ), this)
     }
 
+    /**
+     * Returns instance of Cubic by given cubic static variable name of CSS.
+     * 
+     * @param {string} name
+     * @param {string} scope - referance html element.
+     * @param {Cubic}
+     */
+    static var(name, scope) {
+        const style = window.getComputedStyle(scope || document.documentElement);
+        const value = style.getPropertyValue(name).trim();
+        if (value === "") {
+            throw new Error("The cubic format value of the given name could not be found.");
+        }
+        
+        return this.parse(value);
+    }
+
+    /**
+     * Returns instance of Cubic by given cubic format string.
+     * 
+     * @param {string} str 
+     * @returns {Cubic}
+     */
+    static parse(str) {
+        const regex = /([0-9.]+)/g;
+        const points = str.match(regex).map(Number);
+        if (points.length != 4) {
+            throw new Error("The given [str] format is invalid. (ex: cubic-bezier(0,1,0,1))");
+        }
+
+        return new Cubic(
+            points[0], // x1
+            points[1], // y1
+            points[2], // x2
+            points[3], // y2
+        );
+    }
+
     toString() {
         return `Cubic(${this.p2.x}, ${this.p2.y}, ${this.p3.x}, ${this.p3.y})`;
     }
