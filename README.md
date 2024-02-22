@@ -184,6 +184,9 @@ The cubic animation provides a feature where the rate of change in animation val
 refer to this code!
 ```js
 const curve = new Cubic(x1, y1, x2, y2, start?, end?);
+
+const curve = Cubic.var("--variable-name");
+const curve = Cubic.parse("cubic-bezier(x1,y1,x2,y2)");
 // ... skip
 ```
 ![curve](https://github.com/MTtankkeo/js_animatable/assets/122026021/1c22b58c-481f-47f2-a8e4-cc7b03672f86)
