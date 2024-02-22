@@ -62,7 +62,7 @@ export class Animation extends Animatable {
             throw new Error("Already not added given listener in this controller.");
         }
 
-        this.listeners.remove(callback);
+        this.listeners = this.listeners.filter(e => e !== callback);
     }
 
     /**
@@ -91,7 +91,7 @@ export class Animation extends Animatable {
             throw new Error("Already not added given status listener in this controller.");
         }
 
-        this.statusListeners.remove(callback);
+        this.statusListeners = this.statusListeners.filter(e => e !== callback);
     }
 
     /**
