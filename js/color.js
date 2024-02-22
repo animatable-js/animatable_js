@@ -66,12 +66,15 @@ export class Color {
     static var(name, scope) {
         const style = window.getComputedStyle(scope || document.documentElement);
         const value = style.getPropertyValue(name).trim();
+        if (value === "") {
+            throw new Error("The hex color format of the given name could not be found.");
+        }
         
         return this.parse(value);
     }
 
     /**
-     * Returns instance of Color by given hex color code string.
+     * Returns instance of Color by given hex color format string.
      * 
      * @param {string} str 
      * @returns {Color}
