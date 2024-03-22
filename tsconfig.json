@@ -1,0 +1,10 @@
+{
+    "compilerOptions": {
+        "module": "ES6",
+        "target": "ES2015",
+        "declaration": true,
+        "declarationDir": "dist/types",
+    },
+    "exclude": ["node_modules", "dist"],
+    "include": ["src"]
+}
