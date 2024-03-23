@@ -3,8 +3,10 @@ import { TickerCallback } from "./type";
 /**
  * This class is essential to implementing animation.
  * 
- * Used to define a elapsed duration between a previous frame
- * and the current frame when a frame the updated.
+ * Used to define a elapsed duration between a previous frame and
+ * the current frame when a frame updated.
+ * 
+ * Used by `Animation` class.
  */
 export class Ticker {
     /** Whether the frame is not detected by ticker anymore. */
