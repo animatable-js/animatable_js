@@ -16,8 +16,7 @@ export class Animation extends Animatable {
     get status() { return this._status; }
     set status(newStatus: AnimationStatus) {
         if (this._status != newStatus) {
-            this._status = newStatus;
-            this.notifyStatusListeners(this.status);
+            this.notifyStatusListeners(this._status = newStatus);
         }
     }
 
@@ -25,8 +24,7 @@ export class Animation extends Animatable {
     get value() { return this._value };
     set value(newValue: number) {
         if (this._value != newValue) {
-            this._value = newValue;
-            this.notifyListeners(this.value);
+            this.notifyListeners(this._value = newValue);
         }
     }
 
@@ -88,13 +86,17 @@ export class Animation extends Animatable {
             ? AnimationStatus.FORWARD
             : AnimationStatus.BACKWARD;
 
+        // A total move distance of start to end.
+        const rDistance = Math.abs(from - to);
+        const rDuration = duration / rDistance;
+
         this.activeTicker?.dispose();
-        this.activeTicker = new Ticker(elapsed => {
-            const delta = elapsed / duration;
+        this.activeTicker = new Ticker(elapsedDelta => {
+            const delta = elapsedDelta / rDuration;
             const available = isForward ? delta : -delta;
             const consumed = this.consume(from, to, available);
             
-            if (Math.abs(available - consumed) > 0.000001) {
+            if (Math.abs(available - consumed) > 1e-10) { // unconsumed > precision error tolerance
                 this.value = to;
                 this.dispose();
 
@@ -116,11 +118,9 @@ export class Animation extends Animatable {
         const absValue = this.value + available;
         const relValue = to - absValue;
 
-        if (to > from) {
-            return relValue <= 0 ? relValue : available;
-        } else {
-            return relValue >= 0 ? relValue : available;
-        }
+        return to > from // is forward
+            ? relValue <= 0 ? relValue : available
+            : relValue >= 0 ? relValue : available;
     }
 
     override dispose() {
