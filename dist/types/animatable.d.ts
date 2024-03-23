@@ -7,7 +7,7 @@ export declare enum AnimationStatus {
     BACKWARDED = 4
 }
 /**
- * Provides the foundation for building an animation-related controller.
+ * Provides the foundation for implementing an animation-related controller.
  * Used by `Animation` class.
  */
 export declare abstract class Animatable {

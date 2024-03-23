@@ -9,8 +9,9 @@
     "url": "https://github.com/MTtankkeo/js_animatable/issues",
     "email": "r.ttankkeo112@gmail.com"
   },
-  "main": "./js/lib.js",
-  "module": "./js/lib.js",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/types",
   "type": "module",
   "scripts": {
     "build": "rollup -c"
