@@ -1,20 +1,25 @@
 import { Animatable, AnimationStatus } from "./animatable";
 import { AnimationListener, AnimationStatusListener } from "./type";
-/** This class implements non-clamping animation. */
-export declare class Animation extends Animatable {
+export declare class AnimationController extends Animatable {
+    duration: number;
+    initialValue: number;
+    lowerValue: number;
+    upperValue: number;
     private listeners;
     private statusListeners;
+    tween: {
+        begin: number;
+        end: number;
+    };
     /** An activated ticker about this animation controller. */
     private activeTicker?;
-    /** A default absolute duration. */
-    readonly duration: number;
     private _status;
     get status(): AnimationStatus;
     set status(newStatus: AnimationStatus);
     private _value;
     get value(): number;
     set value(newValue: number);
-    constructor(initialValue: number, duration: number);
+    constructor(duration: number, initialValue: number, lowerValue: number, upperValue: number);
     addListener(listener: AnimationListener): void;
     removeListener(listener: AnimationListener): void;
     addStatusListener(listener: AnimationStatusListener): void;
@@ -23,7 +28,18 @@ export declare class Animation extends Animatable {
     notifyListeners(value: number): void;
     /** Notifies a new status updated for a registered animation status listeners. */
     notifyStatusListeners(status: AnimationStatus): void;
-    animateTo(value: number, duration?: number): void;
+    /** Returns a relative range of animation value. */
+    get range(): number;
+    /** Returns a relative value of aniomatin from 0 to 1. */
+    get relValue(): number;
+    /**
+     * Returns the relative value regardless of the progress direction
+     * of the animation value from 0 to 1.
+     */
+    get progressValue(): number;
+    forward(): void;
+    backwork(): void;
+    animateTo(value: number): void;
     animate(from: number, to: number, duration?: number): void;
     private consume;
     dispose(): void;
