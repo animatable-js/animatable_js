@@ -1,17 +1,15 @@
 import { Animatable, AnimationStatus } from "./animatable";
-import { Ticker } from "./ticker";
 import { AnimationListener, AnimationStatusListener } from "./type";
+import { Ticker } from "./ticker";
 
-/** This class implements non-clamping animation. */
-export class Animation extends Animatable {
+export class AnimationController extends Animatable {
     private listeners: AnimationListener[] = [];
     private statusListeners: AnimationStatusListener[] = [];
 
+    tween: {begin: number, end: number};
+
     /** An activated ticker about this animation controller. */
     private activeTicker?: Ticker;
-
-    /** A default absolute duration. */
-    readonly duration: number;
 
     private _status: AnimationStatus = AnimationStatus.NONE;
     get status() { return this._status; }
@@ -29,10 +27,21 @@ export class Animation extends Animatable {
         }
     }
 
-    constructor(initialValue: number, duration: number) {
+    constructor(
+        public duration: number,
+        public initialValue: number,
+        public lowerValue: number,
+        public upperValue: number,
+    ) {
         super();
+
+        if (this.lowerValue > this.upperValue) throw new Error("The lowerValue must be less than the upperValue.");
+        if (this.lowerValue > this.initialValue
+         || this.upperValue < this.initialValue) {
+            throw new Error("The initialValue given is extent overflowed.");
+        }
+
         this.value = initialValue;
-        this.duration = duration;
     }
 
     override addListener(listener: AnimationListener) {
@@ -65,8 +74,39 @@ export class Animation extends Animatable {
         this.statusListeners.forEach(l => l(status));
     }
 
-    animateTo(value: number, duration?: number) {
-        this.animate(this.value, value, duration);
+    /** Returns a relative range of animation value. */
+    get range(): number {
+        return this.upperValue - this.lowerValue;
+    }
+
+    /** Returns a relative value of aniomatin from 0 to 1. */
+    get relValue(): number {
+        const  vector = this.relValue - this.lowerValue;
+        return vector / this.range;
+    }
+
+    /**
+     * Returns the relative value regardless of the progress direction
+     * of the animation value from 0 to 1.
+     */
+    get progressValue(): number {
+        const begin     = this.tween.begin;
+        const end       = this.tween.end;
+        const relVector = begin - end;
+
+        return (this.value - begin) / relVector;
+    }
+
+    forward() {
+        this.animate(this.value, this.upperValue);
+    }
+
+    backwork() {
+        this.animate(this.value, this.lowerValue);
+    }
+
+    animateTo(value: number) {
+        this.animate(this.value, value);
     }
 
     animate(
@@ -88,7 +128,7 @@ export class Animation extends Animatable {
             : AnimationStatus.BACKWARD;
 
         // A total move distance of start to end.
-        const rDistance = Math.abs(from - to);
+        const rDistance = this.range;
         const rDuration = duration / rDistance;
 
         this.activeTicker?.dispose();
@@ -96,7 +136,7 @@ export class Animation extends Animatable {
             const delta = elapsedDelta / rDuration;
             const available = isForward ? delta : -delta;
             const consumed = this.consume(from, to, available);
-            
+
             if (Math.abs(available - consumed) > 1e-10) { // unconsumed > precision error tolerance
                 this.value = to;
                 this.dispose();
@@ -105,9 +145,12 @@ export class Animation extends Animatable {
                 this.status = isForward
                     ? AnimationStatus.FORWARDED
                     : AnimationStatus.BACKWARDED;
-            } else {
-                this.value += consumed;
+
+                return;
             }
+            
+            // A value should not be overflowed by consumed value.
+            this.value += consumed;
         });
     }
 
@@ -124,8 +167,8 @@ export class Animation extends Animatable {
             : relValue >= 0 ? relValue : available;
     }
 
-    override dispose() {
-        this.activeTicker.dispose();
+    override dispose(): void {
+        this.activeTicker?.dispose();
         this.activeTicker = null;
     }
 }

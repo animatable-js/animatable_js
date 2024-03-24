@@ -14,7 +14,8 @@
   "types": "dist/types",
   "type": "module",
   "scripts": {
-    "build": "rollup -c"
+    "build": "rollup -c",
+    "watch": "rollup -c -w"
   },
   "keywords": [
     "animation",
