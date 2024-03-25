@@ -6,10 +6,8 @@ export declare class AnimationController extends Animatable {
     upperValue: number;
     private listeners;
     private statusListeners;
-    tween: {
-        begin: number;
-        end: number;
-    };
+    /** This tween is mainly used to calculate the progress value. */
+    private tween;
     /** An activated ticker about this animation controller. */
     private activeTicker?;
     private _status;
@@ -36,10 +34,11 @@ export declare class AnimationController extends Animatable {
      * of the animation value from 0 to 1.
      */
     get progressValue(): number;
-    forward(): void;
-    backward(): void;
-    animateTo(value: number): void;
+    forward(duration?: number): void;
+    backward(duration?: number): void;
+    animateTo(value: number, duration?: number): void;
     animate(from: number, to: number, duration?: number): void;
     private consume;
     dispose(): void;
+    reset(): void;
 }
