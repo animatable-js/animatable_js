@@ -1,11 +1,8 @@
-import { Animatable, AnimationStatus } from "./animatable";
-import { AnimationListener, AnimationStatusListener } from "./type";
+import { AnimationStatus } from "./animatable";
 import { Ticker } from "./ticker";
+import { AnimationListenable } from "./animation_listenable";
 
-export class AnimationController extends Animatable {
-    private listeners: AnimationListener[] = [];
-    private statusListeners: AnimationStatusListener[] = [];
-
+export class AnimationController extends AnimationListenable {
     /** This tween is mainly used to calculate the progress value. */
     private tween: {begin: number, end: number};
 
@@ -41,36 +38,6 @@ export class AnimationController extends Animatable {
         this._value = this.lowerValue;
     }
 
-    addListener(listener: AnimationListener) {
-        console.assert(!this.listeners.includes(listener), "Already a given listener does exist.");
-        this.listeners.push(listener);
-    }
-
-    removeListener(listener: AnimationListener) {
-        console.assert(this.listeners.includes(listener), "Already a given listener does not exist.");
-        this.listeners = this.listeners.filter(l => l != listener);
-    }
-
-    addStatusListener(listener: AnimationStatusListener) {
-        console.assert(!this.statusListeners.includes(listener), "Already a given status listener does exist.");
-        this.statusListeners.push(listener);
-    }
-
-    removeStatusListener(listener: AnimationStatusListener) {
-        console.assert(this.statusListeners.includes(listener), "Already a given status listener does not exist.");
-        this.statusListeners = this.statusListeners.filter(l => l != listener);
-    };
-
-    /** Notifies a new value updated for a registered animation listeners. */
-    notifyListeners(value: number) {
-        this.listeners.forEach(l => l(value));
-    }
-
-    /** Notifies a new status updated for a registered animation status listeners. */
-    notifyStatusListeners(status: AnimationStatus) {
-        this.statusListeners.forEach(l => l(status));
-    }
-
     /** Returns a relative range of animation value. */
     get range(): number {
         return this.upperValue - this.lowerValue;
@@ -100,6 +67,18 @@ export class AnimationController extends Animatable {
 
     backward(duration?: number) {
         this.animateTo(this.lowerValue, duration);
+    }
+
+    repeat() {
+        this.addStatusListener(status => {
+            if (status == AnimationStatus.FORWARDED) this.backward();
+            if (status == AnimationStatus.BACKWARDED) this.forward();
+        });
+
+        if (this.status == AnimationStatus.NONE
+         || this.status == AnimationStatus.BACKWARDED) {
+            this.forward();
+        }
     }
 
     animateTo(value: number, duration?: number) {
@@ -173,6 +152,7 @@ export class AnimationController extends Animatable {
     }
 
     reset() {
+        this.status = AnimationStatus.NONE;
         this.value = this.lowerValue;
         this.tween = null;
     }

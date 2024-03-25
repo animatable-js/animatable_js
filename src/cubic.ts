@@ -1,3 +1,4 @@
+import { Animation } from "./animation";
 
 /** This class provides bilinear-interpolation feature. */
 export class CubicPoint {
@@ -97,7 +98,10 @@ export class Cubic {
         }
     }
 
-    /** TODO: Must be develop createAnimation() */
+    /** Returns a created `Animation` instance this cubic-based. */
+    createAnimation(duration: number): Animation {
+        return new Animation(duration, this);
+    }
 
     /**
      * Returns instance of Cubic by given cubic static variable

@@ -1,15 +1,14 @@
-import { Animatable } from "./animatable";
+import { AnimationStatus } from "./animatable";
 import { AnimationController } from "./animation_controller";
+import { AnimationListenable } from "./animation_listenable";
 import { Cubic } from "./cubic";
 import { NumberTween } from "./tween";
-import { AnimationListener, AnimationStatusListener } from "./type";
 
 /** This class implements non-clamping animation. */
-export class Animation extends Animatable {
-    private listeners: AnimationListener[] = [];
-    private statusListeners: AnimationStatusListener[] = [];
-
+export class Animation extends AnimationListenable {
     value: number = 0;
+    status: AnimationStatus = AnimationStatus.NONE;
+
     tween: NumberTween;
     parent: AnimationController;
 
@@ -31,25 +30,22 @@ export class Animation extends Animatable {
 
             this.notifyListeners(this.value = value);
         });
-    }
+        this.parent.addStatusListener(status => {
+            if (status == AnimationStatus.NONE) return;
 
-    addListener(listener: AnimationListener) {
-        console.assert(!this.listeners.includes(listener), "Already a given listener does exist.");
-        this.listeners.push(listener);
-    }
-    removeListener(listener: AnimationListener) {
-        console.assert(this.listeners.includes(listener), "Already a given listener does not exist.");
-        this.listeners = this.listeners.filter(l => l != listener);
-    }
-    addStatusListener(listener: AnimationStatusListener): void {
-        throw new Error("Method not implemented.");
-    }
-    removeStatusListener(listener: AnimationStatusListener): void {
-        throw new Error("Method not implemented.");
-    }
-
-    notifyListeners(value: number) {
-        this.listeners.forEach(l => l(value));
+            const isForward = this.tween.end > this.tween.begin;
+            if (status == AnimationStatus.FORWARD) {
+                this.notifyStatusListeners(this.status = isForward
+                    ? AnimationStatus.FORWARD
+                    : AnimationStatus.BACKWARD
+                );
+            } else { // When ended.
+                this.notifyStatusListeners(this.status = isForward
+                    ? AnimationStatus.FORWARDED
+                    : AnimationStatus.BACKWARDED
+                );
+            }
+        });
     }
 
     animateTo(value: number) {
