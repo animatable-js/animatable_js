@@ -6,7 +6,8 @@ export class AnimationController extends Animatable {
     private listeners: AnimationListener[] = [];
     private statusListeners: AnimationStatusListener[] = [];
 
-    tween: {begin: number, end: number};
+    /** This tween is mainly used to calculate the progress value. */
+    private tween: {begin: number, end: number};
 
     /** An activated ticker about this animation controller. */
     private activeTicker?: Ticker;
@@ -40,22 +41,22 @@ export class AnimationController extends Animatable {
         this._value = this.lowerValue;
     }
 
-    override addListener(listener: AnimationListener) {
+    addListener(listener: AnimationListener) {
         console.assert(!this.listeners.includes(listener), "Already a given listener does exist.");
         this.listeners.push(listener);
     }
 
-    override removeListener(listener: AnimationListener) {
+    removeListener(listener: AnimationListener) {
         console.assert(this.listeners.includes(listener), "Already a given listener does not exist.");
         this.listeners = this.listeners.filter(l => l != listener);
     }
 
-    override addStatusListener(listener: AnimationStatusListener) {
+    addStatusListener(listener: AnimationStatusListener) {
         console.assert(!this.statusListeners.includes(listener), "Already a given status listener does exist.");
         this.statusListeners.push(listener);
     }
 
-    override removeStatusListener(listener: AnimationStatusListener) {
+    removeStatusListener(listener: AnimationStatusListener) {
         console.assert(this.statusListeners.includes(listener), "Already a given status listener does not exist.");
         this.statusListeners = this.statusListeners.filter(l => l != listener);
     };
@@ -93,16 +94,16 @@ export class AnimationController extends Animatable {
         return (this.relValue - begin) / relVector;
     }
 
-    forward() {
-        this.animate(this.value, this.upperValue);
+    forward(duration?: number) {
+        this.animateTo(this.upperValue, duration);
     }
 
-    backward() {
-        this.animate(this.value, this.lowerValue);
+    backward(duration?: number) {
+        this.animateTo(this.lowerValue, duration);
     }
 
-    animateTo(value: number) {
-        this.animate(this.value, value);
+    animateTo(value: number, duration?: number) {
+        this.animate(this.value, value, duration);
     }
 
     animate(
@@ -111,6 +112,8 @@ export class AnimationController extends Animatable {
         duration: number = this.duration
     ) {
         if (to == from) return;
+        console.assert(from >= this.lowerValue, "A given [from] is less than the min-range.");
+        console.assert(to   <= this.upperValue, "A given [to] is larger than the max-range.");
 
         // Sets initial related animation values.
         this.value = from;
@@ -164,8 +167,13 @@ export class AnimationController extends Animatable {
             : relValue >= 0 ? relValue : available;
     }
 
-    override dispose(): void {
+    dispose(): void {
         this.activeTicker?.dispose();
         this.activeTicker = null;
+    }
+
+    reset() {
+        this.value = this.lowerValue;
+        this.tween = null;
     }
 }

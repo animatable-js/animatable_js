@@ -1,30 +1,23 @@
-import { Animatable, AnimationStatus } from "./animatable";
+import { Animatable } from "./animatable";
+import { AnimationController } from "./animation_controller";
+import { Cubic } from "./cubic";
+import { NumberTween } from "./tween";
 import { AnimationListener, AnimationStatusListener } from "./type";
 /** This class implements non-clamping animation. */
 export declare class Animation extends Animatable {
+    curve?: Cubic;
     private listeners;
     private statusListeners;
-    /** An activated ticker about this animation controller. */
-    private activeTicker?;
-    /** A default absolute duration. */
-    readonly duration: number;
-    private _status;
-    get status(): AnimationStatus;
-    set status(newStatus: AnimationStatus);
-    private _value;
-    get value(): number;
-    set value(newValue: number);
-    constructor(initialValue: number, duration: number);
+    value: number;
+    tween: NumberTween;
+    parent: AnimationController;
+    constructor(duration: number, curve?: Cubic);
     addListener(listener: AnimationListener): void;
     removeListener(listener: AnimationListener): void;
     addStatusListener(listener: AnimationStatusListener): void;
     removeStatusListener(listener: AnimationStatusListener): void;
-    /** Notifies a new value updated for a registered animation listeners. */
     notifyListeners(value: number): void;
-    /** Notifies a new status updated for a registered animation status listeners. */
-    notifyStatusListeners(status: AnimationStatus): void;
-    animateTo(value: number, duration?: number): void;
-    animate(from: number, to: number, duration?: number): void;
-    private consume;
+    animateTo(value: number): void;
+    animate(from: number, to: number): void;
     dispose(): void;
 }

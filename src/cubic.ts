@@ -1,10 +1,10 @@
 
+/** This class provides bilinear-interpolation feature. */
 export class CubicPoint {
-    /**
-     * @param {number} x
-     * @param {number} y
-     */
-    constructor(public x: number, public y: number) { }
+    constructor(
+        public x: number,
+        public y: number
+    ) { }
     
     /** Interpolate between this point and given point to find a specific position. */
     lerp(other: CubicPoint, t: number): CubicPoint {
@@ -17,22 +17,27 @@ export class CubicPoint {
 
 /** This class implements bezier curves. */
 export class Cubic {
-    p1: CubicPoint; p2: CubicPoint;
-    p3: CubicPoint; p4: CubicPoint;
+    p1: CubicPoint;
+    p2: CubicPoint;
+    p3: CubicPoint;
+    p4: CubicPoint;
 
     constructor(
-        x1: number, y1: number,
-        x2: number, y2: number,
+        x1: number,
+        y1: number,
+        x2: number,
+        y2: number,
         start = new CubicPoint(0, 0),
         end   = new CubicPoint(1, 1),
         public errorBound: number = 0.0001,
     ) {
-        /** @type {CubicPoint} */ this.p1 = start;
-        /** @type {CubicPoint} */ this.p2 = new CubicPoint(x1, y1);
-        /** @type {CubicPoint} */ this.p3 = new CubicPoint(x2, y2);
-        /** @type {CubicPoint} */ this.p4 = end;
+        this.p1 = start;
+        this.p2 = new CubicPoint(x1, y1);
+        this.p3 = new CubicPoint(x2, y2);
+        this.p4 = end;
     }
 
+    /** Returns a flipped cubic instance of this cubic. */
     get flipped(): Cubic {
         return new Cubic(
             1 - this.p2.x,
@@ -50,8 +55,6 @@ export class Cubic {
      * 
      * for detail refer to https://en.wikipedia.org/wiki/De_Casteljau%27s_algorithm,
      *                     https://ko.wikipedia.org/wiki/%EB%B2%A0%EC%A7%80%EC%97%90_%EA%B3%A1%EC%84%A0
-     * 
-     * @param {number} t - Time `from 0 to 1`
      */
     at(t: number): CubicPoint {
         const p1 = this.p1;
@@ -69,7 +72,6 @@ export class Cubic {
         return a.lerp(b, t);
     }
 
-    /** @param {number} t - Time `from 0 to 1` */
     transform(t: number) {
         if (t < 0 || t > 1) {
             throw new Error("In the transform function of the Cubic, t must be given from 0 to 1.");
@@ -111,9 +113,7 @@ export class Cubic {
         return this.parse(value);
     }
 
-    /**
-     * Returns instance of Cubic by given cubic format string.
-     */
+    /** Returns instance of Cubic by given cubic format string. */
     static parse(str: string): Cubic {
         const regex = /([0-9.]+)/g;
         const points = str.match(regex).map(Number);
