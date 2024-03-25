@@ -19,6 +19,7 @@ export class Animation extends AnimationListenable {
         this.parent.addListener(_ => {
             const progressValue = this.parent.progressValue;
 
+            // For reduce unnecessary calculations.
             if (curve == null) {
                 this.notifyListeners(this.value = this.tween.transform(progressValue));
                 return;
@@ -30,6 +31,9 @@ export class Animation extends AnimationListenable {
 
             this.notifyListeners(this.value = value);
         });
+
+        // In this case, the raw controller only increases from 0 to 1,
+        // must be tracking the status separately.
         this.parent.addStatusListener(status => {
             if (status == AnimationStatus.NONE) return;
 
