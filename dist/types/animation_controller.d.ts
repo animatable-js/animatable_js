@@ -2,7 +2,6 @@ import { Animatable, AnimationStatus } from "./animatable";
 import { AnimationListener, AnimationStatusListener } from "./type";
 export declare class AnimationController extends Animatable {
     duration: number;
-    initialValue: number;
     lowerValue: number;
     upperValue: number;
     private listeners;
@@ -19,7 +18,7 @@ export declare class AnimationController extends Animatable {
     private _value;
     get value(): number;
     set value(newValue: number);
-    constructor(duration: number, initialValue: number, lowerValue: number, upperValue: number);
+    constructor(duration: number, lowerValue?: number, upperValue?: number);
     addListener(listener: AnimationListener): void;
     removeListener(listener: AnimationListener): void;
     addStatusListener(listener: AnimationStatusListener): void;
@@ -38,7 +37,7 @@ export declare class AnimationController extends Animatable {
      */
     get progressValue(): number;
     forward(): void;
-    backwork(): void;
+    backward(): void;
     animateTo(value: number): void;
     animate(from: number, to: number, duration?: number): void;
     private consume;

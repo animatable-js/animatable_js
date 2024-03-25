@@ -79,7 +79,7 @@ export class Cubic {
 
         let start = 0;
         let end   = 1;
-        
+
         // Use dichotomy to obtain estimate point.
         while(true) {
             const midpoint = (start + end) / 2;
@@ -88,7 +88,7 @@ export class Cubic {
             if (Math.abs(t - estPoint.x) < this.errorBound) {
                 return estPoint.y;
             }
-            
+
             estPoint.x < t
                 ? start = midpoint
                 : end   = midpoint;
@@ -98,7 +98,8 @@ export class Cubic {
     /** TODO: Must be develop createAnimation() */
 
     /**
-     * Returns instance of Cubic by given cubic static variable name of CSS.
+     * Returns instance of Cubic by given cubic static variable
+     * name of CSS.
      */
     static var(name: string, scope: HTMLElement): Cubic {
         const style = window.getComputedStyle(scope || document.documentElement);

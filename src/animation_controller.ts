@@ -29,19 +29,15 @@ export class AnimationController extends Animatable {
 
     constructor(
         public duration: number,
-        public initialValue: number,
-        public lowerValue: number,
-        public upperValue: number,
+        public lowerValue: number = 0,
+        public upperValue: number = 1,
     ) {
         super();
-
-        if (this.lowerValue > this.upperValue) throw new Error("The lowerValue must be less than the upperValue.");
-        if (this.lowerValue > this.initialValue
-         || this.upperValue < this.initialValue) {
-            throw new Error("The initialValue given is extent overflowed.");
+        if (this.lowerValue > this.upperValue) {
+            throw new Error("The lowerValue must be less than the upperValue.");
         }
 
-        this.value = initialValue;
+        this._value = this.lowerValue;
     }
 
     override addListener(listener: AnimationListener) {
@@ -81,7 +77,7 @@ export class AnimationController extends Animatable {
 
     /** Returns a relative value of aniomatin from 0 to 1. */
     get relValue(): number {
-        const  vector = this.relValue - this.lowerValue;
+        const  vector = this.value - this.lowerValue;
         return vector / this.range;
     }
 
@@ -92,16 +88,16 @@ export class AnimationController extends Animatable {
     get progressValue(): number {
         const begin     = this.tween.begin;
         const end       = this.tween.end;
-        const relVector = begin - end;
+        const relVector = end - begin;
 
-        return (this.value - begin) / relVector;
+        return (this.relValue - begin) / relVector;
     }
 
     forward() {
         this.animate(this.value, this.upperValue);
     }
 
-    backwork() {
+    backward() {
         this.animate(this.value, this.lowerValue);
     }
 
@@ -116,8 +112,9 @@ export class AnimationController extends Animatable {
     ) {
         if (to == from) return;
 
-        // Sets initial animation value.
+        // Sets initial related animation values.
         this.value = from;
+        this.tween = {begin: from, end: to};
 
         // Whether a value should be increased.
         const isForward = to > from;
@@ -133,9 +130,9 @@ export class AnimationController extends Animatable {
 
         this.activeTicker?.dispose();
         this.activeTicker = new Ticker(elapsedDelta => {
-            const delta = elapsedDelta / rDuration;
+            const delta     = elapsedDelta / rDuration;
             const available = isForward ? delta : -delta;
-            const consumed = this.consume(from, to, available);
+            const consumed  = this.consume(from, to, available);
 
             if (Math.abs(available - consumed) > 1e-10) { // unconsumed > precision error tolerance
                 this.value = to;
