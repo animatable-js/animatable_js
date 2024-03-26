@@ -20,6 +20,7 @@ npm install animatable-js
 ```
 
 ## How to make an animation?
+The code below shows how to use the most commonly used class, a `Animation` object.
 
 ```js
 import { Animation, AnimationStatus } from "animable-js";
@@ -144,6 +145,26 @@ animation.addListener(value => {
   const color = colorTween.transform(value);
   // ... skip
 });
+```
+
+## How to use raw-animation?
+The code below shows how to use the class [AnimationController], which is the base and foundation for implementing the animation.
+
+> I decided to say this is a raw animation-controller.
+
+```js
+const controller = new AnimationController(
+    duration, // Milliseconds
+    lowerValue = 0,
+    upperValue = 1
+);
+
+controller.addListener(value => ...);
+controller.addStatusListener(status => ...);
+
+console.log(controller.value);
+console.log(controller.relValue);
+console.log(controller.progressValue);
 ```
 
 ## What is Ticker?
