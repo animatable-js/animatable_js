@@ -53,13 +53,13 @@ animation.animateTo(1);
 ## Constants of Animation Status
 refer to animatable.ts/AnimationStatus for detail.
 
-| Name | Value | Type
-| ------ | ------ | ------
-| NONE | 0 | number
-| FORWARD | 1 | number
-| FORWARDED | 2 | number
-| BACKWARD | 3 | number
-| BACKWARDED | 4 | number
+| Name | Value
+| ------ | ------
+| NONE | 0
+| FORWARD | 1
+| FORWARDED | 2
+| BACKWARD | 3
+| BACKWARDED | 4
 
 ## How to make curve-animation?
 ```js
