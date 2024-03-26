@@ -1,32 +1,14 @@
-import { AnimationController } from "./animation_controller.js";
-import { CurvedAnimation } from "./curved_animation.js";
+import { Animation } from "./animation";
 
-
-
+/** This class provides bilinear-interpolation feature. */
 export class CubicPoint {
-    /**
-     * @param {number} x
-     * @param {number} y
-     */
-    constructor(x, y) {
-        this.x = Number(x);
-        this.y = Number(y);
-        
-        if (isNaN(this.x)
-         || isNaN(this.y)) {
-            throw new Error("Points were not given correctly in this cubic point class.");
-        }
-    }
+    constructor(
+        public x: number,
+        public y: number
+    ) { }
     
-    /**
-     * Interpolate between this point and given point to find a specific position.
-     * 
-     * @param {CubicPoint} other
-     * @param {number} t - `from 0 to 1`
-     * 
-     * @returns {CubicPoint}
-     */
-    interpolate(other, t) {
+    /** Interpolate between this point and given point to find a specific position. */
+    lerp(other: CubicPoint, t: number): CubicPoint {
         const x = this.x + (other.x - this.x) * t;
         const y = this.y + (other.y - this.y) * t;
 
@@ -34,45 +16,30 @@ export class CubicPoint {
     }
 }
 
-// The [Cubic] class implements bezier curves.
-// 
+/** This class implements bezier curves. */
 export class Cubic {
-    /**
-     * @param {number} x1 - Control Point.
-     * @param {number} y1 - Control Point.
-     * @param {number} x2 - Control Point.
-     * @param {number} y2 - Control Point.
-     * @param {CubicPoint} start
-     * @param {CubicPoint} end
-     * @param {number} errorBound - Estimated Error Range.
-     */
+    p1: CubicPoint;
+    p2: CubicPoint;
+    p3: CubicPoint;
+    p4: CubicPoint;
+
     constructor(
-        x1, y1,
-        x2, y2,
+        x1: number,
+        y1: number,
+        x2: number,
+        y2: number,
         start = new CubicPoint(0, 0),
         end   = new CubicPoint(1, 1),
-        errorBound = 0.0001,
+        public errorBound: number = 0.0001,
     ) {
-        /** @type {CubicPoint} */ this.p1 = start;
-        /** @type {CubicPoint} */ this.p2 = new CubicPoint(x1, y1);
-        /** @type {CubicPoint} */ this.p3 = new CubicPoint(x2, y2);
-        /** @type {CubicPoint} */ this.p4 = end;
-
-        /** @type {number} */
-        this.errorBound = errorBound;
-
-        if (this.p1 instanceof CubicPoint == false
-         || this.p2 instanceof CubicPoint == false
-         || this.p3 instanceof CubicPoint == false
-         || this.p4 instanceof CubicPoint == false) {
-            throw new Error("Cubic points were not given correctly in this cubic class.");
-        }
+        this.p1 = start;
+        this.p2 = new CubicPoint(x1, y1);
+        this.p3 = new CubicPoint(x2, y2);
+        this.p4 = end;
     }
 
-    /**
-     * @returns {Cubic}
-     */
-    get flipped() {
+    /** Returns a flipped cubic instance of this cubic. */
+    get flipped(): Cubic {
         return new Cubic(
             1 - this.p2.x,
             1 - this.p2.y,
@@ -89,31 +56,24 @@ export class Cubic {
      * 
      * for detail refer to https://en.wikipedia.org/wiki/De_Casteljau%27s_algorithm,
      *                     https://ko.wikipedia.org/wiki/%EB%B2%A0%EC%A7%80%EC%97%90_%EA%B3%A1%EC%84%A0
-     * 
-     * @param {number} t - Time `from 0 to 1`
-     * @returns {CubicPoint}
      */
-    at(t) {
+    at(t: number): CubicPoint {
         const p1 = this.p1;
         const p2 = this.p2;
         const p3 = this.p3;
         const p4 = this.p4;
 
-        const p1ToP2 = p1.interpolate(p2, t);
-        const p2ToP3 = p2.interpolate(p3, t);
-        const p3ToP4 = p3.interpolate(p4, t);
+        const p1ToP2 = p1.lerp(p2, t);
+        const p2ToP3 = p2.lerp(p3, t);
+        const p3ToP4 = p3.lerp(p4, t);
 
-        const a = p1ToP2.interpolate(p2ToP3, t);
-        const b = p2ToP3.interpolate(p3ToP4, t);
+        const a = p1ToP2.lerp(p2ToP3, t);
+        const b = p2ToP3.lerp(p3ToP4, t);
         
-        return a.interpolate(b, t);
+        return a.lerp(b, t);
     }
 
-    /**
-     * @param {number} t - Time `from 0 to 1`
-     * @returns {number}
-     */
-    transform(t) {
+    transform(t: number) {
         if (t < 0 || t > 1) {
             throw new Error("In the transform function of the Cubic, t must be given from 0 to 1.");
         }
@@ -122,7 +82,7 @@ export class Cubic {
 
         let start = 0;
         let end   = 1;
-        
+
         // Use dichotomy to obtain estimate point.
         while(true) {
             const midpoint = (start + end) / 2;
@@ -131,45 +91,23 @@ export class Cubic {
             if (Math.abs(t - estPoint.x) < this.errorBound) {
                 return estPoint.y;
             }
-            
+
             estPoint.x < t
                 ? start = midpoint
                 : end   = midpoint;
         }
     }
 
-    /**
-     * @param {number} duration 
-     * @param {number} initialValue 
-     * @param {number} lowerValue 
-     * @param {number} upperValue 
-     * @param {number} isAbsoluteDuration 
-     * @returns {CurvedAnimation}
-     */
-    createAnimation(
-        duration,
-        initialValue,
-        lowerValue,
-        upperValue,
-        isAbsoluteDuration,
-    ) {
-        return new CurvedAnimation(new AnimationController(
-            duration,
-            initialValue,
-            lowerValue,
-            upperValue,
-            isAbsoluteDuration
-        ), this)
+    /** Returns a created `Animation` instance this cubic-based. */
+    createAnimation(duration: number): Animation {
+        return new Animation(duration, this);
     }
 
     /**
-     * Returns instance of Cubic by given cubic static variable name of CSS.
-     * 
-     * @param {string} name
-     * @param {string} scope - referance html element.
-     * @param {Cubic}
+     * Returns instance of Cubic by given cubic static variable
+     * name of CSS.
      */
-    static var(name, scope) {
+    static var(name: string, scope: HTMLElement): Cubic {
         const style = window.getComputedStyle(scope || document.documentElement);
         const value = style.getPropertyValue(name).trim();
         if (value === "") {
@@ -179,13 +117,8 @@ export class Cubic {
         return this.parse(value);
     }
 
-    /**
-     * Returns instance of Cubic by given cubic format string.
-     * 
-     * @param {string} str 
-     * @returns {Cubic}
-     */
-    static parse(str) {
+    /** Returns instance of Cubic by given cubic format string. */
+    static parse(str: string): Cubic {
         const regex = /([0-9.]+)/g;
         const points = str.match(regex).map(Number);
         if (points.length != 4) {

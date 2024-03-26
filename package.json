@@ -1,20 +1,21 @@
 {
   "name": "animatable-js",
-  "version": "1.1.16",
+  "version": "1.2.0-alpha.1",
   "description": "This package allows easy and light implementation of linear or curved animation in javascript.\r (Especially suitable in a development environment on web components or canvas.)",
   "author": "Dev Ttangkong (https://github.com/MTtankkeo)",
   "homepage": "https://github.com/MTtankkeo/js_animatable",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/MTtankkeo/js_animatable/issues",
     "email": "r.ttankkeo112@gmail.com"
   },
-  "main": "./js/lib.js",
-  "module": "./js/lib.js",
-  "files": [
-    "/js"
-  ],
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/types",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Exception: Test is not supported.\" && exit 1"
+    "build": "rollup -c",
+    "watch": "rollup -c -w"
   },
   "keywords": [
     "animation",
@@ -31,5 +32,14 @@
     "front-end",
     "client-side"
   ],
-  "license": "MIT"
+  "devDependencies": {
+    "@rollup/plugin-terser": "^0.4.4",
+    "rollup": "^4.13.0",
+    "rollup-plugin-extensions": "^0.1.0",
+    "rollup-plugin-terser": "^7.0.2",
+    "rollup-plugin-typescript2": "^0.36.0",
+    "terser": "^5.29.2",
+    "tslib": "^2.6.2",
+    "typescript": "^5.4.2"
+  }
 }

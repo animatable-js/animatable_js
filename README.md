@@ -1,8 +1,8 @@
 # Implement an animation in Javascript
-This package allows easy and light implementation of linear or curved animation in javascript.
-`Especially suitable in a development environment on web components or canvas.`
 
-[한국어로 보기](README.ko.md)
+This package allows easy and light implementation of linear or curved animation in javascript. `Especially suitable in a development environment on web components or canvas`
+
+The resource of this package amounts to `3kb` when compressed with gzip under the assumption of using all features.
 
 > Performing this task resource costs significantly less than rendering.
 > 
@@ -11,135 +11,67 @@ This package allows easy and light implementation of linear or curved animation 
 > This is package mainly used when using canvas element, which is controlled using js, an environment where css is not available.
 
 ## Install by npm
-Type and execute the this command in terminal.
+To install this package in your project, enter the following command.
+
+> When you want to update this package, enter `npm update animable-js --save` in the terminal to run it.
+
 ```
 npm install animatable-js
 ```
 
-## How to preload JS modules?
-Write this code in the top-level HTML file `ex: index.html`.
-
-> Please modify the paths as necessary to match development environment.
-
-```html
-<link rel="modulepreload" href="./node_modules/animatable-js/lib.js">
-<link rel="modulepreload" href="./node_modules/animatable-js/animation_controller.js">
-<link rel="modulepreload" href="./node_modules/animatable-js/animation.js">
-<link rel="modulepreload" href="./node_modules/animatable-js/color_tween.js">
-<link rel="modulepreload" href="./node_modules/animatable-js/color.js">
-<link rel="modulepreload" href="./node_modules/animatable-js/cubic.js">
-<link rel="modulepreload" href="./node_modules/animatable-js/curved_animation.js">
-<link rel="modulepreload" href="./node_modules/animatable-js/ticker.js">
-```
-
-## How to make linear animation?
-refer to this code!
-
-### With clamping.
-`AnimationController` is a based raw controller used to implement all animations in this package.
+## How to make an animation?
 
 ```js
-const controller = new AnimationController(
-  duration,           // milliseconds
-  initialValue?,      // lowerValue(0) ~ upperValue(1)
-  lowerValue?,        // 0
-  upperValue?,        // 1
-  isAbsoluteDuration? // ... Refer class internal comment for more details.
-);
+import { Animation, AnimationStatus } from "animable-js";
 
-controller.addListener(value => {
-  console.log(value);
-
-  // Relative value are always returned from 0 to 1.
-  console.log(controller.relValue);
-
-  // Progress value are always returned from 0 to 1, and no subtraction.
-  // This always means that the value increases from 0 to 1.
-  console.log(controller.progressValue);
-});
-controller.addStatusListener(status => {
-  console.log(status);
-});
-controller.forward(delay?); // or controller.backward(delay?)
-
-// for move to target.
-controller.animateTo(0.5);
-
-// for repeat animation.
-controller.repeat(startDelay?, cycleDelay?);
-```
-
-### With non-clamping.
-`Animation` is mainly used when you want to animate changing values.
-
-```js
-const animation = new Animation(duration, initialValue?, curve?);
-
+const animation = new Animation(duration, curve?);
 animation.addListener(value => {
-  console.log(value);
+    // A current animation value.
+    console.log(value);
 
-  // A core controller for building non-clamping animation.
-  const controller = animation.parent;
-  
-  console.log(controller.relValue); // or controller.value
-  console.log(controller.progressValue);
+    // This controller is raw animation controller that
+    // the [Animation] object dependence on.
+    const parent = animation.parent;
+
+    // Relative value are always returned from 0 to 1.
+    console.log(parent.relValue);
+
+    // Progress value are always returned from 0 to 1, and no subtraction.
+    // This always means that the value increases from 0 to 1.
+    console.log(parent.progressValue)
 });
-animation.animateTo(target);
+animation.addStatusListener(status => {
+   if (status == AniamtionStatus.FORWARDED) console.log("is forwarded");
+   if (status == AnimationStatus.BACKWARDED) console.log("is backwarded");
+});
 
-// ... skip
+// This animation value will smoothly transition from 0 to 1.
+animation.animateTo(1);
 ```
 
-### Constants of Animation Status
-refer to `animation_controller/AnimationStatus` for detail.
+## Constants of Animation Status
+refer to animatable.ts/AnimationStatus for detail.
 
 | Name | Value
 | ------ | ------
-| None | "none"
-| FORWARD | "forward"
-| FORWARDED | "forwarded"
-| BACKWARD | "backward"
-| BACKWARDED | "backwarded"
+| None | 0
+| FORWARD | 1
+| FORWARDED | 2
+| BACKWARD | 3
+| BACKWARDED | 4
 
-### What is ticker?
-Provides the ability to perform want tasks when the frame is updated.
-
-> Measures the time interval between frames and is used to make smooth animation.
-
+## How to make curve-animation?
 ```js
-// The elapsed between the previous frame and the current frame is given.
-const activeTicker = new Ticker(deltaElpased => {
-  console.log(deltaElpased);
-});
-
-// Dispose or clean up all relevant tasks and instances on memory.
-activeTicker.dispose();
+const a = new Animation(duration, Curve.Ease);
+const b = new Cubic(x1, y1, x2, y2).createAnimation(duration);
+const c = Curve.Ease.createAnimation(duration);
 ```
 
-## How to make curved animation?
-refer to this code!
-```js
-// Where parent means an instance of the [AnimationController] object.
-const controller = new CurvedAnimation(parent, curve = Curve.Ease);
-
-// or new Cubic(x1, y1, x2, y2).createAnimation(...)
-const controller = Curve.Ease.createAnimation(
-  duration,
-  initialValue?,
-  lowerValue?, // 0
-  upperValue?, // 1
-  isAbsoluteDuration? // false
-);
-
-// With non-clmaping.
-const animation = new Animation(duration, initialValue?, Curve.Ease);
-
-// ... skip
-```
-
-### What is a curve?
+## What is a curve?
 In this package, the curve means an instance of a cubic object.
 
-> Can use the Cubic instances that are provided by default in Curve of `cubic.js`.
+> Can use the Cubic instances that are provided by default in Curve of cubic.ts
+
 ```js
 // ... cubic.js
 export const Curve = {
@@ -181,7 +113,6 @@ The cubic animation provides a feature where the rate of change in animation val
 > refer to [Wikipedia](https://en.wikipedia.org/wiki/B%C3%A9zier_curve) for detail.
 
 ### How to make cubic object?
-refer to this code!
 ```js
 const curve = new Cubic(x1, y1, x2, y2, start?, end?);
 
@@ -213,4 +144,19 @@ animation.addListener(value => {
   const color = colorTween.transform(value);
   // ... skip
 });
+```
+
+## What is Ticker?
+Provides the ability to perform want tasks when the frame is updated, and measures the time interval between frames and is used to make smooth animation.
+
+> Used to define a elapsed duration between a previous frame and the current frame when a frame updated.
+
+```js
+// The elapsed between the previous frame and the current frame is given.
+const activeTicker = new Ticker(deltaElpased => {
+  console.log(deltaElpased);
+});
+
+// Dispose or clean up all relevant tasks and instances on memory.
+activeTicker.dispose();
 ```

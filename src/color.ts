@@ -1,51 +1,24 @@
 
-
-
 export class Color {
-    /**
-     * @param {number} red 
-     * @param {number} green 
-     * @param {number} blue 
-     */
     constructor(
-        red,
-        green,
-        blue,
-        alpha = 1,
+        public red: number,
+        public green: number,
+        public blue: number,
+        public alpha = 1,
     ) {
-        this.red = red;
-        this.green = green;
-        this.blue = blue;
-        this.alpha = alpha;
-
-        // is type testing.
-        if (
-            isNaN(this.red)
-         || isNaN(this.green)
-         || isNaN(this.blue)
-         || isNaN(this.alpha)) {
-            throw new Error("The color values given is not a number.");
-        }
-
         // is overflow testing for value extent.
-        if (
-            this.red   > 255 || this.red   < 0
+        if (this.red   > 255 || this.red   < 0
          || this.green > 255 || this.green < 0
          || this.blue  > 255 || this.blue  < 0
-         || this.alpha > 1   || this.alpha < 0
-        ) {
+         || this.alpha > 1   || this.alpha < 0) {
             throw new Error("The color values given is extent overflowed. ex: new Color(0~255, 0~255, 0~255, 0~1)");
         }
     }
 
-    /**
-     * Returns hex color code string by this instance of Color.
-     * 
-     * @returns {string}
-     */
-    toHex() {
-        const hex = (value) => {
-            const /** @type {string} */ result = Math.round(value).toString(16);
+    /** Returns hex color code string by this instance of Color. */
+    toHex(): string {
+        const hex = (value: number) => {
+            const result: string = Math.round(value).toString(16);
             
             if (result.length == 1) {
                 return '0'+result;
@@ -56,33 +29,22 @@ export class Color {
         return `#${hex(this.red)}${hex(this.green)}${hex(this.blue)}${hex(this.alpha * 255)}`;
     }
 
-    /**
-     * Returns instance of Color by given color static variable name of CSS.
-     * 
-     * @param {string} name
-     * @param {string} scope - referance html element.
-     * @param {Color}
-     */
-    static var(name, scope) {
+    /** Returns instance of Color by given color static variable name of CSS. */
+    static var(name: string, scope: HTMLElement): Color {
         const style = window.getComputedStyle(scope || document.documentElement);
         const value = style.getPropertyValue(name).trim();
         if (value === "") {
             throw new Error("The hex color format of the given name could not be found.");
         }
-        
+
         return this.parse(value);
     }
 
-    /**
-     * Returns instance of Color by given hex color format string.
-     * 
-     * @param {string} str 
-     * @returns {Color}
-     */
-    static parse(str) {
+    /** Returns instance of Color by given hex color format string. */
+    static parse(str: string): Color {
         // Removes unnecessary the prefix '#' from the given string.
         const hexs = str.startsWith("#") ? str.slice(1, str.length) : str;
-        
+
         let red   = 0;
         let green = 0;
         let blue  = 0;
