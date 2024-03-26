@@ -148,7 +148,7 @@ animation.addListener(value => {
 ```
 
 ## How to use raw-animation?
-The code below shows how to use the class [AnimationController], which is the base and foundation for implementing the animation.
+The code below shows how to use the class `AnimationController`, which is the base and foundation for implementing the animation.
 
 > I decided to say this is a raw animation-controller.
 
