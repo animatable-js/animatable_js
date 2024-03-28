@@ -3,6 +3,8 @@ import { AnimationStatus } from "./animatable";
 /**
  * Signature for the callback function that a elapsed duration between
  * the previous frame and the current frame is given.
+ * 
+ * Used by `Ticker` class.
  */
 export type TickerCallback = (elapsedDelta: number) => void;
 

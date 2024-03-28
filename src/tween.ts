@@ -2,9 +2,12 @@ import { Color } from "./color";
 
 /** This class provides linear-interpolation feature. */
 export abstract class Tween<T> {
+
+    /** Returns the interpolated value by a given point. */
     abstract transform(t: number): T;
 }
 
+/** This class provides linear-interpolation for number type. */
 export class NumberTween extends Tween<number> {
     constructor(public begin: number, public end: number) {
         super();
@@ -15,6 +18,7 @@ export class NumberTween extends Tween<number> {
     }
 }
 
+/** This class provides linear-interpolation for color type. */
 export class ColorTween extends Tween<Color> {
     constructor(public begin: Color, public end: Color) {
         super();
