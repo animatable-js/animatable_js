@@ -27,13 +27,13 @@ export class ColorTween extends Tween<Color> {
     transform(t: number): Color {
         const begin = this.begin;
         const end   = this.end;
-        const interpolate = (a: number, b: number, t: number) => a + (b - a) * t;
+        const lerp  = (a: number, b: number, t: number) => a + (b - a) * t;
 
         return new Color(
-            interpolate(begin.red, end.red, t),
-            interpolate(begin.green, end.green, t),
-            interpolate(begin.blue, end.blue, t),
-            interpolate(begin.alpha, end.alpha, t)
+            lerp(begin.red, end.red, t),
+            lerp(begin.green, end.green, t),
+            lerp(begin.blue, end.blue, t),
+            lerp(begin.alpha, end.alpha, t)
         );
     }
 }
