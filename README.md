@@ -4,11 +4,12 @@ This package allows easy and light implementation of linear or curved animation 
 
 The resource of this package amounts to `3kb` when compressed with gzip under the assumption of using all features.
 
-> Performing this task resource costs significantly less than rendering.
-> 
-> There's no need to handle it on a separate thread. The reason why lag occurs due to numerous animation effects is because countless elements are re-rendered nearly 60 times per second.
-
 > This is package mainly used when using canvas element, which is controlled using js, an environment where css is not available.
+
+## High Performance
+`10,000` countless animations can be implemented in a runtime environment.
+
+![bandicam 2024-04-01 23-45-03-105 (online-video-cutter com)](https://github.com/MTtankkeo/js_animatable/assets/122026021/4f1dd94c-94a6-4cbe-aa39-da6165cffb8a)
 
 ## Install by npm
 To install this package in your project, enter the following command.
