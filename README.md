@@ -9,7 +9,8 @@ The resource of this package amounts to `3kb` when compressed with gzip under th
 ## High Performance
 `10,000` countless animations can be implemented in a runtime environment.
 
-![bandicam 2024-04-01 23-45-03-105 (online-video-cutter com)](https://github.com/MTtankkeo/js_animatable/assets/122026021/4f1dd94c-94a6-4cbe-aa39-da6165cffb8a)
+![ezgif-6-ddcf0f5b58](https://github.com/MTtankkeo/js_animatable/assets/122026021/297f5d05-4d30-4ef4-99f3-947350e05d0b)
+
 
 ## Install by npm
 To install this package in your project, enter the following command.
