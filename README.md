@@ -11,7 +11,6 @@ The resource of this package amounts to `3kb` when compressed with gzip under th
 
 ![ezgif-6-ddcf0f5b58](https://github.com/MTtankkeo/js_animatable/assets/122026021/297f5d05-4d30-4ef4-99f3-947350e05d0b)
 
-
 ## Install by npm
 To install this package in your project, enter the following command.
 
