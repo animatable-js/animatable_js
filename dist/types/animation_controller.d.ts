@@ -14,7 +14,7 @@ export declare class AnimationController extends AnimationListenable {
     private _value;
     get value(): number;
     set value(newValue: number);
-    constructor(duration: number, lowerValue?: number, upperValue?: number);
+    constructor(duration: number, lowerValue?: number, upperValue?: number, initialValue?: number);
     /** Returns a relative range of animation value. */
     get range(): number;
     /** Returns a relative value of aniomatin from 0 to 1. */

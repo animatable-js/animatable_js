@@ -29,13 +29,14 @@ export class AnimationController extends AnimationListenable {
         public duration: number,
         public lowerValue: number = 0,
         public upperValue: number = 1,
+        initialValue: number = lowerValue,
     ) {
         super();
         if (this.lowerValue > this.upperValue) {
             throw new Error("The lowerValue must be less than the upperValue.");
         }
 
-        this._value = this.lowerValue;
+        this._value = initialValue;
     }
 
     /** Returns a relative range of animation value. */

@@ -6,14 +6,16 @@ import { NumberTween } from "./tween";
 
 /** This class implements non-clamping animation. */
 export class Animation extends AnimationListenable {
-    value: number = 0;
+    value: number;
     status: AnimationStatus = AnimationStatus.NONE;
 
     tween: NumberTween;
     parent: AnimationController;
 
-    constructor(duration: number, public curve?: Cubic) {
+    constructor(duration: number, public curve?: Cubic, initialValue?: number) {
         super();
+        
+        this.value = initialValue ?? 0;
 
         this.parent = new AnimationController(duration, 0, 1);
         this.parent.addListener(_ => {
@@ -53,7 +55,7 @@ export class Animation extends AnimationListenable {
     }
 
     animateTo(value: number) {
-        this.animate(this.value, value);
+        if (value != this.value) this.animate(this.value, value);
     }
 
     animate(from: number, to: number) {
