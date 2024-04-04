@@ -1,3 +1,4 @@
+/** This data-class implements color in script. */
 export declare class Color {
     red: number;
     green: number;

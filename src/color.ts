@@ -1,4 +1,5 @@
 
+/** This data-class implements color in script. */
 export class Color {
     constructor(
         public red: number,

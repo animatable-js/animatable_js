@@ -1,5 +1,6 @@
 import { Animatable, AnimationStatus } from "./animatable";
 import { AnimationListener, AnimationStatusListener } from "./type";
+/** This abstract class implements an animation related listener. */
 export declare abstract class AnimationListenable extends Animatable {
     private listeners;
     private statusListeners;
