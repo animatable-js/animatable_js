@@ -2,15 +2,11 @@ import typescript from "rollup-plugin-typescript2";
 import { terser } from "rollup-plugin-terser";
 import extensions from "rollup-plugin-extensions"
 
-// The browser global variable name to refer to this package.
-const globals = {
-    "animatable-js": "AnimJS",
-}
-
 export default {
     input: "src/index.ts",
     output: [
-        { file: "dist/index.js", format: "esm", sourcemap: true, globals: globals },
+        { file: "dist/index.esm.js", format: "esm", sourcemap: true, name: "AnimJS" },
+        { file: "dist/index.umd.js", format: "umd", sourcemap: true, name: "AnimJS" },
     ],
     plugins: [
         extensions({
@@ -19,5 +15,5 @@ export default {
         }),
         typescript({tsconfig: "tsconfig.json", useTsconfigDeclarationDir: true}),
         terser(),
-    ]
+    ],
 }
