@@ -5,7 +5,7 @@ import extensions from "rollup-plugin-extensions"
 export default {
     input: "src/index.ts",
     output: [
-        { file: "dist/index.js", format: "esm", sourcemap: true, name: "AnimJS" }
+        { file: "dist/index.js", format: "esm", sourcemap: true, name: "AnimJS" },
     ],
     plugins: [
         extensions({
