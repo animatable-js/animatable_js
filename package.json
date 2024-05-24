@@ -1,6 +1,6 @@
 {
   "name": "animatable-js",
-  "version": "1.2.0-alpha.3",
+  "version": "1.2.0-alpha.4",
   "description": "This package allows easy and light implementation of linear or curved animation in javascript.\r (Especially suitable in a development environment on web components or canvas.)",
   "author": "Dev Ttangkong (https://github.com/MTtankkeo)",
   "homepage": "https://github.com/MTtankkeo/js_animatable",
