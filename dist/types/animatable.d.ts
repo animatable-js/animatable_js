@@ -1,11 +1,11 @@
 import { AnimationListener, AnimationStatusListener } from "./type";
 /** Represent for the current status of the animation. */
 export declare enum AnimationStatus {
-    NONE = 0,
-    FORWARD = 1,
-    FORWARDED = 2,
-    BACKWARD = 3,
-    BACKWARDED = 4
+    NONE = "none",
+    FORWARD = "forward",
+    FORWARDED = "forwarded",
+    BACKWARD = "backward",
+    BACKWARDED = "backwarded"
 }
 /**
  * Provides the foundation for implementing an animation-related controller.
