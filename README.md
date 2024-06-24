@@ -56,11 +56,11 @@ refer to animatable.ts/AnimationStatus for detail.
 
 | Name | Value
 | ------ | ------
-| NONE | 0
-| FORWARD | 1
-| FORWARDED | 2
-| BACKWARD | 3
-| BACKWARDED | 4
+| NONE | "none"
+| FORWARD | "forward"
+| FORWARDED | "forwarded"
+| BACKWARD | "backward"
+| BACKWARDED | "backwarded"
 
 ## How to make curve-animation?
 ```js
