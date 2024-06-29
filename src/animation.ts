@@ -15,10 +15,9 @@ export class Animation extends AnimationListenable {
     constructor(duration: number, public curve?: Cubic, initialValue?: number) {
         super();
         
+        // See also: An animation default value must be 0.
         this.value = initialValue ?? 0;
 
-        console.assert(duration != null, "An animation duration cannot be null.")
-        console.assert(duration != 0, "An animation duration cannot be 0.");
         this.parent = new AnimationController(duration, 0, 1);
         this.parent.addListener(_ => {
             const progressValue = this.parent.progressValue;

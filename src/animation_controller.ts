@@ -32,6 +32,9 @@ export class AnimationController extends AnimationListenable {
         initialValue: number = lowerValue,
     ) {
         super();
+        console.assert(duration != null, "An animation duration cannot be null.")
+        console.assert(duration != 0, "An animation duration cannot be 0.");
+
         if (this.lowerValue > this.upperValue) {
             throw new Error("The lowerValue must be less than the upperValue.");
         }
