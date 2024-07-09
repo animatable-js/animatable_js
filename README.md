@@ -30,7 +30,7 @@ The code below shows how to use the most commonly used class, a `Animation` obje
 ```js
 import { Animation, AnimationStatus } from "animable-js";
 
-const animation = new Animation(duration, curve?);
+const animation = new Animation(duration, curve?, initialValue?);
 animation.addListener(value => {
     // A current animation value.
     console.log(value);
