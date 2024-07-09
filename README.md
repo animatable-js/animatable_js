@@ -8,6 +8,7 @@ This package allows easy and light implementation of linear or curved animation 
 The resource of this package amounts to `3kb` when compressed with gzip under the assumption of using all features.
 
 > This is package mainly used when using canvas element, which is controlled using js, an environment where css is not available.
+> And by default, This package does not work in `IE` browser environments.
 
 ## High Performance
 `10,000` countless animations can be implemented in a runtime environment.
