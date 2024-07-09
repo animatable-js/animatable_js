@@ -1,4 +1,7 @@
-# Implement an animation in Javascript
+<div align="center">
+    <img src=https://github.com/animatable-js/animatable_js/assets/122026021/c5117d27-c1c6-4e95-9764-57dbf0ad6aaf">
+</div>
+<h1 align="center">Animatable JS Package</h1>
 
 This package allows easy and light implementation of linear or curved animation in javascript. `Especially suitable in a development environment on web components or canvas`
 
