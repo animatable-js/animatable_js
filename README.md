@@ -1,7 +1,15 @@
 <div align="center">
     <img src="https://github.com/user-attachments/assets/20a05fe4-7c3e-44aa-bf1e-49a356f405c1">
+    <h1 align="center">Animatable JS Package</h1>
+    <table>
+        <thead>
+          <tr>
+            <th>Version</th>
+            <th>v1.2.1-alpha.1</th>
+          </tr>
+        </tbody>
+    </table>
 </div>
-<h1 align="center">Animatable JS Package</h1>
 
 This package allows easy and light implementation of linear or curved animation in javascript. `Especially suitable in a development environment on web components or canvas`
 
