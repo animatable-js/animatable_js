@@ -130,7 +130,7 @@ The cubic animation provides a feature where the rate of change in animation val
 ```js
 const curve = new Cubic(x1, y1, x2, y2, start?, end?);
 
-const curve = Cubic.var("--variable-name");
+const curve = Cubic.var("--variable-name", scope?);
 const curve = Cubic.parse("cubic-bezier(x1,y1,x2,y2)");
 // ... skip
 ```
@@ -169,7 +169,8 @@ The code below shows how to use the class `AnimationController`, which is the ba
 const controller = new AnimationController(
     duration, // Milliseconds
     lowerValue = 0,
-    upperValue = 1
+    upperValue = 1,
+    initialValue?
 );
 
 controller.addListener(value => ...);

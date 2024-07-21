@@ -107,7 +107,7 @@ export class Cubic {
      * Returns instance of Cubic by given cubic static variable
      * name of CSS.
      */
-    static var(name: string, scope: HTMLElement): Cubic {
+    static var(name: string, scope?: HTMLElement): Cubic {
         const style = window.getComputedStyle(scope || document.documentElement);
         const value = style.getPropertyValue(name).trim();
         if (value === "") {

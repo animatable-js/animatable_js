@@ -31,7 +31,7 @@ export class Color {
     }
 
     /** Returns instance of Color by given color static variable name of CSS. */
-    static var(name: string, scope: HTMLElement): Color {
+    static var(name: string, scope?: HTMLElement): Color {
         const style = window.getComputedStyle(scope || document.documentElement);
         const value = style.getPropertyValue(name).trim();
         if (value === "") {
