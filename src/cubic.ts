@@ -83,7 +83,7 @@ export class Cubic {
         let start = 0;
         let end   = 1;
 
-        // Use dichotomy to obtain estimate point.
+        // Use binary search method to obtain estimate point.
         while(true) {
             const midpoint = (start + end) / 2;
             const estPoint = this.at(midpoint); // Estimate Point
