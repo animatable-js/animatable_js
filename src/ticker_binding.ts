@@ -1,5 +1,9 @@
 import { TickerCallback } from "./type";
 
+/**
+ * Used to resolve overheads about the performance caused by frequent
+ * `requestAnimationFrame` calls.
+ */
 export class TickerBinding {
     /** Whether the frame is not detected by ticker anymore. */
     private isDisposed: boolean = false;
@@ -19,10 +23,15 @@ export class TickerBinding {
         return this._instance ?? (this._instance = new TickerBinding());
     }
 
+    /** Defines the callback function that must be called when the new tick updated. */
     private callbacks: TickerCallback[] = [];
 
     set onTick(callback: TickerCallback) {
-        this.callbacks.push(callback);
+        this.addListener(callback);
+    }
+
+    set unTick(callback: TickerCallback) {
+        this.removeListener(callback);
     }
 
     addListener(callback: TickerCallback) {
@@ -35,6 +44,7 @@ export class TickerBinding {
         this.callbacks = this.callbacks.filter(c => c !== callback);
     }
 
+    /** Notifies a new delta value updated for a registered ticker listeners. */
     notifyTick(delta: number) {
         this.callbacks.forEach(func => func(delta));
     }
