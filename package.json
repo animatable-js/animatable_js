@@ -1,6 +1,6 @@
 {
   "name": "animatable-js",
-  "version": "1.2.21",
+  "version": "1.2.22",
   "description": "This package allows easy and light implementation of linear or curved animation in javascript.\r (Especially suitable in a development environment on web components or canvas.)",
   "author": "Dev Ttangkong (https://github.com/MTtankkeo)",
   "homepage": "https://github.com/MTtankkeo/animatable_js",
@@ -31,9 +31,7 @@
     "ticker",
     "front-end",
     "client-side",
-    "lightweight",
-    "small-size",
-    "small-footprint"
+    "lightweight"
   ],
   "devDependencies": {
     "@rollup/plugin-terser": "^0.4.4",
