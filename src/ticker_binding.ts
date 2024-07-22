@@ -1,4 +1,3 @@
-import { Ticker } from "./ticker";
 import { TickerCallback } from "./type";
 
 export class TickerBinding {
