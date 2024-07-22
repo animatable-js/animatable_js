@@ -1,4 +1,8 @@
 import { TickerCallback } from "./type";
+/**
+ * Used to resolve overheads about the performance caused by frequent
+ * `requestAnimationFrame` calls.
+ */
 export declare class TickerBinding {
     /** Whether the frame is not detected by ticker anymore. */
     private isDisposed;
@@ -9,10 +13,13 @@ export declare class TickerBinding {
     private static _instance;
     private constructor();
     static get instance(): TickerBinding;
+    /** Defines the callback function that must be called when the new tick updated. */
     private callbacks;
     set onTick(callback: TickerCallback);
+    set unTick(callback: TickerCallback);
     addListener(callback: TickerCallback): void;
     removeListener(callback: TickerCallback): void;
+    /** Notifies a new delta value updated for a registered ticker listeners. */
     notifyTick(delta: number): void;
     /** Called whenever a frame is updated. */
     handle(elapsed: number): void;
