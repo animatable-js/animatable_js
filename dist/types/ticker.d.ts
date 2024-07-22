@@ -9,12 +9,6 @@ import { TickerCallback } from "./type";
  */
 export declare class Ticker {
     callback: TickerCallback;
-    /** Whether the frame is not detected by ticker anymore. */
-    private isDisposed;
-    /** Unique id of the requested animation frame listener. */
-    private id;
-    /** A elapsed duration of the previous frame. */
-    private previousElapsed;
     /**
      * When an instance is created by this constructor, a related task
      * is performed immediately.
@@ -23,8 +17,6 @@ export declare class Ticker {
      * @important A dispose() must be called after the ticker is used.
      */
     constructor(callback: TickerCallback);
-    /** Called whenever a frame is updated. */
-    handle(elapsed: number): void;
     /** Cancels the registered animation frame listener. */
     dispose(): void;
 }
