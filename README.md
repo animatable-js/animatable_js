@@ -19,7 +19,7 @@ The resource of this package amounts to `3kb` when compressed with gzip under th
 > And by default, This package does not work in `IE` browser environments.
 
 ## High Performance
-`10,000` countless animations can be implemented in a runtime environment.
+`100,000` countless animations can be implemented in a runtime environment.
 
 ![ezgif-6-ddcf0f5b58](https://github.com/MTtankkeo/js_animatable/assets/122026021/297f5d05-4d30-4ef4-99f3-947350e05d0b)
 
