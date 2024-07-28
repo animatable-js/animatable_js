@@ -5,7 +5,7 @@
         <thead>
           <tr>
             <th>Version</th>
-            <th>v1.2.22</th>
+            <th>v1.2.23</th>
           </tr>
         </tbody>
     </table>
@@ -61,6 +61,9 @@ animation.addStatusListener(status => {
 
 // This animation value will smoothly transition from 0 to 1.
 animation.animateTo(1);
+
+// This animation value will repeating smoothly transition from 0 to 1.
+animation.repeat(0, 1);
 ```
 
 ## Constants of Animation Status
