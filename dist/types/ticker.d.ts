@@ -1,4 +1,4 @@
-import { TickerCallback } from "./type";
+import { TickerCallback } from "./types";
 /**
  * This class is essential to implementing animation.
  *

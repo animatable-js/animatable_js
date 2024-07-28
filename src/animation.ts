@@ -55,6 +55,25 @@ export class Animation extends AnimationListenable {
         });
     }
 
+    repeat(
+        a: number = 0,
+        b: number = 1
+    ) {
+        if (Math.abs(a - b) < 1e-10) return; // delta < precision error tolerance
+
+        const isF = a < b; // is forward.
+        const toA: Function = () => this.animate(b, a);
+        const toB: Function = () => this.animate(a, b);
+
+        this.addStatusListener(status => {
+            if (status == AnimationStatus.FORWARDED) isF ? toA() : toB();
+            if (status == AnimationStatus.BACKWARDED) isF ? toB() : toA();
+        });
+
+        if (this.status == AnimationStatus.NONE
+         || this.status == AnimationStatus.BACKWARDED) toB();
+    }
+
     animateTo(value: number) {
         if (value != this.value) this.animate(this.value, value);
     }

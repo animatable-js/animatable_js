@@ -1,4 +1,4 @@
-import { TickerCallback } from "./type";
+import { TickerCallback } from "./types";
 /**
  * Used to resolve overheads about the performance caused by frequent
  * `requestAnimationFrame` calls.

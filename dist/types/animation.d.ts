@@ -11,6 +11,7 @@ export declare class Animation extends AnimationListenable {
     tween: NumberTween;
     parent: AnimationController;
     constructor(duration: number, curve?: Cubic, initialValue?: number);
+    repeat(a?: number, b?: number): void;
     animateTo(value: number): void;
     animate(from: number, to: number): void;
     dispose(): void;

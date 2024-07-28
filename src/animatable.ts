@@ -1,4 +1,4 @@
-import { AnimationListener, AnimationStatusListener } from "./type";
+import { AnimationListener, AnimationStatusListener } from "./types";
 
 /** Represent for the current status of the animation. */
 export enum AnimationStatus {
