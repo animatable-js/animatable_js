@@ -94,7 +94,8 @@ export class AnimationController extends AnimationListenable {
         to: number,
         duration: number = this.duration
     ) {
-        if (to == from) return;
+        if (Math.abs(from - to) < 1e-10) return; // delta < precision error tolerance
+
         console.assert(from >= this.lowerValue, "A given [from] is less than the min-range.");
         console.assert(to   <= this.upperValue, "A given [to] is larger than the max-range.");
 

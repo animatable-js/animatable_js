@@ -75,7 +75,7 @@ export class Animation extends AnimationListenable {
     }
 
     animateTo(value: number) {
-        if (value != this.value) this.animate(this.value, value);
+        this.animate(this.value, value);
     }
 
     animate(from: number, to: number) {
