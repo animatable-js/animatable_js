@@ -13,7 +13,6 @@
 
 This package allows easy and light implementation of linear or curved animation in javascript. `Especially suitable in a development environment on web components or canvas`
 
-> [!IMPORTANT]
 > The resource of this package amounts to `3kb` when compressed with gzip under the assumption of using all features.
 
 > This is package mainly used when using canvas element, which is controlled using js, an environment where css is not available.
