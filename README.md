@@ -1,5 +1,5 @@
 <div align="center">
-    <img src="https://github.com/user-attachments/assets/f4099552-e15a-4f2d-b216-120a274437e9">
+    <img src="https://github.com/user-attachments/assets/9910fab8-ea17-4cce-ad58-2d5ccf149bc9">
     <h1 align="center">Animatable JS Package</h1>
     <table>
         <thead>
