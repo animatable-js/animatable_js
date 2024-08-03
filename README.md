@@ -1,5 +1,5 @@
 <div align="center">
-    <img src="https://github.com/user-attachments/assets/0bfd34d2-1a20-47ee-97db-367439d7e5b3">
+    <img src="https://github.com/user-attachments/assets/9910fab8-ea17-4cce-ad58-2d5ccf149bc9">
     <h1 align="center">Animatable JS Package</h1>
     <table>
         <thead>
@@ -13,7 +13,7 @@
 
 This package allows easy and light implementation of linear or curved animation in javascript. `Especially suitable in a development environment on web components or canvas`
 
-The resource of this package amounts to `3kb` when compressed with gzip under the assumption of using all features.
+> The resource of this package amounts to `3kb` when compressed with gzip under the assumption of using all features.
 
 > This is package mainly used when using canvas element, which is controlled using js, an environment where css is not available.
 > And by default, This package does not work in `IE` browser environments.
