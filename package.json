@@ -16,7 +16,7 @@
   "scripts": {
     "build": "rollup -c",
     "watch": "rollup -c -w",
-    "test": "concurrently \"npm run test:serve\" \"wait-on http://localhost:3000 && npm run test:found\"",
+    "test": "concurrently --kill-others --hide 0 \"npm run test:serve\" \"wait-on http://localhost:3000 && npm run test:found\"",
     "test:found": "playwright install && playwright test",
     "test:debug": "playwright install && playwright test --ui",
     "test:serve": "serve test/web/index.html"

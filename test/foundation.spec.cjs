@@ -11,5 +11,7 @@ test("initial", async ({page}) => {
 });
 
 test("AnimationController", ({page}) => {
-    // TODO: ...
+    page.addListener("domcontentloaded", async page => {
+        await page.$("test-AnimationController").start();
+    });
 });
