@@ -23,7 +23,7 @@ export class ColorTween extends Tween<Color> {
     constructor(public begin: Color, public end: Color) {
         super();
     }
-    
+
     transform(t: number): Color {
         const begin = this.begin;
         const end   = this.end;
