@@ -1,6 +1,6 @@
 {
   "name": "animatable-js",
-  "version": "1.2.26",
+  "version": "1.2.27",
   "description": "This package allows easy and light implementation of linear or curved animation in javascript.\r (Especially suitable in a development environment on web components or canvas.)",
   "author": "Dev Ttangkong (https://github.com/MTtankkeo)",
   "homepage": "https://github.com/MTtankkeo/animatable_js",
@@ -11,7 +11,7 @@
   },
   "main": "dist/index.umd.js",
   "module": "dist/index.esm.js",
-  "types": "dist/types",
+  "types": "dist/types/index.d.ts",
   "type": "module",
   "scripts": {
     "build": "rollup -c",
