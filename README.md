@@ -27,7 +27,7 @@ This package allows easy and light implementation of linear or curved animation 
 ## Install by npm
 To install this package in your project, enter the following command.
 
-> When you want to update this package, enter `npm update animable-js --save` in the terminal to run it.
+> When you want to update this package, enter `npm update animatable-js --save` in the terminal to run it.
 
 ```
 npm install animatable-js
