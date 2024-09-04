@@ -5,10 +5,11 @@
         <thead>
           <tr>
             <th>Version</th>
-            <th>v1.2.27</th>
+            <th>v1.2.28</th>
           </tr>
         </tbody>
     </table>
+    If you want to use this package in JSX? please refer to <a href="https://www.npmjs.com/package/animatable-jsx">animatable-jsx</a> for details.
 </div>
 
 # Introduction
