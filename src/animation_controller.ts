@@ -1,7 +1,14 @@
-import { AnimationStatus } from "./animatable";
 import { Ticker } from "./ticker";
+import { AnimationStatus } from "./animatable";
 import { AnimationListenable } from "./animation_listenable";
 
+/**
+ * This class implements the fundamental features that make up the animation.
+ * 
+ * See Also, this class provides the essential groundwork for animation functionality. 
+ * It serves as a foundational component that simplifies the implementation process. 
+ * As a result, developers can more easily create various complex animation features.
+ */
 export class AnimationController extends AnimationListenable {
     /** This tween is mainly used to calculate the progress value. */
     private tween: {begin: number, end: number};
