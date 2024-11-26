@@ -1,10 +1,15 @@
 import { AnimationListener, AnimationStatusListener } from "./types";
-/** Represent for the current status of the animation. */
+/** Signature for the constants that represents for the current status of the animation. */
 export declare enum AnimationStatus {
+    /** The tnitial status of animation. */
     NONE = "none",
+    /** The animation is moving forward from its starting point. */
     FORWARD = "forward",
+    /** The animation has completed its forward motion. */
     FORWARDED = "forwarded",
+    /** The animation is moving backward, reversing its forward motion. */
     BACKWARD = "backward",
+    /** The animation has completed its backward motion. */
     BACKWARDED = "backwarded"
 }
 /**
@@ -20,5 +25,6 @@ export declare abstract class Animatable {
     abstract addStatusListener(listener: AnimationStatusListener): void;
     /** Cancels the registration for a given animation status listener to related controller. */
     abstract removeStatusListener(listener: AnimationStatusListener): void;
+    /** Dispose of all associated instances initialized from memory. */
     abstract dispose(): void;
 }

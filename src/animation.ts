@@ -3,6 +3,7 @@ import { AnimationController } from "./animation_controller";
 import { AnimationListenable } from "./animation_listenable";
 import { Cubic } from "./cubic";
 import { NumberTween } from "./tween";
+import { AnimationStatusListener } from "./types";
 
 /** This class implements non-clamping animation. */
 export class Animation extends AnimationListenable {
@@ -14,7 +15,7 @@ export class Animation extends AnimationListenable {
 
     constructor(duration: number, public curve?: Cubic, initialValue?: number) {
         super();
-        
+
         // See also: An animation default value must be 0.
         this.value = initialValue ?? 0;
 
@@ -55,9 +56,11 @@ export class Animation extends AnimationListenable {
         });
     }
 
+    /** Animates from a given [a] to a given [b] repeatedly. */
     repeat(
         a: number = 0,
-        b: number = 1
+        b: number = 1,
+        maxCount: number = Infinity
     ) {
         if (Math.abs(a - b) < 1e-10) return; // delta < precision error tolerance
 
@@ -65,17 +68,35 @@ export class Animation extends AnimationListenable {
         const toA: Function = () => this.animate(b, a);
         const toB: Function = () => this.animate(a, b);
 
-        this.addStatusListener(status => {
-            if (status == AnimationStatus.FORWARDED) isF ? toA() : toB();
+        // The current repeated count total about animation.
+        let count = 0;
+        let callback: AnimationStatusListener;
+
+        this.addStatusListener(callback = status => {
+            if (status == AnimationStatus.FORWARDED ) isF ? toA() : toB();
             if (status == AnimationStatus.BACKWARDED) isF ? toB() : toA();
+            if (++count == maxCount) {
+                this.removeStatusListener(callback);
+                return;
+            }
         });
 
         if (this.status == AnimationStatus.NONE
          || this.status == AnimationStatus.BACKWARDED) toB();
     }
 
+    /** Animates from current animation value to a given static value. */
     animateTo(value: number) {
         this.animate(this.value, value);
+    }
+
+    /**
+     * Animates from current animation value to a given delta value.
+     * e.g. If the current animation value is 1 and the factor value
+     * is given as 1, it is animated from 1 to 2.
+     */
+    animateBy(delta: number) {
+        this.animate(this.value, this.value + delta);
     }
 
     animate(from: number, to: number) {
